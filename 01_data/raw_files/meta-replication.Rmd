@@ -1,0 +1,800 @@
+---
+title: 'Ethnic Discrimination in Hiring Decisions: Replication Material'
+author: "Didier Ruedin"
+date: "15 December 2015"
+output: pdf_document
+---
+
+This is the replication material for 'Ethnic Discrimination in Hiring Decisions: A Meta-Analysis of Correspondence Tests 1990–2015'. All data are in the file `meta-clean.csv`, and analyses were carried out using *R* `r R.Version()$version.string`.
+
+R1. Variables in the Data File
+==============================
+
+This table describes all the variables in the data file `meta-clean.csv` for the purpose of easing replication (see section R2).
+
+----------------------------------------------------------------------
+Variable                       Description
+-----------------------------  ---------------------------------------
+global                         case refers to the 'study' level (coded 'global')
+                               or the 'subgroup' level (coded 'subgroup'). All
+                               subgroups are part of a study.
+
+author                         author(s) of the study
+
+year                           year of the study (publication)
+
+region                         where the study was carried out; only OECD countries
+                               are included (coded 'North America', 'Europe (EU)',
+                               'Europe (non-EU)', or 'Other')
+
+directive                      study was carried out before or after the EU directives
+                               were implemented (coded 'before', 'after', or
+                               'not applicable')
+
+country                        country where study was carried out; Akintola (2011) is
+                               treated as two studies
+
+testing.year                   year of testing, or year when testing began where it
+                               covered multiple years
+
+testing.year.implicit          year of testing (as above); if year not given, set to
+                               one year before publication, as 'best guess'
+
+firstgen                       information on immigrant groups tested
+
+firstgen.explicit              generation of immigrant group tested, only explicit
+                               mention (coded 'first', 'second', 'mixed', or 'native');
+                               in the article 'first' is referred to as *foreign-born*,
+                               wherease 'second' is referred to as *native*; the
+                               'native' in the dataset refers to native minorities in
+                               Sweden that cannot be traced to immigration (Carlsson
+                               2010)
+
+firstgen.implicit              generation of immigrant group tested (as above), but
+                               considers both explicit and implicit mentions; local
+                               education was coded as 'second' generation
+
+minority                       specific group tested
+
+gender                         gender tested (coded 'female', 'male', 'both', or
+                               'not indicated')
+
+source                         source of adverts, such as newspapers or online adverts
+
+firm                           firm characteristics
+
+other                          additional information
+
+qualification                  qualification tested
+
+education                      level of education (skills-level) tested
+
+skills                         skills-level tested (coded as 'high', 'low', or 'mixed')
+
+isced                          ISCED tested
+
+job                            additional information on job tested
+
+isco88                         ISCO-88 of job tested
+
+number.of.jobs                 number of jobs applications were sent to
+
+n.none.invited                 of which neither of the applicant was invited
+
+n.both.invited                 of which both applicants were invited
+
+n.one.or.more.success          of which minority, majority, or both candidated were
+                               invited
+
+n.only.majority.invited        of which only majority candidate was invited
+
+success.majority               success rate for majority candidates:
+                               ${n.both.invited + n.only.majority.invited} \over n.one.or.more.success$
+
+n.only.minority.invited        of which only minority candidate was invited
+
+success.minority               success rate for minority candidates:
+                               ${n.both.invited + n.only.minority.invited} \over n.one.or.more.success$
+
+relative.call.back.rate        relative call back rate: ${success.majority} \over {success.minority}$
+
+net.discrimination.rate        net discrimination rate: ${success.majority - success.minority} = {{n.only.majority.invited - n.only.minorit.invited} \over n.one.or.more.success}$
+
+n.valid.applications           number of valid applications
+
+n.cases                        number of cases
+
+negative.treatment.minority    number of applications by minority without response (failure)
+
+positive.treatment.minority    number of application by minority with response (success)
+
+negative.treatment.majority    number of applications by majority without response (failure)
+
+positive.treatment.majority    number of applications by majority with response (success)
+----------------------------------------------------------------------
+
+R2. Replication Material and Additional Analysis
+================================================
+
+Set-Up
+------
+
+Loading data and packages
+
+```{r setup}
+  knitr::opts_chunk$set(cache=TRUE, fig.width=6.5, fig.height=6.5)
+  library(metafor)  # meta analysis
+  library(knitr)    # tables in knitr
+  options(digits=3) # fewer digits shown
+  setwd("/home/didier/ownCloud/Attitudes/NCCR Discrimination")
+  # setwd("C:/Users/ruedind/switchdrive/Attitudes/Discrimination NCCR")
+  disc <- read.csv("meta-clean.csv", header=TRUE, sep=",", fileEncoding="UTF8")
+```
+
+How Many Studies?
+-----------------
+
+```{r numbers}
+  # how many studies?
+  table(disc$global)
+  # by year:
+  table(disc$global, disc$year)
+  # by large region
+  table(disc$global, disc$region)
+  # creating year groups to summarize data
+  disc$yearGroup <- NA
+  disc$yearGroup[disc$year >= 1990 & disc$year <= 1995] <- 1990
+  disc$yearGroup[disc$year >= 1996 & disc$year <= 2000] <- 1996
+  disc$yearGroup[disc$year >= 2001 & disc$year <= 2005] <- 2001
+  disc$yearGroup[disc$year >= 2006 & disc$year <= 2010] <- 2006
+  disc$yearGroup[disc$year >= 2011 & disc$year <= 2015] <- 2011
+  # year group of testing year to summarize data:
+  disc$yearGroupTesting <- NA
+  disc$yearGroupTesting[disc$testing.year.implicit >= 1990 & disc$testing.year.implicit <= 1995] <- 1990
+  disc$yearGroupTesting[disc$testing.year.implicit >= 1996 & disc$testing.year.implicit <= 2000] <- 1996
+  disc$yearGroupTesting[disc$testing.year.implicit >= 2001 & disc$testing.year.implicit <= 2005] <- 2001
+  disc$yearGroupTesting[disc$testing.year.implicit >= 2006 & disc$testing.year.implicit <= 2010] <- 2006
+  disc$yearGroupTesting[disc$testing.year.implicit >= 2011 & disc$testing.year.implicit <= 2015] <- 2011
+  table(disc$yearGroup, disc$yearGroupTesting) ## makes absolutely no difference
+  # mean call-back rate, in table 1:
+  aggregate(disc$relative.call.back.rate, by=list(Time=disc$yearGroup, Global=disc$global), mean, na.rm=TRUE) # TABLE 1, SUPPLEMENT S5
+  aggregate(disc$relative.call.back.rate, by=list(Global=disc$global), mean, na.rm=TRUE) # overall
+  table(disc$yearGroup, disc$global) # N
+  table(disc$yearGroup[disc$global == "global"], disc$region[disc$global == "global"]) # N
+```
+
+There are `r as.numeric(table(disc$global)[1])` studies in the meta analysis, covering a total of `r as.numeric(table(disc$global)[2])` groups ('subgroups').
+
+General Summary
+===============
+
+As a base line, *all* correspondence tests pooled.
+
+Study Level
+-----------
+
+```{r meta1-global}
+  # only global studies
+  resGlobal <- rma(ai=positive.treatment.minority, bi=negative.treatment.minority,
+    ci=positive.treatment.majority, di=negative.treatment.majority,
+    data=subset(disc, disc$global=="global" & !is.na(disc$negative.treatment.majority)
+    & !is.na(disc$negative.treatment.minority) ), measure="OR",
+    slab=paste(author, year, sep=", "), method="REML")
+  summary(resGlobal)                    # SUPPLEMENT S6, TEXT
+  # tiff(file="Fig1.tif", width = 6.4, height = 6.4, units = "in", pointsize = 9, compression = "lzw", bg = "white", res = 300)
+     forest(resGlobal, atransf=exp, cex=0.8)
+  # dev.off()
+```
+
+Subgroups
+---------
+
+The figure will not be lisible.
+
+```{r meta1-subgroups}
+  ### fit random-effects model (use slab argument to define study labels)
+  resSub <- rma(ai=positive.treatment.minority, bi=negative.treatment.minority,
+    ci=positive.treatment.majority, di=negative.treatment.majority,
+    data=subset(disc, disc$global=="subgroup" & !is.na(disc$negative.treatment.majority)
+    & !is.na(disc$negative.treatment.minority) ),  measure="OR",
+    slab=paste(author, year, sep=", "), method="REML")
+  summary(resSub)                       # SUPPLEMENT S6, TEXT
+  forest(resSub, atransf=exp)
+```
+Summary Table
+-------------
+
+```{r meta1-tables}
+  tab <- data.frame(exp(coef(resGlobal)), exp(coef(resSub))) # combining
+  colnames(tab) <- c("Global", "Subgroups")                  # adding labels
+  kable(tab)                                                 # SUPPLEMENT S6
+```
+
+Call-Back Rates
+---------------
+
+```{r cbr-global}
+  aggregate(disc$relative.call.back.rate, by=list(Global=disc$global), mean, na.rm=TRUE)   # SUPPLEMENT S6, TEXT
+  aggregate(disc$relative.call.back.rate, by=list(Global=disc$global), median, na.rm=TRUE) # SUPPLEMENT S6, TEXT
+```
+
+```{r cbr-plot}
+  disc$study <- paste(disc$author, disc$year, sep=", ")     # study = Author, Year
+  x <- subset(disc, disc$global=="global" & !is.na(disc$relative.call.back.rate) )[c("study","relative.call.back.rate")]
+  xo <- x[order(x[,2], decreasing=TRUE),]
+# tiff(file="Fig2.tif", width = 6.4, height = 4.8, units = "in", pointsize = 9, compression = "lzw", bg = "white", res = 300)
+old.par <- par(no.readonly=TRUE) # save defaults
+  par(mar=c(2.1,12.1,1.1,2.1), xpd=FALSE)
+  len <- length(xo[,2])
+  plot(1, xlim=c(0.5, 3.5), ylim=c(1, len), type="n", bty="n", axes=FALSE, ylab="", xlab="")
+  axis(1, cex=.8)
+  abline(v=1, lty=1, col="grey")
+  mval <- mean(disc$relative.call.back.rate[disc$global=="global"], na.rm=TRUE)
+  abline(v=mval, lty=1, col="black")
+  for(i in 1:len) {
+    abline(h=i, lty=3)
+    points(xo[i,2],i, pch=15, cex=1.5)
+  }
+  par(xpd=TRUE) # draw in margins
+  for(i in 1:len) {
+    text(-0.93,i, xo[i,1], cex=0.8, adj=c(0, 0.5)) # align left; optimized for TIFF
+  }
+par(old.par) # restore default par
+# dev.off()
+```
+
+First and Second Generation
+===========================
+
+Call-Back Ratios
+----------------
+
+```{r cbr-generation}
+  # explicit:
+  aggregate(disc$relative.call.back.rate, by=list(Global=disc$global, First=disc$firstgen.explicit), mean, na.rm=TRUE)      # TABLE 2
+  aggregate(disc$relative.call.back.rate, by=list(Global=disc$global, First=disc$firstgen.explicit), median, na.rm=TRUE) # TABLE 2
+  # implicit:
+  aggregate(disc$relative.call.back.rate, by=list(Global=disc$global, First=disc$firstgen.implicit), mean, na.rm=TRUE)      # TABLE 2
+  aggregate(disc$relative.call.back.rate, by=list(Global=disc$global, First=disc$firstgen.implicit), median, na.rm=TRUE) # TABLE 2
+  # how many studies?
+    table(disc$global, disc$firstgen.explicit) # TABLE 2 (184)
+    table(disc$global, disc$firstgen.implicit) # TABLE 2 (97, 448)
+  # significant differences?
+  t.test(relative.call.back.rate ~ firstgen.implicit, data=subset(disc, firstgen.implicit %in% c("first", "second") & global == "subgroup"))
+  t.test(relative.call.back.rate ~ firstgen.explicit, data=subset(disc, firstgen.explicit %in% c("first", "second") & global == "subgroup"))
+```
+
+Odds-Ratios
+-----------
+```{r meta-generation-g1}
+  # only subgroups, explicit:
+  resGen1 <- rma(ai=positive.treatment.minority, bi=negative.treatment.minority,
+    ci=positive.treatment.majority, di=negative.treatment.majority,
+    data=subset(disc, disc$firstgen.explicit=="first" & disc$global=="subgroup"
+    & !is.na(disc$negative.treatment.majority) & !is.na(disc$negative.treatment.minority)),
+    measure="OR", slab=paste(author, year, sep=", "), method="REML")
+  # only subgroups, implicit:
+  resGen3 <- rma(ai=positive.treatment.minority, bi=negative.treatment.minority,
+    ci=positive.treatment.majority, di=negative.treatment.majority,
+    data=subset(disc, disc$firstgen.implicit=="first" & disc$global=="subgroup"
+    & !is.na(disc$negative.treatment.majority) & !is.na(disc$negative.treatment.minority)),
+    measure="OR", slab=paste(author, year, sep=", "), method="REML")
+```
+
+```{r meta-generation-g2}
+  # only subgroups, explicit:
+  resGen2 <- rma(ai=positive.treatment.minority, bi=negative.treatment.minority,
+    ci=positive.treatment.majority, di=negative.treatment.majority,
+    data=subset(disc, disc$firstgen.explicit=="second" & disc$global=="subgroup"
+    & !is.na(disc$negative.treatment.majority) & !is.na(disc$negative.treatment.minority) ),
+    measure="OR", slab=paste(author, year, sep=", "), method="REML")
+  # only subgroups, implicit:
+  resGen4 <- rma(ai=positive.treatment.minority, bi=negative.treatment.minority,
+    ci=positive.treatment.majority, di=negative.treatment.majority,
+    data=subset(disc, disc$firstgen.implicit=="second" & disc$global=="subgroup"
+    & !is.na(disc$negative.treatment.majority) & !is.na(disc$negative.treatment.minority) ),
+    measure="OR", slab=paste(author, year, sep=", "), method="REML")
+```
+```{r meta-gen-tables}
+  # extracting coefficients and combining:
+  tab <- data.frame(exp(coef(resGen1)), exp(coef(resGen2)), exp(coef(resGen3)),
+                    exp(coef(resGen4)))
+  # adding labels:
+  colnames(tab) <- c("1st generation, explicit", "2nd generation, explicit",
+                     "1st generation, implicit", "2nd generation, implicit")
+  kable(t(tab))
+```
+
+Specific Groups: Turks, Arabs, Indians/Pakistani, Chinese
+=========================================================
+
+Call-Back Ratios
+----------------
+
+```{r cbr-minority}
+  disc$minor <- NA
+  # groups of interest:
+  disc$minor[disc$minority %in% c("Turkish", "Turkish ", "Turks")] <- "Turk"
+  disc$minor[disc$minority %in% c("arab", "arab ", "Arab", "native swedes of middle eastern origin", "foreign name (Arabic or horn of Africa region)")] <- "Arab"
+  disc$minor[disc$minority %in% c("India", "Indian", "Pakistan", "Pakistani",
+    "Pakistani/Bangladeshi")] <- "Indian/Pakistani"
+  disc$minor[disc$minority %in% c("Chinese", "Cinese",
+    "Chinese with English first name")] <- "Chinese"
+  # table(disc$minor)
+  table(disc$minor, disc$global) # N, TABLE 3
+  # TABLE 3:
+  aggregate(disc$relative.call.back.rate, by=list(Global=disc$global, Group=disc$minor), mean, na.rm=TRUE)
+  aggregate(disc$relative.call.back.rate, by=list(Global=disc$global, Group=disc$minor), median, na.rm=TRUE)
+  # significant differences?
+  summary(aov(relative.call.back.rate ~ minor, data=subset(disc, global == "subgroup")))
+```
+
+Odds-Ratios
+-----------
+```{r meta-minor}
+  # only subgroups
+  resM1 <- rma(ai=positive.treatment.minority, bi=negative.treatment.minority,
+    ci=positive.treatment.majority, di=negative.treatment.majority,
+    data=subset(disc, disc$minor=="Arab" & disc$global=="subgroup"
+    & !is.na(disc$negative.treatment.majority) & !is.na(disc$negative.treatment.minority)),
+    measure="OR", slab=paste(author, year, sep=", "), method="REML")
+  resM2 <- rma(ai=positive.treatment.minority, bi=negative.treatment.minority,
+    ci=positive.treatment.majority, di=negative.treatment.majority,
+    data=subset(disc, disc$minor=="Chinese" & disc$global=="subgroup"
+    & !is.na(disc$negative.treatment.majority) & !is.na(disc$negative.treatment.minority)),
+    measure="OR", slab=paste(author, year, sep=", "), method="REML")
+  resM3 <- rma(ai=positive.treatment.minority, bi=negative.treatment.minority,
+    ci=positive.treatment.majority, di=negative.treatment.majority,
+    data=subset(disc, disc$minor=="Indian/Pakistani" & disc$global=="subgroup"
+    & !is.na(disc$negative.treatment.majority) & !is.na(disc$negative.treatment.minority)),
+    measure="OR", slab=paste(author, year, sep=", "), method="REML")
+  resM4 <- rma(ai=positive.treatment.minority, bi=negative.treatment.minority,
+    ci=positive.treatment.majority, di=negative.treatment.majority,
+    data=subset(disc, disc$minor=="Turk" & disc$global=="subgroup"
+    & !is.na(disc$negative.treatment.majority) & !is.na(disc$negative.treatment.minority)),
+    measure="OR", slab=paste(author, year, sep=", "), method="REML")
+  # extracting and combining coefficients:
+  tab <- data.frame(exp(coef(resM1)), exp(coef(resM2)), exp(coef(resM3)),
+                    exp(coef(resM4)))
+  # adding labels:
+  colnames(tab) <- c("Arab", "Chinese", "Indian/Pakistani", "Turk")
+  kable(t(tab)) # SUPPLEMENT S8
+```
+
+Specific Groups, Foreign-Born and Native Minorities
+---------------------------------------------------
+```{r cbr-specific-group-generation}
+# explicit generations
+  aggregate(disc$relative.call.back.rate, by=list(Generation=disc$firstgen.explicit, Global=disc$global, Group=disc$minor), mean, na.rm=TRUE)
+  aggregate(disc$relative.call.back.rate, by=list(Generation=disc$firstgen.explicit, Global=disc$global, Group=disc$minor), median, na.rm=TRUE)
+# implicit generations
+  aggregate(disc$relative.call.back.rate, by=list(Generation=disc$firstgen.implicit, Global=disc$global, Group=disc$minor), mean, na.rm=TRUE)
+  aggregate(disc$relative.call.back.rate, by=list(Generation=disc$firstgen.implicit, Global=disc$global, Group=disc$minor), median, na.rm=TRUE)
+```
+
+Europe versus US/Canada
+=======================
+
+Call-Back Ratios
+----------------
+
+Creating additional variables
+
+```{r cbr-continent}
+  # continent:
+  disc$continent <- NA
+  disc$continent[disc$country %in% c("US", "Canada")] <- "US/Canada"
+  disc$continent[disc$country %in% c("Austria", "Belgium", "France", "Germany",
+          "Greece", "Ireland", "Italy", "Netherlands", "Norway", "Poland", "Spain",
+          "Sweden", "Switzerland", "UK")] <- "Europe"
+  # European Union:
+  disc$EU <- "non EU"
+  disc$EU[disc$country %in% c("Austria", "Belgium", "France", "Germany",
+          "Greece", "Ireland", "Italy", "Netherlands", "Poland", "Spain", "Sweden",
+          "UK")] <- "European Union"
+  # German-speaking:
+  disc$German <- "other"
+  disc$German[disc$country %in% c("Austria", "Germany", "Switzerland")] <- "German"
+
+  table(disc$continent[!is.na(disc$relative.call.back.rate)], disc$global[!is.na(disc$relative.call.back.rate)]) #N
+  aggregate(disc$relative.call.back.rate, by=list(Global=disc$global, Cont=disc$continent), mean, na.rm=TRUE) # SUPPLEMENT S9
+  aggregate(disc$relative.call.back.rate, by=list(Global=disc$global, Cont=disc$continent), median, na.rm=TRUE) # SUPPLEMENT S9
+```
+
+Odds-Ratios
+-----------
+
+```{r meta-continent-or}
+  resM1 <- rma(ai=positive.treatment.minority, bi=negative.treatment.minority,
+    ci=positive.treatment.majority, di=negative.treatment.majority,
+    data=subset(disc, disc$continent=="US/Canada"
+    & !is.na(disc$negative.treatment.majority) & !is.na(disc$negative.treatment.minority) ),
+    measure="OR", slab=paste(author, year, sep=", "), method="REML")
+  resM2 <- rma(ai=positive.treatment.minority, bi=negative.treatment.minority,
+    ci=positive.treatment.majority, di=negative.treatment.majority,
+    data=subset(disc, disc$continent=="Europe" & !is.na(disc$negative.treatment.majority)
+    & !is.na(disc$negative.treatment.minority) ), measure="OR",
+    slab=paste(author, year, sep=", "), method="REML")
+  tab <- data.frame(exp(coef(resM1)), exp(coef(resM2))) # combine
+  colnames(tab) <- c("US/Canada", "Europe")             # labels
+  kable(t(tab))
+```
+
+```{r meta-continent}
+  # only subgroups
+  resM1s <- rma(ai=positive.treatment.minority, bi=negative.treatment.minority,
+    ci=positive.treatment.majority, di=negative.treatment.majority,
+    data=subset(disc, disc$continent=="US/Canada" & disc$global=="subgroup"
+    & !is.na(disc$negative.treatment.majority) & !is.na(disc$negative.treatment.minority) ),
+    measure="OR", slab=paste(author, year, sep=", "), method="EB") # REML does not converge
+  resM2s <- rma(ai=positive.treatment.minority, bi=negative.treatment.minority,
+    ci=positive.treatment.majority, di=negative.treatment.majority,
+    data=subset(disc, disc$continent=="Europe" & disc$global=="subgroup"
+    & !is.na(disc$negative.treatment.majority)
+    & !is.na(disc$negative.treatment.minority) ), measure="OR",
+    slab=paste(author, year, sep=", "), method="EB")
+  tab <- data.frame(exp(coef(resM1s)), exp(coef(resM2s))) # combine
+  colnames(tab) <- c("US/Canada", "Europe")               # labels
+  kable(t(tab)) # SUPPLEMENT S9
+```
+
+German-Speaking Countries
+=========================
+
+```{r german}
+  # TABLE 5
+  aggregate(disc$relative.call.back.rate, by=list(German=disc$German, Global=disc$global), mean, na.rm=TRUE)
+  aggregate(disc$relative.call.back.rate, by=list(German=disc$German, Global=disc$global), median, na.rm=TRUE)
+  table(disc$German[!is.na(disc$relative.call.back.rate)], disc$global[!is.na(disc$relative.call.back.rate)]) # N
+  t.test(relative.call.back.rate ~ German, data=subset(disc, global == "subgroup"))
+
+    # only subgroups
+  resG1 <- rma(ai=positive.treatment.minority, bi=negative.treatment.minority,
+    ci=positive.treatment.majority, di=negative.treatment.majority,
+    data=subset(disc, disc$German=="German" & disc$global=="subgroup"
+    & !is.na(disc$negative.treatment.majority) & !is.na(disc$negative.treatment.minority) ),
+    measure="OR", slab=paste(author, year, sep=", "), method="REML")
+  resG2 <- rma(ai=positive.treatment.minority, bi=negative.treatment.minority,
+    ci=positive.treatment.majority, di=negative.treatment.majority,
+    data=subset(disc, disc$German=="other" & disc$global=="subgroup"
+    & !is.na(disc$negative.treatment.majority)
+    & !is.na(disc$negative.treatment.minority) ), measure="OR",
+    slab=paste(author, year, sep=", "), method="REML")
+  tab <- data.frame(exp(coef(resG1)), exp(coef(resG2))) # combine
+  colnames(tab) <- c("German", "other")                 # labels
+  kable(t(tab)) # SUPPLEMENT S10
+```
+
+Pre/post 2000 Directives
+========================
+
+Refer to section S3 for the coding of implementation dates.
+
+Ratios
+------
+
+```{r cbr-directive}
+  table(disc$directive, disc$global)  # N, TABLE 4
+  aggregate(disc$relative.call.back.rate, by=list(Global=disc$global,
+            Directive=disc$directive), mean, na.rm=TRUE)   # TABLE 4
+  aggregate(disc$relative.call.back.rate, by=list(Global=disc$global,
+            Directive=disc$directive), median, na.rm=TRUE) # TABLE 4
+  t.test(relative.call.back.rate ~ directive, data=subset(disc, global == "subgroup" & directive %in% c("before", "after")))
+
+```
+
+Economic Situation
+==================
+
+There are two variable to match economic variables: the time of testing as indicated in the study, and one that *additionally* assumes that the time of testing was one year before publication for the studies that do not indicate the time of testing.
+
+Importing and merging economic data:
+
+```{r meta-economy}
+  # get data from database: World Development Indicators
+  gdp <- read.csv("worldbankGDP.csv", header=TRUE, sep=",")
+  unemp <- read.csv("worldbankUnemployment.csv", header=TRUE, sep=",")
+  # Unemployment, total (% of total labor force) (modeled ILO estimate)
+  # setting country codes for matching
+  disc$CountryCode[disc$country == "Australia"] <- "AUS"
+  disc$CountryCode[disc$country == "Austria"] <- "AUT"
+  disc$CountryCode[disc$country == "Belgium"] <- "BEL"
+  disc$CountryCode[disc$country == "Canada"] <- "CAN"
+  disc$CountryCode[disc$country == "France"] <- "FRA"
+  disc$CountryCode[disc$country == "Germany"] <- "DEU"
+  disc$CountryCode[disc$country == "Greece"] <- "GRC"
+  disc$CountryCode[disc$country == "Ireland"] <- "IRL"
+  disc$CountryCode[disc$country == "Italy"] <- "ITA"
+  disc$CountryCode[disc$country == "Mexico"] <- "MEX"
+  disc$CountryCode[disc$country == "Netherlands"] <- "NLD"
+  disc$CountryCode[disc$country == "Norway"] <- "NOR"
+  disc$CountryCode[disc$country == "Poland"] <- "POL"
+  disc$CountryCode[disc$country == "Spain"] <- "ESP"
+  disc$CountryCode[disc$country == "Switzerland"] <- "CHE"
+  disc$CountryCode[disc$country == "Sweden"] <- "SWE"
+  disc$CountryCode[disc$country == "UK"] <- "GBR"
+  disc$CountryCode[disc$country == "US"] <- "USA"
+  # combining country and year in "disc"
+  disc$CountryYear <- paste(disc$CountryCode, disc$testing.year, sep="")
+  disc$CountryYear[is.na(disc$testing.year)] <- NA # year unknown
+  # ditto for implicit years
+  disc$CountryYear.implicit <- paste(disc$CountryCode, disc$testing.year.implicit, sep="")
+  # add "gdp" and "unemp"
+  disc$gdp <- NA        # empty variables
+  disc$unemp <- NA
+  disc$gdp.imp <- NA
+  disc$unemp.imp <- NA
+  # for all explicit year:
+  for(cy in na.omit(unique(subset(disc$CountryYear, disc$testing.year > 1990)))){
+    disc$gdp[disc$CountryYear==cy] <- as.numeric(subset(gdp,
+            gdp$CountryCode==substr(cy,1,3) & gdp$SeriesName=="GDPgrowth")
+            [paste("YR",substr(cy,4,7), sep="")])
+    disc$unemp[disc$CountryYear==cy] <- as.numeric(subset(unemp,
+            unemp$CountryCode==substr(cy,1,3))
+            [paste("YR",substr(cy,4,7), sep="")])
+  }
+  # for all (implicit) years
+  for(cy in unique(subset(disc$CountryYear.implicit, disc$testing.year > 1990))){
+    disc$gdp.imp[disc$CountryYear.implicit==cy] <- as.numeric(subset(gdp,
+            gdp$CountryCode==substr(cy,1,3) & gdp$SeriesName=="GDPgrowth")
+            [paste("YR",substr(cy,4,7), sep="")])
+    disc$unemp.imp[disc$CountryYear.implicit==cy] <- as.numeric(subset(unemp,
+            unemp$CountryCode==substr(cy,1,3))
+            [paste("YR",substr(cy,4,7), sep="")])
+  }
+  # create new variables for binary contrasts: greater than mean of values in study:
+  disc$gdpbin <- ifelse(disc$gdp >= mean(disc$gdp, na.rm=TRUE), "high", "low")
+  disc$unempbin <- ifelse(disc$unemp >= mean(disc$unemp, na.rm=TRUE), "high", "low")
+  # ditto for implicit years:
+  disc$gdpbin.imp <- ifelse(disc$gdp.imp >= mean(disc$gdp.imp, na.rm=TRUE), "high", "low")
+  disc$unempbin.imp <- ifelse(disc$unemp.imp >= mean(disc$unemp.imp, na.rm=TRUE), "high", "low")
+```
+
+Unemployment
+------------
+
+```{r}
+  table(disc$unempbin, disc$global) # N
+  aggregate(disc$relative.call.back.rate, by=list(Global=disc$global, Unemployment=disc$unempbin), mean, na.rm=TRUE) # SUPPLEMENT S11
+  aggregate(disc$relative.call.back.rate, by=list(Global=disc$global, Unemployment=disc$unempbin), median, na.rm=TRUE) # SUPPLEMENT S11
+  t.test(relative.call.back.rate ~ unempbin, data=subset(disc, global == "subgroup"))
+    # implicit:
+  table(disc$unempbin.imp, disc$global) # N
+  aggregate(disc$relative.call.back.rate, by=list(Global=disc$global, Unemployment=disc$unempbin.imp), mean, na.rm=TRUE) # SUPPLEMENT S11
+  aggregate(disc$relative.call.back.rate, by=list(Global=disc$global, Unemployment=disc$unempbin.imp), median, na.rm=TRUE) # SUPPLEMENT S11
+  t.test(relative.call.back.rate ~ unempbin.imp, data=subset(disc, global == "subgroup"))
+```
+
+Without Spain (outlier):
+
+```{r}
+  table(disc$unempbin[disc$unemp <20], disc$global[disc$unemp <20]) # N
+  aggregate(disc$relative.call.back.rate[disc$unemp <20], by=list(Global=disc$global[disc$unemp <20],
+            Unemployment=disc$unempbin[disc$unemp <20]), mean, na.rm=TRUE) # SUPPLEMENT S11
+  aggregate(disc$relative.call.back.rate[disc$unemp <20], by=list(Global=disc$global[disc$unemp <20],
+            Unemployment=disc$unempbin[disc$unemp <20]), median, na.rm=TRUE) # SUPPLEMENT S11
+  t.test(relative.call.back.rate ~ unempbin, data=subset(disc, global == "subgroup" & unemp < 20))
+```
+
+Annual GDP Growth
+-----------------
+
+```{r}
+  table(disc$gdpbin, disc$global)
+  aggregate(disc$relative.call.back.rate, by=list(Global=disc$global, GDP=disc$gdpbin), mean, na.rm=TRUE) # SUPPLEMENT S11
+  aggregate(disc$relative.call.back.rate, by=list(Global=disc$global, GDP=disc$gdpbin), median, na.rm=TRUE) # SUPPLEMENT S11
+  t.test(relative.call.back.rate ~ gdpbin, data=subset(disc, global == "subgroup"))
+  # implicit:
+  table(disc$gdpbin.imp, disc$global)
+  aggregate(disc$relative.call.back.rate, by=list(Global=disc$global, GDP=disc$gdpbin.imp), mean, na.rm=TRUE) # SUPPLEMENT S11
+  aggregate(disc$relative.call.back.rate, by=list(Global=disc$global, GDP=disc$gdpbin.imp), median, na.rm=TRUE) # SUPPLEMENT S11
+  t.test(relative.call.back.rate ~ gdpbin.imp, data=subset(disc, global == "subgroup"))
+```
+
+Scatter Plots
+-------------
+
+```{r econ-scatter}
+  library(car)
+  scatter.smooth(disc$relative.call.back.rate ~ disc$gdp, bty="n", ylab="Call Back Ratio", xlab="Annual GDP Growth")
+  cor.test(disc$relative.call.back.rate, disc$gdp)   # SUPPLEMENT S11 (GDP)
+  scatter.smooth(disc$relative.call.back.rate ~ disc$unemp, bty="n", ylab="Call Back Ratio", xlab="Unemployment")
+  cor.test(disc$relative.call.back.rate, disc$unemp) # SUPPLEMENT S11 (unemployment)
+  # removing outlier (Spain)
+  scatter.smooth(disc$relative.call.back.rate[disc$unemp <20] ~ disc$unemp[disc$unemp <20], bty="n", ylab="Call Back Ratio", xlab="Unemployment")
+  cor.test(disc$relative.call.back.rate[disc$unemp <20], disc$unemp[disc$unemp <20])
+```
+
+Gender: Male versus Female
+==========================
+
+```{r cbr-gender}
+  table(disc$gender, disc$global)    # N
+  aggregate(disc$relative.call.back.rate, by=list(Global=disc$global, Gender=disc$gender), mean, na.rm=TRUE)
+  aggregate(disc$relative.call.back.rate, by=list(Global=disc$global, Gender=disc$gender), median, na.rm=TRUE)
+  t.test(relative.call.back.rate ~ gender, data=subset(disc, global == "subgroup" & gender %in% c("male", "female")))
+```
+
+Odds-Ratios
+-----------
+```{r meta-gender}
+  # only subgroups
+  resM1 <- rma(ai=positive.treatment.minority, bi=negative.treatment.minority,
+    ci=positive.treatment.majority, di=negative.treatment.majority,
+    data=subset(disc, disc$gender=="male" & disc$global=="subgroup"
+                & !is.na(disc$negative.treatment.majority)
+                & !is.na(disc$negative.treatment.minority) ), measure="OR",
+    slab=paste(author, year, sep=", "), method="REML")
+  resM2 <- rma(ai=positive.treatment.minority, bi=negative.treatment.minority,
+    ci=positive.treatment.majority, di=negative.treatment.majority,
+    data=subset(disc, disc$gender=="female" & disc$global=="subgroup"
+                & !is.na(disc$negative.treatment.majority)
+                & !is.na(disc$negative.treatment.minority) ), measure="OR",
+    slab=paste(author, year, sep=", "), method="REML")
+  tab <- data.frame(exp(coef(resM1)), exp(coef(resM2)))
+  colnames(tab) <- c("male", "female")
+  kable(t(tab))
+```
+
+Source of Jobs Adverts: Online versus Newspaper
+===============================================
+
+```{r cbr-asource}
+  disc$asource <- NA
+  disc$asource[disc$source %in% c("newspaper",
+    "newspaper ads, industry lists", "newspapers", "Suburban newspaper",
+    "Washington Post")] <- "newspaper"
+  disc$asource[disc$source %in% c("newspaper and online",
+    "online + newspaper", "online + newspapers",
+    "online + some from newspapers")] <- "mixed"
+  disc$asource[disc$source %in% c("online", "online ")] <- "online"
+  aggregate(disc$relative.call.back.rate, by=list(Global=disc$global, Source=disc$asource), mean, na.rm=TRUE)
+  aggregate(disc$relative.call.back.rate, by=list(Global=disc$global, Source=disc$asource), median, na.rm=TRUE)
+  summary(aov(relative.call.back.rate ~ asource, data=subset(disc, global == "subgroup")))
+```
+
+Firm Characteristics
+====================
+
+```{r cbr-firms}
+  # firm size:
+  disc$afirm <- NA
+  disc$afirm[disc$firm %in% c("small", "small (<100)", "small (<50)",
+    "small (<6)", "small company (0-15)")] <- "small"
+  disc$afirm[disc$firm %in% c("medium", "medium (6-50)",
+    "medium size company (16-50)", "medium-sized")] <- "medium"
+  disc$afirm[disc$firm %in% c("big (>50)", "large", "large ",
+    "large  (>500)", "large >500", "large company (more than 51)",
+    "middle (100-499)")] <- "large"
+  # private versus public employers
+  disc$afirm[disc$firm %in% c("private", "Private", "private sector",
+    "private sector ")] <- "private"
+  disc$afirm[disc$firm %in% c("public", "Public",
+    "pubic sector")] <- "public"
+
+  table(disc$afirm, disc$global) # N
+  aggregate(disc$relative.call.back.rate, by=list(Global=disc$global, Characteristics=disc$afirm), mean, na.rm=TRUE)
+  aggregate(disc$relative.call.back.rate, by=list(Global=disc$global, Characteristics=disc$afirm), median, na.rm=TRUE)
+  summary(aov(relative.call.back.rate ~ afirm, data=subset(disc, global == "subgroup" & afirm %in% c("private", "public"))))
+  summary(aov(relative.call.back.rate ~ afirm, data=subset(disc, global == "subgroup" & afirm %in% c("small", "medium", "large"))))
+```
+
+Publication Bias
+================
+
+Using a meta-analysis, it is also possible to enumerate the estimated publication bias. The follwing figures are so-called funnel plots, indicating as black dots the estimates for each of the studies, and as white dots the studies that are needed to obtain a balanced picture. The presence of white dots in the figure indicates that conventional tests of publication bias indicate clearly that publication bias is likely, with some studies finding less discrimination or no discrimination 'missing'. While publication bias is usually linked to the non-publication of studies failing to produce 'statistically significant' results, we are puzzled about this particular finding. Given that studies report discrimination against minority groups rather consistently, we suspect that a study finding no difference between the minority and majority population, or even one that indicates positive discrimination in favour of the minority groups would actually be *easier* to publish.
+
+Study Level
+-----------
+
+```{r publication-bias}
+  taf <- trimfill(resGlobal)   # TRIM & FILL
+  summary(taf)
+  funnel(taf, atransf=exp) ### draw funnel plot with missing studies filled in
+```
+
+```{r meta1-global-pub2}
+  # only global studies; without the outlier:
+  resGlobal.mod <- rma(ai=positive.treatment.minority, bi=negative.treatment.minority,
+    ci=positive.treatment.majority, di=negative.treatment.majority,
+    data=subset(disc, disc$global=="global" & !is.na(disc$negative.treatment.majority)
+    & !is.na(disc$negative.treatment.minority)  & disc$author != "Bendick et al."), measure="OR",
+    slab=paste(author, year, sep=", "), method="REML")
+  summary(resGlobal.mod)
+  forest(resGlobal.mod, atransf=exp)
+  taf.mod <- trimfill(resGlobal.mod)   # TRIM & FILL
+  summary(taf.mod) # SUPPLEMENT S12
+  funnel(taf.mod, atransf=exp)
+  # savePlot("funnel-study.png") # SUPPLEMENT S12
+```
+
+Subgroups
+---------
+
+```{r publication-bias-subgroup}
+  taf <- trimfill(resSub) # trim & fill
+  summary(taf) # SUPPLEMENT S12
+  funnel(taf, atransf=exp)
+  funnel(taf, atransf=exp, ylim=c(0, .8)) # set ylim to see something; cuts 5 studies (largest SE)
+  # savePlot("funnel-subgroup.png") # SUPPLEMENT S12
+```
+
+Multivariate Regression Analysis
+================================
+
+Results are reported including the Knapp and Hartung adjustment.
+
+Global
+------
+
+```{r meta-global-multivar}
+  # metafor doesn't like characters (sometimes), and as.numeric() doesn't seem to work here, either:
+  # EU/non-EU:
+  disc$EU.num <- NA
+  disc$EU.num[disc$EU == "European Union"] <- 1
+  disc$EU.num[disc$EU == "non EU"] <- 0
+  # US/Canada versus rest
+  disc$USC.num <- NA
+  disc$USC.num[!is.na(disc$country)] <- 0              # country defined
+  disc$USC.num[disc$continent == "US/Canada"] <- 1     # US and Canada
+  # 2nd generation:
+  disc$g2.explicit.num <- NA
+  disc$g2.explicit.num[!disc$firstgen.explicit == ""] <- 0        # excluding implicit
+  disc$g2.explicit.num[disc$firstgen.explicit == "second"] <- 1   # explicit G2 only
+      # table(disc$firstgen.explicit, disc$g2.explicit.num)
+  disc$g2.implicit.num <- NA
+  disc$g2.implicit.num[!disc$firstgen.implicit == ""] <- 0        # excluding implicit
+  disc$g2.implicit.num[disc$firstgen.implicit == "second"] <- 1   # explicit G2 only
+      # table(disc$firstgen.implicit, disc$g2.implicit.num)
+  # time dummy: after 2006
+  disc$yg <- 0
+  disc$yg[disc$yearGroup %in% c(2006, 2011)] <- 1
+      # table(disc$yg, disc$yearGroup)
+  disc$skills[disc$skills==""] <- NA # properly treating NA
+  disc$agender <- disc$gender
+  disc$agender[disc$gender=="not indicated"] <- NA
+  # regression analysis:
+   ord <- escalc(ai=positive.treatment.minority, bi=negative.treatment.minority, ci=positive.treatment.majority, di=negative.treatment.majority, measure="OR", slab=paste(author, year, sep=", "), data=subset(disc, disc$global=="global" & !is.na(disc$negative.treatment.majority) & !is.na(disc$negative.treatment.minority)), method="REML")
+     RG1 <- rma(data=ord, yi ~ skills, vi=vi, knha=TRUE) # Knapp & Hartung adjustment
+  summary(RG1)
+    RG2 <- rma(data=ord, yi ~ skills + continent, vi=vi, knha=TRUE) # Knapp & Hartung adjustment
+  summary(RG2)
+```
+
+Subgroups
+---------
+```{r meta-sub-multivar}
+  # preparing data:
+  ord <- escalc(ai=positive.treatment.minority, bi=negative.treatment.minority, ci=positive.treatment.majority, di=negative.treatment.majority, measure="OR", slab=paste(author, year, sep=", "), data=subset(disc, disc$global=="subgroup" & !is.na(disc$negative.treatment.majority) & !is.na(disc$negative.treatment.minority)), method="REML")
+  # multivariate regressions:
+  RS1 <- rma(data=ord, yi ~ skills, vi=vi, knha=TRUE) # Knapp & Hartung adjustment
+  summary(RS1) # TEXT (on skills), SUPPLEMENT S13 (M1)
+  RS2 <- rma(data=ord, yi ~ skills + g2.implicit.num, vi=vi, knha=TRUE)
+  summary(RS2) # TEXT (on G2), SUPPLEMENT S13 (M2)
+  RS3 <- rma(data=ord, yi ~ skills + g2.implicit.num + continent, vi=vi, knha=TRUE)
+  summary(RS3)
+  RS3b <- rma(data=ord, yi ~ skills + g2.implicit.num + continent + relevel(agender, ref="male"), vi=vi, knha=TRUE)
+  summary(RS3b) # SUPPLEMENT S13 (M3)
+  RS4 <- rma(data=ord, yi ~ continent, vi=vi, knha=TRUE)
+  summary(RS4)
+  RS5 <- rma(data=ord, yi ~ skills + German, vi=vi, knha=TRUE)
+  summary(RS5) # SUPPLEMENT S13 (M4)
+  RS6 <- rma(data=ord, yi ~ skills + minor, vi=vi, knha=TRUE)
+  summary(RS6) # SUPPLEMENT S13 (M5)
+
+  # multilevel:
+  RM1 <- rma.mv(yi=yi, V=vi, data=ord, random = ~ 1 | study, mods= ~ skills)
+  summary(RM1) # removed from SUPPLEMENT S13
+  RM2 <- rma.mv(yi=yi, V=vi, data=ord, random = ~ 1 | study, mods= ~ skills + continent)
+  summary(RM2)
+```
+
+Overview
+========
+
+```{r table1}
+    #table 1: overview over time
+    table(disc$yearGroup, disc$global)
+    table(disc$yearGroup[disc$global=="global"], disc$region[disc$global=="global"])
+    aggregate(disc$relative.call.back.rate, by=list(Global=disc$global, Time=disc$yearGroup), mean, na.rm=TRUE)
+```
