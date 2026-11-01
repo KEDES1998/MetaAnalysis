@@ -10,7 +10,7 @@ Der Arbeitsplan mit allen Schritten und Fristen steht in **`PLAN.md`** – vor g
 
 - Team: Kevin de Silva und Vanessa Allenspach, Group 4
 - **Bericht:** Fr 13.11.2026, bis Mitternacht, per E-Mail an rainer.winkelmann@econ.uzh.ch. Dateiname `group4.pdf`. Ca. 10, max. 15 Seiten ohne Anhang. Titelseite mit Titel und beiden Namen. Vollständige Liste aller untersuchten Studien im Literaturverzeichnis.
-- **Präsentation:** Di 17.11.2026 (Gruppen 1–3) oder Di 24.11.2026 (Gruppen 4–6), 20 Min. + 10 Min. Diskussion, beide präsentieren. Folien (PDF/PPT) spätestens am Präsentationstag an den Prof mailen.
+- **Präsentation:** Di 24.11.2026 (Gruppen 4–6; Gruppen 1–3 am 17.11.), 20 Min. + 10 Min. Diskussion, beide präsentieren. Folien (PDF/PPT) spätestens am Präsentationstag an den Prof mailen.
 - Note: Bericht 50 %, Präsentation 40 %, Mitarbeit 10 %.
 - KI-Agenten dürfen laut Prof frei verwendet werden.
 
@@ -44,7 +44,7 @@ Der Arbeitsplan mit allen Schritten und Fristen steht in **`PLAN.md`** – vor g
   figures/                   Plots als PDF (für Overleaf)
   tables/                    Tabellen als .tex (für Overleaf)
   slides/                    Präsentation
-  groupX.pdf                 finaler Bericht
+  group4.pdf                 finaler Bericht
 PLAN.md                      Arbeitsplan (Deutsch, für das Team)
 CLAUDE.md                    diese Datei
 ```
@@ -130,7 +130,7 @@ Pakete: `numpy`, `pandas`, `scipy`, `statsmodels`, `matplotlib`.
 
 ## Bericht und Präsentation
 
-- Bericht in **Overleaf (LaTeX)**, Englisch. Figures/Tabellen werden aus `04_report/` in Overleaf hochgeladen. Finales PDF zusätzlich als `04_report/groupX.pdf` ins Repo.
+- Bericht in **Overleaf (LaTeX)**, Englisch. Figures/Tabellen werden aus `04_report/` in Overleaf hochgeladen. Finales PDF zusätzlich als `04_report/group4.pdf` ins Repo.
 - Gliederung und Folienplan: siehe `PLAN.md`, Schritte 8 und 9.
 - Pflichtinhalte: Tabelle der Evidenz, Forest + Funnel Plot, Replikation, ≥ 2 neue Studien (im KI? Änderung der Schätzung?), Aussage zur visuellen Evidenz für Publication bias, WLS-Meta-Regression, Fazit zur Verlässlichkeit der Evidenz.
 
@@ -149,7 +149,6 @@ Pakete: `numpy`, `pandas`, `scipy`, `statsmodels`, `matplotlib`.
 
 ## Offene Punkte
 
-- Gruppennummer und Name der Mitstudentin eintragen; Präsentationstermin (17.11. oder 24.11.).
 - Format und Inhalt der Dataverse-Daten (Moderatoren vorhanden?).
 - Auswahl der Update-Studien (Kandidaten in `PLAN.md`, Schritt 3).
 - Abweichung Askarov (34 Schätzungen) vs. Figure 1 (33 Studien) klären.

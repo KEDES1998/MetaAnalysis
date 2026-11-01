@@ -13,7 +13,7 @@ Wenn etwas erledigt ist: Haken setzen (`[ ]` → `[x]`) und committen.
 | **Original-Studie** | Zschirnt & Ruedin (2016): *Ethnic discrimination in hiring decisions: A meta-analysis of correspondence tests 1990–2015*. Journal of Ethnic and Migration Studies 42(7) |
 | **Unsere Aufgabe** | Die Meta-Analyse **nachrechnen** (Replikation) und mit neueren Studien **ergänzen** (Update) |
 | **Abgabe Bericht** | **Freitag, 13.11.2026, bis Mitternacht** – als `group4.pdf` per E-Mail an rainer.winkelmann@econ.uzh.ch |
-| **Präsentation** | Di 17.11.2026 (Gruppen 1–3) oder Di 24.11.2026 (Gruppen 4–6), Raum KOL-H-309. **Wir planen mit dem 17.11.** |
+| **Präsentation** | Di 17.11.2026 (Gruppen 1–3) oder Di 24.11.2026 (Gruppen 4–6), Raum KOL-H-309. **Wir (Gruppe 4) präsentieren am Di 24.11.** |
 | **Umfang** | Bericht ca. 10 Seiten, höchstens 15 (ohne Anhang). Präsentation 20 Min. + 10 Min. Diskussion. Beide müssen reden. |
 | **Werkzeuge** | Python (Rechnen), Overleaf/LaTeX (Bericht), GitHub (Code und Daten) |
 | **Sprache** | Bericht und Folien auf Englisch |
@@ -80,16 +80,16 @@ Heute ist Do, 29.10. Wir haben gut zwei Wochen.
 |---|---|---|
 | Do 29.10. – Fr 30.10. | 0 – Setup und Paper lesen | beide |
 | Sa 31.10. – Mo 2.11. | 1 – Daten der Original-Studie aufbereiten | Kev |
-| Sa 31.10. – Do 5.11. | 3 – Neue Studien suchen und erfassen | [Name] |
+| Sa 31.10. – Do 5.11. | 3 – Neue Studien suchen und erfassen | Vanessa |
 | Di 3.11. – Mi 4.11. | 2 – Replikation (FE, RE, UWLS, Plots) | Kev |
 | Do 5.11. | 4 – Update rechnen | Kev |
 | Fr 6.11. – Sa 7.11. | 5 – Power, 6 – Publication bias, 7 – Meta-Regression | beide |
-| ab Mo 2.11. | 8 – Bericht: Einleitung und Theorie schreiben | [Name] |
+| ab Mo 2.11. | 8 – Bericht: Einleitung und Theorie schreiben | Vanessa |
 | So 8.11. – Mi 11.11. | 8 – Bericht: Resultate und Fazit schreiben | beide |
 | Do 12.11. | Puffer: gegenseitig lesen und korrigieren | beide |
-| **Fr 13.11.** | **Abgabe per E-Mail** | Kev schickt, [Name] in CC |
-| Sa 14.11. – Mo 16.11. | 9 – Präsentation machen und üben | beide |
-| Di 17.11. (oder 24.11.) | Präsentation | beide |
+| **Fr 13.11.** | **Abgabe per E-Mail** | Kev schickt, Vanessa in CC |
+| Sa 14.11. – Mo 23.11. | 9 – Präsentation machen und üben | beide |
+| **Di 24.11.** | **Präsentation** | beide |
 
 Die Aufteilung ist ein Vorschlag (siehe Abschnitt 6).
 
@@ -114,7 +114,7 @@ So geht's:
   ```
 - [ ] `.gitignore` füllen mit: `.DS_Store`, `.venv/`, `__pycache__/`, `03_tmp/*` (aber `!03_tmp/.gitkeep`).
 - [ ] Overleaf-Projekt anlegen und die andere Person einladen.
-- [ ] Gruppennummer klären (für den Dateinamen `groupX.pdf` und den Präsentationstermin).
+- [x] Gruppennummer klären: Gruppe 4 → `group4.pdf`, Präsentation Di 24.11.
 
 **Fertig, wenn:** Beide können Python im Repo starten, und beide haben Zugriff auf Overleaf.
 
@@ -340,7 +340,7 @@ So geht's:
 - [ ] Jede Zahl im Text muss aus unserem Code kommen (nicht von Hand abschreiben, wenn es sich vermeiden lässt).
 - [ ] Länge prüfen: 10–15 Seiten ohne Anhang.
 - [ ] Gegenseitig korrigieren (Do 12.11.).
-- [ ] PDF als `groupX.pdf` speichern, auch in `04_report/` ablegen.
+- [ ] PDF als `group4.pdf` speichern, auch in `04_report/` ablegen.
 - [ ] **Fr 13.11. vor Mitternacht** an rainer.winkelmann@econ.uzh.ch schicken.
 
 ---
@@ -367,8 +367,8 @@ Vorschlag für die Folien:
 
 So geht's:
 
-- [ ] Folien machen (Sa 14.11. – So 15.11.).
-- [ ] Einmal laut proben, mit Stoppuhr (Mo 16.11.).
+- [ ] Folien machen (ab Sa 14.11., fertig bis ca. Do 19.11.).
+- [ ] Einmal laut proben, mit Stoppuhr (spätestens Mo 23.11.).
 - [ ] Mögliche Fragen für die 10 Minuten Diskussion überlegen.
 - [ ] Folien als PDF **spätestens am Präsentationstag** an den Prof mailen (oder USB-Stick mitnehmen).
 
@@ -376,7 +376,7 @@ So geht's:
 
 ## 6. Aufgabenteilung (Vorschlag – bitte anpassen)
 
-| Kev | [Name Mitstudentin] | Beide zusammen |
+| Kev | Vanessa | Beide zusammen |
 |---|---|---|
 | Setup (Repo, Python) | Overleaf-Projekt anlegen | Paper lesen |
 | Schritt 1: Daten aufbereiten | Schritt 3: neue Studien suchen und erfassen | Schritte 5–7 interpretieren |
@@ -388,7 +388,7 @@ So geht's:
 
 ## 7. Offene Fragen
 
-- [ ] Welche Gruppennummer haben wir? Präsentieren wir am 17.11. oder am 24.11.?
+- [x] Welche Gruppennummer haben wir? → Gruppe 4, Präsentation am Di 24.11.2026.
 - [ ] In welchem Format sind die Dataverse-Daten? Sind dort auch die Moderatoren drin?
 - [ ] Bendick et al. (1991): im Hauptmodell lassen oder als Ausreisser behandeln?
 - [ ] Welche neuen Studien nehmen wir? (Entscheid bis Do 5.11.)
