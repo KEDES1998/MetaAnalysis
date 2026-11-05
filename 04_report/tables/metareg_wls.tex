@@ -1,0 +1,30 @@
+\begin{table}[htbp]
+\centering
+\small
+\caption{WLS meta-regression: publication bias and heterogeneity (original studies)}
+\label{tab:metareg-wls}
+\begin{tabular}{lrrrr}
+\toprule
+ & M1 & M2 & M3 & M4 \\
+\midrule
+Intercept (PET) & -0.364** & -0.297** & -0.230 & -0.232 \\
+ & (0.135) & (0.138) & (0.197) & (0.169) \\
+SE (FAT) & -1.050 & -0.447 & -0.158 & -0.709 \\
+ & (1.294) & (1.250) & (1.371) & (1.321) \\
+Europe &  & -0.285** & -0.287* & -0.283** \\
+ &  & (0.123) & (0.161) & (0.125) \\
+German-speaking country &  & 0.226 & 0.195 & 0.221 \\
+ &  & (0.144) & (0.208) & (0.145) \\
+High-skilled jobs &  &  & -0.108 &  \\
+ &  &  & (0.182) &  \\
+Low-skilled jobs &  &  & -0.172 &  \\
+ &  &  & (0.155) &  \\
+Testing year (decades, 0 = 2000) &  &  &  & -0.058 \\
+ &  &  &  & (0.087) \\
+\midrule
+$k$ & 34 & 34 & 30 & 34 \\
+Residual SE & 3.17 & 3.00 & 3.16 & 3.03 \\
+\bottomrule
+\end{tabular}
+\par\smallskip\parbox{0.95\linewidth}{\footnotesize WLS with weights $1/SE_i^2$ and multiplicative error (as UWLS), $t$-based standard errors. Dependent variable: $\ln OR$ of a call-back (minority vs.\ majority); negative = discrimination. The intercept is the effect for a study with $SE\to 0$ in the reference group (outside Europe; mixed skills; testing year 2000). * $p<0.1$, ** $p<0.05$, *** $p<0.01$.}
+\end{table}

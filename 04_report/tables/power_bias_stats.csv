@@ -1,0 +1,12 @@
+,Original,Original without Bendick (1991)
+$k$,34,33
+Median power,0.97,0.99
+Mean power,0.83,0.84
+Adequately powered ($q_i \geq 0.8$),24 (71\%),24 (73\%)
+FAT: $\hat\beta_1$ (SE),-1.05 (1.29),-1.61 (1.09)
+FAT: $t$,-0.81,-1.48
+Significant estimates (share),27 (0.79),26 (0.79)
+Expected share significant,0.83,0.84
+ESS = observed $-$ expected,-0.03,-0.05
+Expected share significant (with $\hat\tau^2$),0.70,0.73
+ESS (with $\hat\tau^2$),+0.10,+0.06

@@ -42,11 +42,13 @@ Gerechnet wird immer mit dem Logarithmus: $y_i = \ln(OR_i)$.
 Dann gilt: **negativer Wert = Diskriminierung**. Am Schluss rechnen wir mit $e^{y}$ wieder in eine OR zurück.
 
 **Das Ergebnis im Original:**
-Random-Effects-Modell mit 33 Studien: **OR = 0.60 [0.52; 0.69]** (Figure 1 im Paper).
+Random-Effects-Modell mit 34 Studien: **OR = 0.60 [0.52; 0.69]** (Figure 1 im Paper).
 Das heisst: Minderheiten haben rund 40 % tiefere Odds auf einen Callback. Anders gesagt: Sie müssen etwa 50 % mehr Bewerbungen schreiben, um gleich oft eingeladen zu werden.
 
-**Gute Nachricht:**
-Ein erster Test (29.10.) zeigt: Mit den Zahlen aus Figure 1 kommt man genau auf 0.60 [0.52; 0.69]. Die Replikation ist also machbar.
+(Figure 1 im Paper zeigt nur 33 Zeilen. Das Modell der Autoren rechnet aber mit 34 Studien – das sieht man im R-Output der Autoren, `01_data/raw_files/meta-replication.pdf`.)
+
+**Stand 3.11.: Replikation geschafft.**
+Der Python-Code trifft die Zahlen der Autoren exakt (OR 0.60 [0.52; 0.69], $\hat\tau^2 = 0.141$, $I^2 = 92.7\%$). Wie man den Code startet, steht in Abschnitt 9.
 
 ---
 
@@ -105,14 +107,14 @@ So geht's:
 
 - [ ] Beide lesen das Paper `01_data/Zschirnt_Ruedin_2016.pdf`. Am wichtigsten sind die Seiten 6–10 (Methode, Daten, Figure 1 und 2).
 - [ ] Beide klonen das Repo von GitHub.
-- [ ] `requirements.txt` füllen mit: `numpy`, `pandas`, `scipy`, `statsmodels`, `matplotlib`.
-- [ ] Python-Umgebung anlegen:
+- [x] `requirements.txt` füllen: `numpy`, `pandas`, `scipy`, `matplotlib` (statsmodels brauchen wir nicht).
+- [ ] Python-Umgebung anlegen und Pakete installieren (jede Person einmal auf ihrem Computer):
   ```bash
-  python3 -m venv .venv
-  source .venv/bin/activate
+  python3 -m venv venv
+  source venv/bin/activate
   pip install -r requirements.txt
   ```
-- [ ] `.gitignore` füllen mit: `.DS_Store`, `.venv/`, `__pycache__/`, `03_tmp/*` (aber `!03_tmp/.gitkeep`).
+- [x] `.gitignore` füllen (`venv/`, `.DS_Store`, `__pycache__/`, `03_tmp/`, PDFs – ausser den Plots in `04_report/figures/`).
 - [ ] Overleaf-Projekt anlegen und die andere Person einladen.
 - [x] Gruppennummer klären: Gruppe 4 → `group4.pdf`, Präsentation Di 24.11.
 
@@ -122,12 +124,12 @@ So geht's:
 
 ### Schritt 1 – Daten der Original-Studie aufbereiten
 
-**Ziel:** Eine saubere CSV-Datei mit allen 33 Studien. Für jede Studie: Effekt ($\ln OR$) und Standardfehler (SE).
+**Ziel:** Eine saubere CSV-Datei mit allen 34 Studien. Für jede Studie: Effekt ($\ln OR$) und Standardfehler (SE).
 
 Es gibt zwei Quellen:
 
 - **Quelle A (besser): Die Replikationsdaten der Autoren** auf Harvard Dataverse: <https://doi.org/10.7910/DVN/ZU8H79>.
-  Im Browser herunterladen und **unverändert** in `01_data/raw/` ablegen.
+  Liegen **unverändert** in `01_data/raw_files/` (erledigt).
 - **Quelle B (Notlösung): Figure 1 im Paper abtippen.** Dort stehen für jede Studie die OR und das 95%-Konfidenzintervall.
 
 Wie man den Standardfehler bekommt:
@@ -146,14 +148,14 @@ $$
 
 So geht's:
 
-- [ ] Dataverse-Dateien anschauen: Welches Format? Welche Spalten? Was bedeuten sie?
-- [ ] Skript `02_code/01_prepare_data.py` schreiben. Es liest die Rohdaten, rechnet `log_or` und `se` und speichert `01_data/zr2016_studies.csv`.
-- [ ] Kontrolle: Stimmen unsere OR-Werte mit Figure 1 überein (auf 2 Nachkommastellen)?
-- [ ] Moderatoren mitnehmen, falls vorhanden: Land, Region, Jahr, Geschlecht, Generation, Skill-Level, deutschsprachig ja/nein.
+- [x] Dataverse-Dateien anschauen: `meta-clean.csv` hat 43 Studien und 738 Subgruppen. Nur 34 Studien (und 215 Subgruppen) haben die vier Callback-Zahlen, die man für die OR braucht.
+- [x] Skript `02_code/01_prepare_data.py` schreiben. Es liest die Rohdaten, rechnet `log_or` und `se` und speichert `01_data/zr2016_studies.csv`.
+- [x] Kontrolle: Alle 34 OR-Werte stimmen mit dem Forest Plot der Autoren überein (auf 2 Nachkommastellen).
+- [x] Moderatoren mitnehmen: Land, Kontinent, EU, deutschsprachig, Testjahr, Geschlecht, Generation, Skill-Level, EU-Richtlinie vorher/nachher.
 
-**Ergebnis:** `01_data/zr2016_studies.csv`
+**Ergebnis:** `01_data/zr2016_studies.csv` (34 Studien), `zr2016_subgroups.csv` (215 Subgruppen), `zr2016_studies_no_counts.csv` (die 9 Studien ohne Zahlen – sie gehören trotzdem ins Literaturverzeichnis).
 
-**Fertig, wenn:** 33 Zeilen, jede mit `log_or` und `se`, und die Werte passen zu Figure 1.
+**Fertig, wenn:** 34 Zeilen, jede mit `log_or` und `se`, und die Werte passen zu Figure 1. ✔
 
 ---
 
@@ -172,19 +174,30 @@ Die drei Methoden in einfachen Worten:
 
 So geht's:
 
-- [ ] Skript `02_code/02_replication.py` schreiben.
-- [ ] FE, RE und UWLS rechnen. Für RE die Methode **REML** nehmen (so hat es das Original gemacht, mit dem R-Paket metafor). Zum Vergleich auch DerSimonian-Laird.
-- [ ] Ergebnisse in OR zurückrechnen: $OR = e^{y}$.
-- [ ] Tabelle machen: Methode | OR | 95%-KI | $\tau^2$ | $I^2$.
-- [ ] Forest Plot zeichnen und als PDF speichern.
-- [ ] Diskussionspunkt notieren: Bendick et al. (1991) ist ein Ausreisser (OR = 2.45; dort hatten die Latino-Bewerbungen bessere Qualifikationen). Wir rechnen einmal **mit** und einmal **ohne** diese Studie.
+- [x] Skript `02_code/02_replication.py` schreiben.
+- [x] FE, RE und UWLS rechnen. Für RE die Methode **REML** nehmen (so hat es das Original gemacht, mit dem R-Paket metafor). Zum Vergleich auch DerSimonian-Laird, Paule-Mandel und Knapp-Hartung.
+- [x] Ergebnisse in OR zurückrechnen: $OR = e^{y}$.
+- [x] Tabelle machen: Methode | OR | 95%-KI | $\tau^2$ | $I^2$.
+- [x] Forest Plot zeichnen und als PDF speichern.
+- [x] Bendick et al. (1991) ist ein Ausreisser (OR = 2.45; dort hatten die Latino-Bewerbungen bessere Qualifikationen). Wir rechnen einmal **mit** und einmal **ohne** diese Studie.
 
-**Ergebnis:** `04_report/tables/replication.tex` und `04_report/figures/forest.pdf`
+**Ergebnis:** `04_report/tables/replication.tex` und `04_report/figures/forest_original.pdf`
+
+**Resultat:**
+
+| Methode | OR | 95%-KI |
+|---|---|---|
+| FE | 0.63 | [0.61; 0.65] |
+| UWLS | 0.63 | [0.56; 0.71] |
+| RE (REML) | 0.60 | [0.52; 0.69] |
+| RE ohne Bendick (k = 33) | 0.58 | [0.52; 0.65] |
+| RE auf Subgruppen-Ebene (k = 215) | 0.55 | [0.52; 0.58] |
 
 **Fertig, wenn:**
-- RE ergibt ca. 0.60 [0.52; 0.69].
-- FE und UWLS haben denselben Schätzwert.
-- Wir können erklären, welches Konfidenzintervall breiter ist und warum. (Tipp: Es hat mit der Heterogenität zwischen den Studien zu tun.)
+- [x] RE ergibt 0.60 [0.52; 0.69]. ✔ (exakt wie im Original)
+- [x] FE und UWLS haben denselben Schätzwert. ✔ (beide 0.63)
+- [ ] Wir können erklären, welches Konfidenzintervall breiter ist und warum.
+  Tipp: Das UWLS-Intervall ist rund 3-mal breiter. Der Faktor ist $\sqrt{Q/(k-1)} = \sqrt{327.7/33} \approx 3.15$. Er ist grösser als 1, weil die Studien viel stärker streuen, als es der Zufall allein erklären würde (Heterogenität).
 
 ---
 
@@ -213,12 +226,28 @@ Wo wir suchen:
 So geht's:
 
 - [ ] Für jede Kandidaten-Studie das PDF holen und die Tabelle mit den Callbacks suchen.
-- [ ] Zahlen in `01_data/update_studies.csv` eintragen (gleiche Spalten wie in Schritt 1).
-- [ ] Bei jeder Zahl die Quelle notieren (Seite, Tabelle).
+- [ ] Zahlen in `01_data/update_studies.csv` eintragen. Die Datei ist schon vorbereitet (nur die Kopfzeile). Am einfachsten in Excel oder Numbers öffnen und als CSV speichern.
+- [ ] Bei jeder Zahl die Quelle notieren (Spalte `source`, z. B. «Table 2, p. 240»).
 - [ ] Pro Studie **eine Zeile**: alle Minderheiten zusammen gegen die Mehrheit. So ist es wie im Original auf Studienebene.
 - [ ] PDFs der neuen Studien in `01_data/update_papers/` ablegen.
 
-**Fertig, wenn:** Mindestens 2 Studien mit `log_or` und `se`, und jede Zahl hat eine Quellenangabe.
+Die wichtigsten Spalten in `update_studies.csv`:
+
+| Spalte | Was eintragen | Beispiel |
+|---|---|---|
+| `authors`, `year` | Autoren, Erscheinungsjahr | Koopmans et al., 2019 |
+| `country` | Land auf Englisch | Germany |
+| `testing_year` | Jahr, in dem die Bewerbungen verschickt wurden | 2014 |
+| `minority` | getestete Gruppe(n) | Turkish, Arab |
+| `gender`, `skills` | male / female / both; high / low / mixed | both, mixed |
+| `n_minority`, `cb_minority` | Anzahl Bewerbungen und Anzahl Callbacks der **Minderheit** | 3000, 600 |
+| `n_majority`, `cb_majority` | dasselbe für die **Mehrheit** | 3000, 800 |
+| `or`, `ci_low`, `ci_high` | **nur** wenn es keine Zahlen gibt: berichtete OR mit 95%-KI | |
+| `source`, `notes` | Seite/Tabelle; Bemerkungen | Table 2, p. 240 |
+
+Wenn eine Studie nur Callback-**Quoten** nennt: Anzahl Callbacks = Quote × Anzahl Bewerbungen (runden) und in `notes` vermerken.
+
+**Fertig, wenn:** Mindestens 2 Studien mit `log_or` und `se`, und jede Zahl hat eine Quellenangabe. Danach einfach `python 02_code/run_all.py` laufen lassen – Schritte 4 bis 7 rechnen dann automatisch mit den neuen Studien.
 
 ---
 
@@ -228,12 +257,12 @@ So geht's:
 
 So geht's:
 
-- [ ] Skript `02_code/03_update.py` schreiben.
+- [x] Skript `02_code/03_update.py` schreiben. (Fertig und getestet – wartet nur auf die neuen Studien.)
 - [ ] **Frage A:** Liegen die neuen Effekte im Konfidenzintervall des Originals, also zwischen 0.52 und 0.69?
 - [ ] **Frage B:** Neue Meta-Schätzung mit allen Studien zusammen (alt + neu). Ändert sie sich stark?
-- [ ] Für die Diskussion: Auch das *Prediction Interval* anschauen. Es zeigt, wo eine **einzelne neue** Studie liegen sollte. Das ist bei starker Heterogenität fairer als das Konfidenzintervall des Durchschnitts.
+- [ ] Für die Diskussion: Auch das *Prediction Interval* anschauen: [0.28; 1.27]. Es zeigt, wo eine **einzelne neue** Studie liegen sollte. Das ist bei starker Heterogenität fairer als das Konfidenzintervall des Durchschnitts.
 
-**Ergebnis:** `04_report/tables/update.tex` und ein Forest Plot, in dem die neuen Studien markiert sind.
+**Ergebnis:** `04_report/tables/update_new_studies.tex` (Frage A), `update_pooled.tex` (Frage B), `04_report/figures/forest_combined.pdf` (neue Studien rot) und die Tabelle der Evidenz `evidence_table.tex` für den Anhang.
 
 ---
 
@@ -251,13 +280,15 @@ Eine Studie hat «genügend Power» (mindestens 80 %), wenn gilt: $SE_i \le |\ha
 
 So geht's:
 
-- [ ] Skript `02_code/04_power_bias.py` anfangen.
-- [ ] Power pro Studie rechnen, dann den **Median**.
+- [x] Skript `02_code/04_power_bias.py` schreiben.
+- [x] Power pro Studie rechnen, dann den **Median**.
 - [ ] Vergleich mit Askarov et al. (2024): Dort hat dieses Gebiet eine durchschnittliche Power von 0.91. In der Ökonomie insgesamt liegt der Median nur bei ca. 7 %.
 - [ ] Diskutieren: Warum ist tiefe Power ein Problem? Warum ist unser Wert eher eine Obergrenze?
   (Tipp: Wenn Publication bias den Meta-Effekt grösser macht, wird auch die berechnete Power zu gross.)
 
-**Erwartung:** Die Power ist hier eher hoch, weil Correspondence Tests oft Tausende Bewerbungen verschicken.
+**Resultat (Originalstudien):** Median-Power **0.97**, Durchschnitt 0.83. 24 von 34 Studien haben genügend Power (≥ 80 %). Die Erwartung stimmt also: Die Power ist hoch, weil Correspondence Tests oft Tausende Bewerbungen verschicken.
+
+**Ergebnis:** `04_report/tables/power_bias_stats.tex`, `power_by_study.csv`, `04_report/figures/power_original.pdf`
 
 ---
 
@@ -279,13 +310,24 @@ So geht's:
 
 So geht's:
 
-- [ ] Alle vier Methoden in `02_code/04_power_bias.py` rechnen.
-- [ ] Funnel Plot als PDF speichern.
-- [ ] Eine Tabelle mit allen Schätzungen: FE, RE, UWLS, PET, WAAP.
+- [x] Alle vier Methoden in `02_code/04_power_bias.py` rechnen (dazu PEESE als Extra).
+- [x] Funnel Plot als PDF speichern (einmal mit SE, einmal mit Präzision $1/SE$ auf der y-Achse).
+- [x] Eine Tabelle mit allen Schätzungen: FE, RE, UWLS, WAAP, PET, PEESE – für Original, Original ohne Bendick und (nach dem Update) Original + neue Studien.
+
+**Resultat (Originalstudien):**
+
+| | Wert |
+|---|---|
+| WAAP | OR 0.64 [0.55; 0.73] – fast gleich wie UWLS (0.63) |
+| FAT: $\hat\beta_1$ | −1.05 (SE 1.29), also kein klarer Zusammenhang zwischen Effekt und SE |
+| PET | OR 0.69 [0.53; 0.91] – etwas weniger Diskriminierung als UWLS, aber immer noch deutlich unter 1 |
+| ESS | 27 von 34 Studien signifikant (79 %), erwartet wären 83 % → kein Überschuss an Signifikanz |
+
+Zum Vergleich: Die Autoren selbst haben im Supplement (S12) mit «Trim & Fill» 8 bis 9 «fehlende» Studien auf der rechten Seite gefunden (also Studien mit weniger Diskriminierung). Das passt zur leicht negativen FAT – lohnt sich für die Diskussion.
 
 **Achtung für den Bericht:** Bei der log OR hängt der SE rechnerisch ein bisschen mit der Grösse des Effekts zusammen. Etwas Schiefe im Funnel Plot kann deshalb auch ohne Publication bias entstehen. Das schreiben wir als Einschränkung dazu.
 
-**Ergebnis:** `04_report/tables/pubbias.tex` und `04_report/figures/funnel.pdf`
+**Ergebnis:** `04_report/tables/pubbias_estimates.tex`, `power_bias_stats.tex` und `04_report/figures/funnel_original.pdf`, `funnel_precision_original.pdf`
 
 ---
 
@@ -301,8 +343,20 @@ $$
 
 Ideen aus dem Paper: Region (Europa vs. Nordamerika), vor/nach den EU-Richtlinien (2000), deutschsprachige Länder, Jahr.
 
-- [ ] Skript `02_code/05_meta_regression.py` schreiben.
-- [ ] Nur wenige Moderatoren nehmen. Wir haben nur ca. 35 Studien, also vorsichtig interpretieren.
+- [x] Skript `02_code/05_meta_regression.py` schreiben. Kontrolle: Ein Modell der Autoren (Supplement, Modell mit Skill-Level) wird exakt repliziert.
+- [x] Nur wenige Moderatoren nehmen. Wir haben nur ca. 35 Studien, also vorsichtig interpretieren.
+
+Die Modelle (jeweils mit SE, also gleichzeitig Publication bias):
+
+- M1: nur SE (= FAT-PET)
+- M2: + Europa, deutschsprachiges Land
+- M3: + Skill-Level der Stellen (hoch / tief, Referenz: gemischt)
+- M4: + Testjahr (in Jahrzehnten)
+- M5: + «neue Studie» (erst nach dem Update)
+
+**Erster Befund (Originalstudien, WLS):** In Europa ist die Diskriminierung grösser als ausserhalb Europas (vor allem Nordamerika): Koeffizient ca. −0.29, das heisst eine rund 25 % tiefere OR. Für deutschsprachige Länder ist der Koeffizient positiv (weniger Diskriminierung als im übrigen Europa), aber unsicher.
+
+**Ergebnis:** `04_report/tables/metareg_wls.tex` (Hauptmodell, WLS wie vom Prof verlangt), `metareg_re.tex` (Random-Effects-Version wie im Original)
 
 ---
 
@@ -389,8 +443,8 @@ So geht's:
 ## 7. Offene Fragen
 
 - [x] Welche Gruppennummer haben wir? → Gruppe 4, Präsentation am Di 24.11.2026.
-- [ ] In welchem Format sind die Dataverse-Daten? Sind dort auch die Moderatoren drin?
-- [ ] Bendick et al. (1991): im Hauptmodell lassen oder als Ausreisser behandeln?
+- [x] In welchem Format sind die Dataverse-Daten? → CSV (`meta-clean.csv`) plus R-Code und Supplement. Moderatoren sind drin (Land, Jahr, Generation, Geschlecht, Skill-Level, EU-Richtlinie).
+- [ ] Bendick et al. (1991): im Hauptmodell lassen oder als Ausreisser behandeln? (Der Code rechnet beides.)
 - [ ] Welche neuen Studien nehmen wir? (Entscheid bis Do 5.11.)
 
 ---
@@ -415,3 +469,53 @@ So geht's:
 | **Power** | Wahrscheinlichkeit, einen echten Effekt auch zu finden |
 | **WAAP** | Durchschnitt nur aus Studien mit genügend Power (≥ 80 %) |
 | **ESS** | Vergleich: beobachtete vs. erwartete Anzahl signifikanter Studien |
+
+---
+
+## 9. Code – Kurzanleitung
+
+**Einmal einrichten** (im Terminal, im Ordner des Repos):
+
+```bash
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+```
+
+**Alles rechnen:**
+
+```bash
+source venv/bin/activate
+python 02_code/run_all.py
+```
+
+Das dauert ein paar Sekunden. Im Output stehen die Kontrollen («OK») und die wichtigsten Zahlen.
+
+**Was wo herauskommt:**
+
+| Datei | Wofür |
+|---|---|
+| `04_report/figures/*.pdf` | Grafiken für Overleaf |
+| `04_report/figures/*.png` | dieselben Grafiken für die Folien |
+| `04_report/tables/*.tex` | fertige LaTeX-Tabellen für Overleaf |
+| `04_report/tables/*.csv` | dieselben Zahlen zum Anschauen (Excel) |
+| `04_report/tables/macros_*.tex` | Zahlen für den Fliesstext, z. B. `\maORre` → 0.60 |
+
+**In Overleaf:**
+
+1. Die Ordner `04_report/figures` und `04_report/tables` hochladen (als `figures/` und `tables/`).
+2. In die Präambel: `\usepackage{booktabs,longtable,array,graphicx}`
+3. Makros laden: `\input{tables/macros_replication.tex}` (ebenso `macros_power_bias.tex` und nach dem Update `macros_update.tex`).
+4. Tabelle einfügen: `\input{tables/replication.tex}`. Grafik: `\includegraphics[width=\linewidth]{figures/forest_original.pdf}`.
+5. Im Text: «The pooled odds ratio is \maORre{} \maCIre.» → «The pooled odds ratio is 0.60 [0.52; 0.69].»
+
+Wenn neue Studien dazukommen: `update_studies.csv` ergänzen, `run_all.py` laufen lassen, die Ordner neu nach Overleaf hochladen. Alle Zahlen passen sich dann automatisch an.
+
+| Skript | Schritt im Plan |
+|---|---|
+| `01_prepare_data.py` | 1 – Daten aufbereiten |
+| `02_replication.py` | 2 – Replikation |
+| `03_update.py` | 3 und 4 – neue Studien, Tabelle der Evidenz |
+| `04_power_bias.py` | 5 und 6 – Power, Publication bias |
+| `05_meta_regression.py` | 7 – Meta-Regression |
+| `utils_meta.py` | alle Formeln (FE, RE, UWLS, WAAP, …) und Grafiken |

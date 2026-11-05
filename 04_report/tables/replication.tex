@@ -1,0 +1,22 @@
+\begin{table}[htbp]
+\centering
+\small
+\caption{Replication of the pooled effect (study level, $k = 34$)}
+\label{tab:replication}
+\begin{tabular}{lrrrrrrr}
+\toprule
+Method & $k$ & $\ln OR$ & SE & OR & 95\% CI (OR) & $\hat\tau^2$ & $I^2$ (\%) \\
+\midrule
+Fixed effect (FE) & 34 & -0.463 & 0.018 & 0.63 & [0.61; 0.65] & 0.000 & 89.9 \\
+UWLS & 34 & -0.463 & 0.056 & 0.63 & [0.56; 0.71] & -- & -- \\
+Random effects (DL) & 34 & -0.502 & 0.060 & 0.61 & [0.54; 0.68] & 0.099 & 89.9 \\
+Random effects (PM) & 34 & -0.509 & 0.072 & 0.60 & [0.52; 0.69] & 0.147 & 93.0 \\
+Random effects (REML) & 34 & -0.509 & 0.070 & 0.60 & [0.52; 0.69] & 0.141 & 92.7 \\
+Random effects (REML, Knapp-Hartung) & 34 & -0.509 & 0.071 & 0.60 & [0.52; 0.70] & 0.141 & 92.7 \\
+\midrule
+RE (REML) without Bendick et al. (1991) & 33 & -0.540 & 0.055 & 0.58 & [0.52; 0.65] & 0.076 & 87.5 \\
+RE (REML), subgroup level & 215 & -0.604 & 0.028 & 0.55 & [0.52; 0.58] & 0.093 & 68.2 \\
+\bottomrule
+\end{tabular}
+\par\smallskip\parbox{0.95\linewidth}{\footnotesize Effect size: log odds ratio of a call-back, minority vs.\ majority applicants; OR $<1$ means discrimination. FE, random effects (RE) and the $I^2$ of RE as in metafor; UWLS: OLS of $y_i/SE_i$ on $1/SE_i$ without constant, CI with $t_{k-1}$. UWLS and FE have the same estimate. For FE and UWLS, $I^2$ is $(Q-(k-1))/Q$. Original (Zschirnt \& Ruedin 2016, RE with REML): $\ln OR = -0.509$, OR $= 0.60$ [0.52; 0.69], $\hat\tau^2 = 0.141$, $I^2 = 92.7\%$.}
+\end{table}

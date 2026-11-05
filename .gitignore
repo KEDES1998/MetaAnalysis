@@ -1,6 +1,8 @@
-.venv/
+venv/
 .DS_Store
 *.pyc
 __pycache__/
 03_tmp/
 *.pdf
+# Plots fuer Overleaf trotz *.pdf mitversionieren
+!04_report/figures/*.pdf

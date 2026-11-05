@@ -1,0 +1,30 @@
+\begin{table}[htbp]
+\centering
+\small
+\caption{Random-effects meta-regression, REML with Knapp-Hartung (original studies)}
+\label{tab:metareg-re}
+\begin{tabular}{lrrrr}
+\toprule
+ & M1 & M2 & M3 & M4 \\
+\midrule
+Intercept (PET) & -0.293** & -0.135 & -0.150 & -0.024 \\
+ & (0.121) & (0.137) & (0.197) & (0.142) \\
+SE (FAT) & -1.599** & -1.163 & -1.221 & -1.452* \\
+ & (0.752) & (0.728) & (0.809) & (0.718) \\
+Europe &  & -0.408*** & -0.406** & -0.387*** \\
+ &  & (0.141) & (0.170) & (0.134) \\
+German-speaking country &  & 0.289* & 0.263 & 0.304* \\
+ &  & (0.168) & (0.270) & (0.160) \\
+High-skilled jobs &  &  & 0.040 &  \\
+ &  &  & (0.225) &  \\
+Low-skilled jobs &  &  & 0.031 &  \\
+ &  &  & (0.177) &  \\
+Testing year (decades, 0 = 2000) &  &  &  & -0.167* \\
+ &  &  &  & (0.082) \\
+\midrule
+$k$ & 34 & 34 & 30 & 34 \\
+$\hat\tau^2$ (residual) & 0.131 & 0.105 & 0.135 & 0.098 \\
+\bottomrule
+\end{tabular}
+\par\smallskip\parbox{0.95\linewidth}{\footnotesize Mixed-effects model as in the original supplement (S13), weights $1/(SE_i^2+\hat\tau^2)$. Dependent variable: $\ln OR$ of a call-back (minority vs.\ majority); negative = discrimination. The intercept is the effect for a study with $SE\to 0$ in the reference group (outside Europe; mixed skills; testing year 2000). * $p<0.1$, ** $p<0.05$, *** $p<0.01$.}
+\end{table}
