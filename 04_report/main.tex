@@ -1,0 +1,242 @@
+% =====================================================================
+% Group 4 -- Meta-Analysis Seminar (Prof. Rainer Winkelmann, UZH, HS 2026)
+% Report: Ethnic discrimination in hiring -- replication and update of
+%         Zschirnt & Ruedin (2016)
+%
+% Location in the repo: 04_report/main.tex
+% Tables and figures come from the Python code (02_code/run_all.py):
+%   04_report/tables/*.tex   04_report/figures/*.pdf
+% Every number in the text should come from a macro (\maORre etc.),
+% never typed by hand.
+% =====================================================================
+\documentclass[11pt,a4paper]{article}
+
+% ---------- packages ----------
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{lmodern}
+\usepackage[margin=2.5cm]{geometry}
+\usepackage{setspace}
+\onehalfspacing
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs,longtable,array}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage[authoryear,round]{natbib}
+\usepackage[hidelinks]{hyperref}
+
+% ---------- numbers from the code ----------
+\input{tables/macros_replication.tex}
+\input{tables/macros_power_bias.tex}
+% exists only after the update has been run with new studies:
+\IfFileExists{tables/macros_update.tex}{\input{tables/macros_update.tex}}{}
+
+% ---------- title page ----------
+\title{Ethnic Discrimination in Hiring:\\
+  A Replication and Update of Zschirnt and Ruedin (2016)}
+\author{Kevin de Silva \and Vanessa Allenspach\\[1em]
+  \small Group 4 -- MA Seminar ``Meta-Analysis'', Prof.\ Rainer Winkelmann\\
+  \small University of Zurich, Fall 2026}
+\date{13 November 2026}
+
+\begin{document}
+
+\begin{titlepage}
+  \maketitle
+  \thispagestyle{empty}
+\end{titlepage}
+
+\tableofcontents
+\newpage
+
+% =====================================================================
+\section{Introduction}
+% Vanessa -- ca. 1 page. DRAFT: rewrite in your own words.
+% =====================================================================
+
+Do job applicants with a foreign-sounding name get fewer invitations to a
+job interview than equally qualified applicants from the majority population?
+Unequal access to jobs is one of the most direct channels through which
+ethnic inequality can arise and persist in the labour market. Because
+employers rarely state discriminatory motives openly, it cannot be measured
+by simply asking them.
+
+Field experiments known as \emph{correspondence tests} address this problem.
+Researchers send fictitious but otherwise identical applications to real job
+vacancies and vary only the signal of ethnicity, usually the applicant's
+name. The difference in positive responses (\emph{callbacks}) between
+minority and majority applicants then measures discrimination at the first
+stage of hiring.
+
+Since 1990, dozens of such experiments have been conducted in many countries.
+\citet{zschirnt2016} combine them in a meta-analysis of \maK{} studies and
+find that minority applicants have substantially lower odds of a callback
+(odds ratio \maORre{} \maCIre).
+
+In this report we (i)~replicate the pooled estimate of \citet{zschirnt2016}
+with fixed-effect (FE), random-effects (RE) and unrestricted weighted least
+squares (UWLS) estimators, (ii)~update the meta-analysis with
+\IfFileExists{tables/macros_update.tex}{\maKnew}{four} more recent studies,
+(iii)~assess the statistical power of the literature, and (iv)~examine the
+evidence for publication bias. We conclude by asking whether the literature
+provides reliable evidence on the true size of ethnic discrimination in
+hiring.
+
+% =====================================================================
+\section{Research question and literature}
+% Vanessa -- ca. 1.5 pages (task 1: X, outcome, design, equation, dataset)
+% =====================================================================
+
+\paragraph{Treatment and outcome.}
+The treatment $X$ is the ethnic signal on an application: a name associated
+with an ethnic minority instead of a name associated with the majority
+population. The outcome $Y$ is a binary indicator for a positive employer
+response (a callback), usually an invitation to a job interview or a request
+for more information.
+
+\paragraph{Design.}
+In a correspondence test, researchers construct matched pairs (or sets) of
+written applications that are equivalent in education, work experience and
+other productive characteristics. The applications are sent to the same or
+comparable vacancies, and the minority signal is randomly assigned. Random
+assignment means that differences in callbacks can be attributed to the
+ethnic signal rather than to differences in qualifications.
+
+\paragraph{Typical estimating equation.}
+Individual studies usually estimate a linear probability model
+\begin{equation}
+  \text{Callback}_{ij} = \alpha + \beta\,\text{Minority}_i
+    + \gamma' X_{ij} + \varepsilon_{ij},
+\end{equation}
+where $\text{Callback}_{ij}$ indicates a positive response to application
+$i$ for vacancy $j$, $\text{Minority}_i$ is the treatment indicator and
+$X_{ij}$ contains control variables (for example occupation, region or
+applicant characteristics). The coefficient $\beta$ is the difference in
+callback rates between minority and majority applicants.
+
+\paragraph{Typical dataset.}
+A well-known example is \citet{bertrand2004}, who sent about 5{,}000
+fictitious r\'esum\'es with distinctively white or African-American names to
+job advertisements in Boston and Chicago.
+% TODO: 2-3 sentences on what they found (check the paper).
+
+\paragraph{Effect size used in the meta-analysis.}
+Following \citet{zschirnt2016}, we summarise each study by the odds ratio
+of a callback. With $a$ and $b$ the numbers of minority applications with
+and without a callback, and $c$ and $d$ the same for the majority,
+\begin{equation}
+  OR_i = \frac{a_i / b_i}{c_i / d_i}, \qquad
+  y_i = \ln OR_i, \qquad
+  SE_i = \sqrt{\frac{1}{a_i} + \frac{1}{b_i} + \frac{1}{c_i} + \frac{1}{d_i}}.
+\end{equation}
+An odds ratio of one means no discrimination; values below one mean that
+minority applicants are less likely to receive a callback.
+
+% =====================================================================
+\section{The original meta-analysis and data}
+% Vanessa -- ca. 1.5 pages
+% =====================================================================
+
+\citet{zschirnt2016} collect correspondence tests on ethnic discrimination
+in hiring in OECD countries conducted between 1990 and 2015. Their
+replication data (Harvard Dataverse) contain 43 studies with 738 subgroup
+comparisons. Only \maK{} of these studies, with \maKsub{} subgroups, report
+the four callback counts needed to compute an odds ratio; these form the
+basis of the pooled estimate.
+
+Using a random-effects model, the authors find a pooled odds ratio of
+\maORre{} \maCIre. In other words, minority applicants have about
+\maPctLowerOdds{}\,\% lower odds of a callback than equally qualified
+majority applicants.
+% TODO: 1-2 sentences on their moderator results (region, skill level,
+%       EU directives) -- check pp. 6-10 of the paper.
+
+We use the authors' replication data without changes. The studies cover
+North America, Australia and many European countries; the evidence table in
+Appendix~\ref{app:evidence} lists all studies with their effect sizes.
+
+% =====================================================================
+\section{Replication}
+% both -- task 2: FE, RE, UWLS; which CI is wider and why
+% =====================================================================
+
+\input{tables/replication.tex}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=\linewidth]{figures/forest_original.pdf}
+  \caption{Forest plot of the original studies}
+  \label{fig:forest-original}
+\end{figure}
+
+% TODO: FE and UWLS both give \maORfe; the UWLS CI \maCIuwls{} is about
+% \maSEratioUWLS{} times wider than the FE CI \maCIfe, because ...
+
+% =====================================================================
+\section{Update with new studies}
+% both -- task 3
+% =====================================================================
+
+\IfFileExists{tables/update_new_studies.tex}{\input{tables/update_new_studies.tex}}{}
+\IfFileExists{tables/update_pooled.tex}{\input{tables/update_pooled.tex}}{}
+\IfFileExists{figures/forest_combined.pdf}{%
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=\linewidth]{figures/forest_combined.pdf}
+  \caption{Forest plot with the new studies (red)}
+  \label{fig:forest-combined}
+\end{figure}}{}
+
+% TODO: describe the new studies (\citet{koopmans2019}, \citet{kline2022},
+%       \citet{zschirnt2019}, \citet{adamovic2023}); are they inside the CI
+%       \maCIre{} and the prediction interval \maPIre? How much does the
+%       pooled estimate change?
+
+% =====================================================================
+\section{Statistical power}
+% both -- task 4
+% =====================================================================
+
+\input{tables/power_bias_stats.tex}
+
+% TODO: median power \maMedPower; compare with \citet{askarov2024};
+%       why is low power a problem, why is our value an upper bound?
+
+% =====================================================================
+\section{Publication bias}
+% both -- task 5: funnel plot, FAT-PET, WAAP, ESS
+% =====================================================================
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.75\linewidth]{figures/funnel_original.pdf}
+  \caption{Funnel plot of the original studies}
+  \label{fig:funnel}
+\end{figure}
+
+\input{tables/pubbias_estimates.tex}
+
+% =====================================================================
+\section{Heterogeneity: meta-regression}
+% both
+% =====================================================================
+
+\input{tables/metareg_wls.tex}
+
+% =====================================================================
+\section{Conclusion}
+% both -- task 6: is there reliable evidence on the true effect size?
+% =====================================================================
+
+% TODO
+
+% =====================================================================
+\newpage
+\bibliographystyle{apalike}
+\bibliography{references}
+
+\appendix
+\section{Table of evidence}\label{app:evidence}
+\input{tables/evidence_table.tex}
+
+\end{document}
