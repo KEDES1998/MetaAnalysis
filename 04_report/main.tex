@@ -51,228 +51,253 @@
 
 % =====================================================================
 \section{Introduction}
-% Vanessa -- ca. 1 page
+% Vanessa
 % =====================================================================
 
-Do people with a foreign-sounding name have a harder time getting a job?
-Access to employment is one of the main ways in which ethnic inequality is
-created or reduced, because income, social contacts and further career steps
-all depend on getting a first job. At the same time, hiring discrimination is
-hard to measure. Employers rarely say that they reject applicants because of
-their origin, and differences in employment rates between groups can also
-reflect differences in education, experience or language skills.
+Access to employment is a central dimension of the integration of immigrants
+and their descendants. A job provides income, but it also shapes social
+networks, language acquisition and later career opportunities. Whether
+members of ethnic minorities are treated unequally when they apply for jobs
+is therefore a question of considerable economic and political relevance.
+It is, however, difficult to answer with observational data. Differences in
+employment outcomes between groups may reflect discrimination, but they may
+equally reflect differences in education, work experience or language
+proficiency that the researcher cannot fully observe. Employers, moreover,
+have little reason to report discriminatory practices in surveys.
 
-\emph{Correspondence tests} solve this problem with a field experiment.
-Researchers send fictitious but otherwise identical written applications to
-real job openings and change only the signal of ethnicity, usually the
-applicant's name. If minority applicants receive fewer positive responses
-(\emph{callbacks}) than majority applicants with the same qualifications, this
-difference can be attributed to discrimination at the first step of the
-hiring process.
+Correspondence tests address this identification problem experimentally.
+Researchers send fictitious written applications to real job vacancies. The
+applications are comparable in all productivity-relevant respects and differ
+only in a signal of ethnic origin, most often the applicant's name. Because
+the ethnic signal is assigned by the researcher, a lower rate of positive
+responses (\emph{callbacks}) for minority applicants can be interpreted as
+evidence of discrimination at the first stage of the hiring process.
 
-Since 1990, many such experiments have been carried out in Europe, North
-America and other OECD countries. \citet{zschirnt2016} combine them in a
-meta-analysis and conclude that ethnic discrimination in hiring is still
-widespread. Based on the authors' replication data, minority applicants have
-about \maPctLowerOdds{}\,\% lower odds of a callback than majority
-applicants (odds ratio \maORre{} \maCIre).
+Over the past three decades, a large number of such experiments have been
+conducted in Europe, North America and other OECD countries.
+\citet{zschirnt2016} synthesise this evidence for the period 1990--2015 and
+conclude that ethnic discrimination in hiring remains widespread. Based on
+their replication data, the odds of a callback are about
+\maPctLowerOdds{}\,\% lower for minority applicants than for comparable
+majority applicants (odds ratio \maORre{} \maCIre).
 
-In this report we replicate and extend their meta-analysis. First, we
-reproduce the pooled effect with fixed-effect (FE), random-effects (RE) and
-unrestricted weighted least squares (UWLS) estimators. Second, we update the
-data with \IfFileExists{tables/macros_update.tex}{\maKnew}{four} studies
-published after the original sample period. Third, we estimate the
-statistical power of the studies in this field. Fourth, we check for
-publication bias with a funnel plot, a meta-regression of the effect size on
-its standard error (FAT-PET), the weighted average of the adequately powered
-studies (WAAP) and a test for excess statistical significance (ESS). Finally,
-we ask whether the literature provides reliable evidence on the true size of
-ethnic discrimination in hiring.
+This report replicates and extends their analysis. We first reproduce the
+pooled estimate with fixed-effect (FE), random-effects (RE) and unrestricted
+weighted least squares (UWLS) estimators (Section~4). We then add
+\IfFileExists{tables/macros_update.tex}{\maKnew}{four} correspondence tests
+that were carried out after the original sample period and ask whether they
+are consistent with the earlier evidence (Section~5). Sections~6 and~7
+assess the statistical power of the literature and the extent of publication
+bias, using a funnel plot, a meta-regression of the effect size on its
+standard error (FAT-PET), the weighted average of adequately powered
+estimates (WAAP) and a test for excess statistical significance (ESS).
+Section~8 explores sources of heterogeneity between studies, and Section~9
+discusses whether the literature allows reliable conclusions about the true
+size of ethnic discrimination in hiring.
 
 % =====================================================================
 \section{Research question and literature}
-% Vanessa -- ca. 1.5 pages (task 1)
+% Vanessa (task 1)
 % =====================================================================
 
 \subsection{Why employers might discriminate}
 
-Economic theory offers two main explanations. In the model of
-\emph{taste-based discrimination} \citep{becker1957}, employers (or their
-customers or co-workers) dislike working with members of a certain group and
-are willing to give up profit to avoid them. In models of \emph{statistical
-discrimination} \citep{phelps1972,arrow1973}, employers have incomplete
-information about an applicant's productivity. They then use group
-membership as a signal and treat individuals according to what they believe
-about the average member of the group.
+The economic literature offers two main explanations for why employers might
+treat equally qualified applicants differently. In the model of
+\emph{taste-based discrimination} \citep{becker1957}, employers, or their
+employees and customers, have a distaste for interacting with members of
+certain groups and are prepared to forgo profits in order to avoid them.
+Models of \emph{statistical discrimination} \citep{phelps1972,arrow1973}
+start instead from imperfect information. Since an applicant's productivity
+cannot be observed directly, employers use group membership as a proxy and
+attribute to the individual the characteristics they believe to be typical
+of the group, regardless of whether these beliefs are accurate.
 
-Both mechanisms predict lower callback rates for minority applicants, but
-they differ in what should reduce discrimination. If discrimination is
-statistical, more information about the individual applicant (for example
-detailed references or local education) should narrow the gap. If it is
-taste-based, the gap should remain even when the applications are clearly
-equivalent. \citet{zschirnt2016} use this distinction to interpret their
-results, and several of the newer studies we add in Section~5 test it
-directly \citep[e.g.][]{koopmans2019}.
+In a single experiment, the two mechanisms are difficult to tell apart,
+since both imply lower callback rates for minority applicants. They do,
+however, have different implications for the role of information. If
+discrimination is statistical, more detailed information about the
+individual applicant should reduce the gap. If it is taste-based, the gap
+should persist even when the applications are unambiguously equivalent.
+\citet{zschirnt2016} draw on this distinction when interpreting their
+moderator analyses, and some of the more recent studies included in our
+update are designed explicitly to separate the two mechanisms
+\citep[e.g.][]{koopmans2019}.
 
 \subsection{Treatment, outcome and design}
 
-The \textbf{treatment} $X$ is the ethnic signal on an application: a name
-that is associated with an ethnic minority instead of a name associated with
-the majority population. The \textbf{outcome} $Y$ is a binary indicator for a
-positive response from the employer, usually an invitation to a job interview
-or a request for more information.
+The treatment $X$ is the ethnic signal contained in an application, that is,
+a name associated with an ethnic minority rather than with the majority
+population. The outcome $Y$ is a binary indicator of a positive employer
+response. Most studies define a callback as an invitation to a job
+interview, although some also count requests for further information.
 
-In a typical correspondence test, the researchers create two or more
-applications that are equivalent in education, work experience and other
-relevant characteristics. These are sent to the same job openings (paired
-design) or randomly assigned to different openings (unpaired design). Because
-the ethnic signal is assigned at random, differences in callbacks can be
-interpreted as a causal effect of the signal. The method measures
-discrimination only at the first step of hiring, before any interview takes
-place. According to \citet{riach2002}, however, this first step accounts for
-a large part of the discrimination that applicants experience.
+Correspondence tests follow one of two designs. In a paired design, two or
+more matched applications, typically one from a majority and one from a
+minority candidate, are sent to the same vacancy, with the order of
+submission and the allocation of CV templates randomised. In an unpaired
+design, each vacancy receives a single application whose ethnic signal is
+randomly assigned. In both cases, randomisation ensures that differences in
+callback rates can be attributed to the ethnic signal rather than to
+differences in applicant quality. An important limitation is that the method
+only captures the first stage of the recruitment process. \citet{riach2002}
+argue, however, that a large share of discrimination occurs precisely at
+this stage.
 
 \subsection{Typical estimating equation}
 
-Individual studies usually estimate a linear probability model
+Individual studies typically estimate a linear probability model of the form
 \begin{equation}
   \text{Callback}_{ij} = \alpha + \beta\,\text{Minority}_i
     + \gamma' X_{ij} + \varepsilon_{ij},
 \end{equation}
-where $\text{Callback}_{ij}$ equals one if application $i$ to job opening $j$
-receives a positive response, $\text{Minority}_i$ is the treatment indicator
-and $X_{ij}$ contains control variables such as occupation, region or other
-applicant characteristics. The coefficient $\beta$ is the difference in
-callback rates between minority and majority applicants. Many studies also
-report the raw callback rates per group or the ratio of the two rates.
+where $\text{Callback}_{ij}$ equals one if application $i$ sent to vacancy
+$j$ receives a positive response, $\text{Minority}_i$ indicates the ethnic
+signal and $X_{ij}$ is a vector of controls such as occupation, region or CV
+characteristics. Under random assignment, $\beta$ identifies the average
+difference in callback probabilities between minority and majority
+applicants; the controls mainly serve to increase precision. Most studies
+also report the raw callback rates for each group, which is the information
+we use to construct comparable effect sizes.
 
 \subsection{A typical dataset}
 
-A well-known example is \citet{bertrand2004}. They sent about 5{,}000
-fictitious r\'esum\'es to more than 1{,}300 job advertisements in Boston and
-Chicago and randomly assigned names that sound typically white (e.g.\ Emily,
-Greg) or typically African-American (e.g.\ Lakisha, Jamal). Applications with
-white names received about 50\,\% more callbacks (9.7\,\% versus 6.5\,\%).
-Better r\'esum\'es increased callbacks much more for white names than for
-African-American names. The dataset is typical for the field: one row per
-application, a binary callback outcome, the randomised name and a set of
-r\'esum\'e characteristics.
+A frequently cited example is \citet{bertrand2004}, who responded to more
+than 1{,}300 job advertisements in Boston and Chicago with about 5{,}000
+fictitious CVs. Each CV was randomly assigned either a distinctively white
+name (e.g.\ Emily or Greg) or a distinctively African-American name (e.g.\
+Lakisha or Jamal). Applications with white names received callbacks in
+9.7\,\% of cases, compared with 6.5\,\% for applications with
+African-American names, a relative difference of about 50\,\%. An
+improvement in CV quality raised the callback rate considerably for white
+names but much less for African-American names. The structure of the data is
+typical of the field: one observation per application, a binary callback
+outcome, the randomised ethnic signal and a set of CV characteristics.
 
 \subsection{Effect size used in the meta-analysis}
 
-Following \citet{zschirnt2016}, we summarise each study by the odds ratio
-of a callback. Let $a$ and $b$ be the numbers of minority applications with
-and without a callback, and $c$ and $d$ the same numbers for the majority.
-Then
+Since studies differ in their baseline callback rates and in the way they
+report results, a common effect size is required. Following
+\citet{zschirnt2016}, we use the odds ratio of a callback. Let $a$ and $b$
+denote the numbers of minority applications with and without a callback, and
+$c$ and $d$ the corresponding numbers for majority applicants. Then
 \begin{equation}
   OR_i = \frac{a_i / b_i}{c_i / d_i}, \qquad
   y_i = \ln OR_i, \qquad
   SE_i = \sqrt{\frac{1}{a_i} + \frac{1}{b_i} + \frac{1}{c_i} + \frac{1}{d_i}}.
 \end{equation}
-An odds ratio of one means equal treatment. Values below one mean that
-minority applicants are less likely to be called back. All pooling is done
-with $y_i = \ln OR_i$ and its standard error $SE_i$; results are transformed
-back to odds ratios for presentation.
+An odds ratio of one indicates equal treatment, while values below one
+indicate that minority applicants are less likely to receive a callback. All
+estimations are carried out on the log scale, where the sampling
+distribution is approximately normal, and the results are transformed back
+into odds ratios for presentation.
 
 \subsection{Related meta-analyses}
 
-Zschirnt and Ruedin are not the only authors who have summarised this
-literature. \citet{quillian2017} collect all field experiments on hiring
-discrimination in the United States since 1989. They find that white
-applicants receive on average 36\,\% more callbacks than African-American
-applicants and 24\,\% more than Latino applicants, and that discrimination
-against African Americans has not decreased over 25 years.
-\citet{heath2019} reach a similar conclusion for Great Britain: racial
-discrimination in hiring has remained high since the first experiments in
-the late 1960s.
+\citet{zschirnt2016} is part of a broader body of meta-analytic work on
+hiring discrimination. For the United States, \citet{quillian2017} combine
+all available field experiments since 1989. They find that white applicants
+receive on average 36\,\% more callbacks than African Americans and 24\,\%
+more than Latinos, with no decline in discrimination against African
+Americans over the 25-year period. \citet{heath2019} reach a similar
+conclusion for Great Britain, where racial discrimination in hiring has
+remained high since the first experiments in the late 1960s.
 
-Other meta-analyses compare countries. \citet{quillian2019} pool 97 field
-experiments from nine countries in Europe and North America and find large
-differences in the level of discrimination between countries, with France
-and Sweden among the countries with the highest levels. The most
-comprehensive recent review is \citet{lippens2023}, who collect almost all
-correspondence experiments conducted between 2005 and 2020. They confirm
-that ethnic minorities still receive clearly fewer positive responses than
-majority applicants, and they show that discrimination also exists along
-other dimensions such as age, disability and appearance.
+Cross-national comparisons point to substantial differences between
+countries. Pooling 97 field experiments from nine countries in Europe and
+North America, \citet{quillian2019} find the highest levels of
+discrimination in France and Sweden. The most comprehensive recent synthesis
+is provided by \citet{lippens2023}, who cover nearly all correspondence
+experiments conducted between 2005 and 2020. They confirm that ethnic
+minorities continue to receive considerably fewer positive responses, and
+they document discrimination along further dimensions such as age,
+disability and physical appearance.
+% CHECK: verify the 36% / 24% and the France/Sweden ranking in the abstracts.
 
-Taken together, these studies show that the main result of
-\citet{zschirnt2016} is not specific to their sample: across countries,
-time periods and research teams, minority applicants receive fewer
-callbacks. At the same time, all meta-analyses report strong heterogeneity
-between studies, which is one reason why we look at prediction intervals,
-moderators and publication bias in the following sections.
+The main finding of \citet{zschirnt2016} thus appears robust across
+countries, time periods and research teams. At the same time, all of these
+meta-analyses report considerable heterogeneity between studies. This is the
+reason why we pay particular attention to prediction intervals, moderators
+and publication bias in the following sections.
 
 % =====================================================================
 \section{The original meta-analysis and data}
-% Vanessa -- ca. 1.5 pages
+% Vanessa
 % =====================================================================
 
 \subsection{Scope and inclusion criteria}
 
-\citet{zschirnt2016} collect correspondence tests on ethnic and racial
-discrimination in hiring that were carried out in OECD countries between
-1990 and 2015. They include only written applications; studies in which
-actors appear in person (audit studies) are excluded. Studies had to be
-published in English, French, German or Dutch. The authors searched Web of
-Knowledge and Google Scholar with keywords such as ``correspondence test''
-and ``discrimination AND field experiment'' and checked the reference lists
-of earlier reviews \citep{riach2002} and of the included studies.
+\citet{zschirnt2016} include correspondence tests of ethnic and racial
+discrimination in hiring that were conducted in OECD countries between 1990
+and 2015. Only studies based on written applications are considered. Audit
+studies, in which trained actors attend interviews in person, are excluded,
+as are unsolicited applications. The search is restricted to publications in
+English, French, German and Dutch. Studies were identified through Web of
+Knowledge and Google Scholar, using search terms such as ``correspondence
+test'' and ``discrimination AND field experiment'', and by screening the
+reference lists of earlier reviews \citep{riach2002} and of the retrieved
+studies.
 
 \subsection{Data}
 
-The final dataset contains 43 studies from 18 countries, covering more than
-20 minority groups. Most studies come from the European Union (26), followed
-by North America (12). Because many studies test several groups,
-occupations or regions, the data contain 738 subgroup comparisons. To
-compute an odds ratio, the number of applications and callbacks must be known
-for both groups. This is the case for \maK{} studies with \maKsub{}
-subgroups; these form the basis of the pooled estimate and of our
-replication. The remaining 9 studies only report relative callback rates and
-are listed separately in the appendix.
+The resulting dataset comprises 43 studies from 18 countries, covering more
+than 20 minority groups. Most studies were conducted in member states of the
+European Union (26), followed by North America (12). As many studies test
+several minority groups, occupations or regions, the data contain 738
+subgroup comparisons in total. An odds ratio can only be computed if the
+numbers of applications and callbacks are reported for both groups. This
+information is available for \maK{} studies, comprising \maKsub{} subgroups,
+which form the basis of the original pooled estimate and of our replication.
+The remaining nine studies report only relative callback rates and are listed
+separately in the appendix.
 
 \subsection{Main results}
 
-The authors pool the study-level log odds ratios with a random-effects
-model. Using their replication data and script, the pooled odds ratio is
-\maORre{} \maCIre, with very large heterogeneity between studies
-($I^2 = \maIsqRe\,\%$). Minority applicants therefore have about
-\maPctLowerOdds{}\,\% lower odds of receiving a callback. Expressed as a
-ratio of callback rates, they need to send roughly 50\,\% more applications
-to receive the same number of positive responses as majority applicants.
+Using a random-effects model on the study-level log odds ratios, the
+authors' replication script yields a pooled odds ratio of \maORre{} \maCIre.
+Minority applicants thus have about \maPctLowerOdds{}\,\% lower odds of
+receiving a callback than comparable majority applicants. Expressed as a
+ratio of callback rates, this means that minority applicants have to send
+roughly 50\,\% more applications to obtain the same number of positive
+responses. Heterogeneity between studies is very large
+($I^2 = \maIsqRe\,\%$), so the pooled estimate should be read as an average
+over quite different labour markets and minority groups rather than as a
+single common effect.
 % CHECK: the published text (pp. 7--8) seems to report 0.51 at the study
 % level and 0.60 at the subgroup level; the replication script gives 0.60
 % at the study level. Confirm with the PDF and Kevin, then keep or adjust
 % the next sentence.
-The published article reports a somewhat different study-level value
-(0.51); we follow the authors' replication script, which we reproduce
-exactly (Section~4).
+The published article reports a somewhat lower study-level estimate (0.51).
+We follow the authors' replication script, whose results we reproduce
+exactly in Section~4.
 
-The authors also compare subgroups. Discrimination is lower in the
-German-speaking countries, where applications usually include detailed
-documents such as certificates and references. They interpret this as
-support for statistical discrimination: more information about the applicant
-reduces the gap. Callback ratios are higher after 2000 than before, but the
-authors attribute this to changes in the composition of studies rather than
-to the EU anti-discrimination directives. There is no significant difference
-between men and women and no clear difference between first- and
-second-generation migrants. Groups from the Middle East and North Africa face
-the largest gaps. The authors find no systematic link with the economic
-situation (unemployment or GDP growth) at the time of testing. They conclude
-that ethnic discrimination in hiring was still common across OECD countries
-over the whole period from 1990 to 2015.
+The moderator analyses yield several further results. Discrimination is
+lower in German-speaking countries, where applications usually include
+extensive documentation such as certificates and references. The authors
+interpret this as consistent with statistical discrimination, since more
+information about the applicant appears to narrow the gap. Callback ratios
+are higher in studies conducted after 2000, but the authors attribute this to
+changes in the composition of studies rather than to the EU
+anti-discrimination directives. There is no significant difference between
+male and female applicants and no clear difference between first- and
+second-generation migrants. Applicants of Middle Eastern and North African
+origin face the largest disadvantages. Finally, the authors find no
+systematic relationship between discrimination and the economic situation
+(unemployment rate or GDP growth) at the time of testing. They conclude that
+ethnic discrimination in hiring remained widespread across OECD countries
+throughout the period 1990--2015.
 
 \subsection{Limitations noted by the authors}
 
-The authors point out several limitations. Names are only an imperfect
-signal of ethnicity and may also signal religion or social class. Only the
-first step of the hiring process is observed, and only occupations in which
-written applications are common are covered. Studies report their results in
-different ways, so not all of them can be used for the pooled odds ratio.
-Finally, the minority groups tested are not a random sample of all groups,
-which may lead to an overestimate of average discrimination. Publication bias
-is discussed only briefly in their supplementary material. We address it in
-Section~7.
+The authors acknowledge several limitations. Names are an imperfect signal of
+ethnicity and may also convey information about religion or social class.
+The method captures only the first stage of the hiring process and is
+restricted to occupations in which written applications are common. Because
+studies report their results in different ways, not all of them can be
+included in the pooled odds ratio. Moreover, the minority groups examined are
+not a random sample of all groups, which may lead to an overestimation of
+average discrimination. Publication bias is discussed only briefly in the
+supplementary material; we return to this issue in Section~7.
 
 % =====================================================================
 \section{Replication}
