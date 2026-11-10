@@ -521,10 +521,50 @@ suggests, but that all corrected estimates remain below one.
 
 % =====================================================================
 \section{Heterogeneity: meta-regression}
-% both
+% The coefficients quoted in the text are typed in from
+% Table~\ref{tab:metareg-wls}; update them by hand if the studies change.
 % =====================================================================
 
+The pooled estimates hide very large differences between studies. To examine
+whether observable study characteristics account for some of them, we extend
+the meta-regression of Section~7 with moderators $Z_i$:
+\begin{equation}
+  y_i = \beta_0 + \beta_1\, SE_i + \gamma' Z_i + \varepsilon_i .
+\end{equation}
+All models are estimated by WLS with weights $1/SE_i^2$ on the combined
+sample and include the standard error, so that they control for small-study
+effects at the same time. With \maKcomb{} observations, we keep the
+specifications deliberately small (Table~\ref{tab:metareg-wls}).
+
 \input{tables/metareg_wls.tex}
+
+The most robust result concerns region. Studies conducted in Europe report
+stronger discrimination than studies conducted elsewhere, which are mostly
+from North America. The coefficient in model M2 is $-0.28$ (SE 0.13), which
+corresponds to an odds ratio that is about 25\,\% lower. For German-speaking
+countries the coefficient is positive ($0.20$, SE 0.15). This is in line
+with the finding of \citet{zschirnt2016} that discrimination is lower where
+applications contain more information, but the coefficient is not
+statistically significant.
+
+Once region is controlled for, the coefficient on the standard error falls
+from $-3.16$ in M1 to $-1.91$ (SE 1.04) in M2. Part of the funnel asymmetry
+documented in Section~7 therefore reflects the composition of the sample:
+small studies are more often European, and European studies find more
+discrimination. This supports a cautious reading of the publication-bias
+results.
+
+The remaining moderators add little. The skill level of the advertised jobs
+is not significantly related to the effect size (M3; only 30 studies report
+this information). There is no time trend: the coefficient on the decade of
+testing is $-0.01$ (SE 0.08) in M4. Finally, an indicator for the
+\maKnew{} new studies is small and insignificant ($0.04$, SE 0.13) in M5.
+Conditional on region and precision, the new studies do not differ
+systematically from the original ones.
+
+These results should be interpreted with care. The number of studies is
+small, the moderators are correlated with each other, and a large part of
+the heterogeneity remains unexplained.
 
 % =====================================================================
 \section{Conclusion}
