@@ -349,23 +349,72 @@ studies gives \maORsub{} \maCIsub.
 
 % =====================================================================
 \section{Update with new studies}
-% both -- task 3
+% task 3: at least two newer studies; in the CI? does the estimate change?
+% Numbers not coming from macros (0.74, 18 %, weight shares, application
+% counts) are taken from Tables~\ref{tab:update-new} and
+% \ref{tab:update-pooled}; update them by hand if the studies change.
 % =====================================================================
 
-\IfFileExists{tables/update_new_studies.tex}{\input{tables/update_new_studies.tex}}{}
-\IfFileExists{tables/update_pooled.tex}{\input{tables/update_pooled.tex}}{}
-\IfFileExists{figures/forest_combined.pdf}{%
+We add \maKnew{} correspondence tests that were carried out after the
+original sample period. Each satisfies the inclusion criteria of
+\citet{zschirnt2016}: written applications, an ethnic minority compared with
+the majority population, an OECD country, and sufficient information to
+compute an odds ratio. As in the original, we use one estimate per study and
+pool all minority groups. Together, the new studies comprise about 102{,}900
+applications, more than the \maK{} original studies combined (about
+84{,}000).
+
+\citet{koopmans2019} test applicants from 34 origin groups for vocational
+jobs in Germany. \citet{kline2022} send about 84{,}000 applications with
+distinctively Black or white names to entry-level jobs at large US
+employers. \citet{zschirnt2019} compare Swiss citizens of Kosovar, Turkish
+and German or French origin with applicants of Swiss origin; this study is
+co-authored by one of the authors of the original meta-analysis but is an
+independent experiment conducted after its sample period.
+\citet{adamovic2023} test five minority groups in Australia for leadership
+and non-leadership positions.
+
+\input{tables/update_new_studies.tex}
+
+Table~\ref{tab:update-new} compares the new estimates with the original
+pooled estimate. None of the \maKnew{} odds ratios lies inside its
+confidence interval \maCIre. Two are close: the intervals of
+\citet{koopmans2019} and \citet{zschirnt2019} overlap with it.
+\citet{kline2022} find clearly less discrimination (\maORnewMax) and
+\citet{adamovic2023} clearly more (\maORnewMin). This is not surprising. The
+confidence interval describes the uncertainty about the mean effect, not the
+range in which individual studies fall, and with $I^2$ above 90\,\% single
+studies are expected to lie outside it. The appropriate benchmark is the
+prediction interval \maPIre, and all \maKnew{} estimates lie inside it.
+
+\input{tables/update_pooled.tex}
+
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=\linewidth]{figures/forest_combined.pdf}
-  \caption{Forest plot with the new studies (red)}
+  \caption{Forest plot of the original studies (black) and the new studies (red)}
   \label{fig:forest-combined}
-\end{figure}}{}
+\end{figure}
 
-% TODO: describe the new studies (\citet{koopmans2019}, \citet{kline2022},
-%       \citet{zschirnt2019}, \citet{adamovic2023}); are they inside the CI
-%       \maCIre{} and the prediction interval \maPIre? How much does the
-%       pooled estimate change?
+Whether the pooled estimate changes depends on the estimator
+(Table~\ref{tab:update-pooled}, Figure~\ref{fig:forest-combined}). The RE
+estimate is almost unchanged: it moves from \maORre{} \maCIre{} to
+\maORcomb{} \maCIcomb. The FE and UWLS estimates, in contrast, rise from
+\maORfe{} to 0.74, an increase of about 18\,\%. The reason is the weighting.
+\citet{kline2022} is by far the most precise study and receives about half
+of the total FE weight in the combined sample, but only about 3\,\% under
+RE, where the between-study variance dominates the weights. After the
+update, the FE and UWLS results are therefore largely driven by a single
+study.
+
+Three caveats apply. For \citet{koopmans2019}, \citet{kline2022} and
+\citet{adamovic2023}, the callback counts are reconstructed from reported
+rates and group sizes, which introduces rounding error. In
+\citet{koopmans2019}, the minority group includes applicants of Western
+origin, which moves the odds ratio towards one. Finally, our standard errors
+treat applications as independent and ignore that several applications were
+sent to the same employer. They are therefore somewhat too small, in
+particular for \citet{kline2022}.
 
 % =====================================================================
 \section{Statistical power}
