@@ -212,7 +212,7 @@ experiments conducted between 2005 and 2020. They confirm that ethnic
 minorities continue to receive considerably fewer positive responses, and
 they document discrimination along further dimensions such as age,
 disability and physical appearance.
-% CHECK: verify the 36% / 24% and the France/Sweden ranking in the abstracts.
+% VA: doublecheck: verify the 36% / 24% and the France/Sweden ranking in the abstracts.
 
 The main finding of \citet{zschirnt2016} thus appears robust across
 countries, time periods and research teams. At the same time, all of these
@@ -263,7 +263,7 @@ responses. Heterogeneity between studies is very large
 ($I^2 = \maIsqRe\,\%$), so the pooled estimate should be read as an average
 over quite different labour markets and minority groups rather than as a
 single common effect.
-% CHECK: the published text (pp. 7--8) seems to report 0.51 at the study
+% van2026: doublecheck: the published text (pp. 7--8) seems to report 0.51 at the study
 % level and 0.60 at the subgroup level; the replication script gives 0.60
 % at the study level. Confirm with the PDF and Kevin, then keep or adjust
 % the next sentence.
@@ -301,10 +301,39 @@ supplementary material; we return to this issue in Section~7.
 
 % =====================================================================
 \section{Replication}
-% both -- task 2: FE, RE, UWLS; which CI is wider and why
+% task 2: FE, RE, UWLS; which CI is wider and why
 % =====================================================================
 
+We first reproduce the study-level estimate of \citet{zschirnt2016}. From
+the authors' replication file we compute the log odds ratio and its standard
+error for the \maK{} studies that report callback counts. All \maK{} odds
+ratios agree with the published forest plot to two decimals
+(Figure~\ref{fig:forest-original}). A random-effects model estimated by
+REML, as in the original analysis, gives a pooled log odds ratio of
+$\maLnORre$ (SE \maSEre), that is, an odds ratio of \maORre{} \maCIre, with
+$\hat\tau^2 = \maTauSqRe$ and $I^2 = \maIsqRe\,\%$. These values are
+identical to the output of the authors' script, so the replication is exact.
+Other estimators of $\tau^2$ (DerSimonian--Laird, Paule--Mandel) and the
+Knapp--Hartung adjustment change the result only in the second decimal
+(Table~\ref{tab:replication}).
+
 \input{tables/replication.tex}
+
+Table~\ref{tab:replication} also reports the fixed-effect (FE) and UWLS
+estimates. Both give the same point estimate, an odds ratio of \maORfe. This
+is expected: UWLS is a weighted least squares regression of the effect size
+on a constant with weights $1/SE_i^2$, which reproduces the FE average. The
+confidence intervals differ, however. The FE interval is \maCIfe, the UWLS
+interval \maCIuwls, and the UWLS standard error is \maSEratioUWLS{} times
+larger. FE assumes that all studies estimate one common effect, so its
+standard error depends only on the sampling variances. UWLS estimates the
+residual variance from the data, which multiplies the FE standard error by
+$\sqrt{Q/(k-1)}$, with $Q = \maQ$ and $k = \maK$. Because $Q$ is about ten
+times its degrees of freedom, the studies differ far more than sampling
+error alone can explain, and the FE interval is too narrow. The RE estimate
+is slightly lower (\maORre) because it gives relatively more weight to small
+studies, which tend to report stronger discrimination, and it has the widest
+interval.
 
 \begin{figure}[htbp]
   \centering
@@ -313,8 +342,15 @@ supplementary material; we return to this issue in Section~7.
   \label{fig:forest-original}
 \end{figure}
 
-% TODO: FE and UWLS both give \maORfe; the UWLS CI \maCIuwls{} is about
-% \maSEratioUWLS{} times wider than the FE CI \maCIfe, because ...
+The large heterogeneity matters for interpretation. The 95\,\% prediction
+interval of the RE model is \maPIre: a new study from the same population
+of studies could plausibly find anything from very strong discrimination to
+none. The pooled estimate is robust to two checks. Excluding Bendick et
+al.\ (1991), the only study with an odds ratio above one (2.45; the Latino
+applicants in that study had better qualifications), gives
+\maORreNoBendick{} \maCIreNoBendick{} and roughly halves $\hat\tau^2$.
+Estimating the model on the \maKsub{} subgroups instead of the \maK{}
+studies gives \maORsub{} \maCIsub.
 
 % =====================================================================
 \section{Update with new studies}
@@ -343,6 +379,13 @@ supplementary material; we return to this issue in Section~7.
 
 \input{tables/power_bias_stats.tex}
 
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.75\linewidth]{figures/power_combined.pdf}
+  \caption{Ex-post power, original and new studies}
+  \label{fig:power}
+\end{figure}
+
 % TODO: median power \maMedPower; compare with \citet{askarov2024};
 %       why is low power a problem, why is our value an upper bound?
 
@@ -353,8 +396,8 @@ supplementary material; we return to this issue in Section~7.
 
 \begin{figure}[htbp]
   \centering
-  \includegraphics[width=0.75\linewidth]{figures/funnel_original.pdf}
-  \caption{Funnel plot of the original studies}
+  \includegraphics[width=0.75\linewidth]{figures/funnel_combined.pdf}
+  \caption{Funnel plot, original and new studies}
   \label{fig:funnel}
 \end{figure}
 
