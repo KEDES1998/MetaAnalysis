@@ -3,21 +3,21 @@
 \small
 \caption{Statistical power and publication bias}
 \label{tab:power-bias}
-\begin{tabular}{lrr}
+\begin{tabular}{lrrr}
 \toprule
- & Original & Original without Bendick (1991) \\
+ & Original & Original without Bendick (1991) & Original + new studies \\
 \midrule
-$k$ & 34 & 33 \\
-Median power & 0.97 & 0.99 \\
-Mean power & 0.83 & 0.84 \\
-Adequately powered ($q_i \geq 0.8$) & 24 (71\%) & 24 (73\%) \\
-FAT: $\hat\beta_1$ (SE) & -1.05 (1.29) & -1.61 (1.09) \\
-FAT: $t$ & -0.81 & -1.48 \\
-Significant estimates (share) & 27 (0.79) & 26 (0.79) \\
-Expected share significant & 0.83 & 0.84 \\
-ESS = observed $-$ expected & -0.03 & -0.05 \\
-Expected share significant (with $\hat\tau^2$) & 0.70 & 0.73 \\
-ESS (with $\hat\tau^2$) & +0.10 & +0.06 \\
+$k$ & 34 & 33 & 38 \\
+Median power & 0.97 & 0.99 & 0.82 \\
+Mean power & 0.83 & 0.84 & 0.68 \\
+Adequately powered ($q_i \geq 0.8$) & 24 (71\%) & 24 (73\%) & 19 (50\%) \\
+FAT: $\hat\beta_1$ (SE) & -1.05 (1.29) & -1.61 (1.09) & -3.16 (0.86) \\
+FAT: $t$ & -0.81 & -1.48 & -3.67 \\
+Significant estimates (share) & 27 (0.79) & 26 (0.79) & 31 (0.82) \\
+Expected share significant & 0.83 & 0.84 & 0.68 \\
+ESS = observed $-$ expected & -0.03 & -0.05 & +0.14 \\
+Expected share significant (with $\hat\tau^2$) & 0.70 & 0.73 & 0.62 \\
+ESS (with $\hat\tau^2$) & +0.10 & +0.06 & +0.19 \\
 \bottomrule
 \end{tabular}
 \par\smallskip\parbox{0.95\linewidth}{\footnotesize Power of each study at the UWLS estimate: $q_i = \Phi(|\hat\mu|/SE_i - 1.96)$. FAT: slope of the WLS regression of $\ln OR$ on its SE; with discrimination ($\ln OR<0$) selection for significance implies $\beta_1<0$. ESS: observed minus expected share of significant estimates ($|y_i/SE_i|>1.96$); the expected share uses the UWLS estimate as true effect, in the last two rows the true effects vary with $\hat\tau^2$ (REML).}

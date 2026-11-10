@@ -1,29 +1,31 @@
 \begin{table}[htbp]
 \centering
 \small
-\caption{WLS meta-regression: publication bias and heterogeneity (original studies)}
+\caption{WLS meta-regression: publication bias and heterogeneity (original + new studies)}
 \label{tab:metareg-wls}
-\begin{tabular}{lrrrr}
+\begin{tabular}{lrrrrr}
 \toprule
- & M1 & M2 & M3 & M4 \\
+ & M1 & M2 & M3 & M4 & M5 \\
 \midrule
-Intercept (PET) & -0.364** & -0.297** & -0.230 & -0.232 \\
- & (0.135) & (0.138) & (0.197) & (0.169) \\
-SE (FAT) & -1.050 & -0.447 & -0.158 & -0.709 \\
- & (1.294) & (1.250) & (1.371) & (1.321) \\
-Europe &  & -0.285** & -0.287* & -0.283** \\
- &  & (0.123) & (0.161) & (0.125) \\
-German-speaking country &  & 0.226 & 0.195 & 0.221 \\
- &  & (0.144) & (0.208) & (0.145) \\
-High-skilled jobs &  &  & -0.108 &  \\
- &  &  & (0.182) &  \\
-Low-skilled jobs &  &  & -0.172 &  \\
- &  &  & (0.155) &  \\
-Testing year (decades, 0 = 2000) &  &  &  & -0.058 \\
- &  &  &  & (0.087) \\
+Intercept (PET) & -0.135** & -0.143** & -0.230 & -0.116 & -0.187 \\
+ & (0.061) & (0.059) & (0.197) & (0.174) & (0.138) \\
+SE (FAT) & -3.157*** & -1.914* & -0.158 & -2.051 & -1.636 \\
+ & (0.861) & (1.039) & (1.371) & (1.336) & (1.319) \\
+Europe &  & -0.284** & -0.287* & -0.288** & -0.270* \\
+ &  & (0.131) & (0.161) & (0.134) & (0.139) \\
+German-speaking country &  & 0.203 & 0.195 & 0.203 & 0.194 \\
+ &  & (0.146) & (0.208) & (0.148) & (0.150) \\
+High-skilled jobs &  &  & -0.108 &  &  \\
+ &  &  & (0.182) &  &  \\
+Low-skilled jobs &  &  & -0.172 &  &  \\
+ &  &  & (0.155) &  &  \\
+Testing year (decades, 0 = 2000) &  &  &  & -0.013 &  \\
+ &  &  &  & (0.079) &  \\
+New study (update) &  &  &  &  & 0.044 \\
+ &  &  &  &  & (0.126) \\
 \midrule
-$k$ & 34 & 34 & 30 & 34 \\
-Residual SE & 3.17 & 3.00 & 3.16 & 3.03 \\
+$k$ & 38 & 38 & 30 & 38 & 38 \\
+Residual SE & 3.54 & 3.41 & 3.16 & 3.46 & 3.46 \\
 \bottomrule
 \end{tabular}
 \par\smallskip\parbox{0.95\linewidth}{\footnotesize WLS with weights $1/SE_i^2$ and multiplicative error (as UWLS), $t$-based standard errors. Dependent variable: $\ln OR$ of a call-back (minority vs.\ majority); negative = discrimination. The intercept is the effect for a study with $SE\to 0$ in the reference group (outside Europe; mixed skills; testing year 2000). * $p<0.1$, ** $p<0.05$, *** $p<0.01$.}

@@ -3,17 +3,17 @@
 \small
 \caption{Pooled odds ratios with and without correction for publication bias}
 \label{tab:pubbias-estimates}
-\begin{tabular}{lrr}
+\begin{tabular}{lrrr}
 \toprule
-Estimator & Original & Original without Bendick (1991) \\
+Estimator & Original & Original without Bendick (1991) & Original + new studies \\
 \midrule
-Fixed effect (FE) & 0.63 [0.61; 0.65] & 0.62 [0.59; 0.64] \\
-UWLS & 0.63 [0.56; 0.71] & 0.62 [0.56; 0.68] \\
-Random effects (REML) & 0.60 [0.52; 0.69] & 0.58 [0.52; 0.65] \\
-WAAP & 0.64 [0.55; 0.73] & 0.62 [0.55; 0.70] \\
-PET & 0.69 [0.53; 0.91] & 0.72 [0.57; 0.90] \\
-PEESE & 0.65 [0.57; 0.74] & 0.64 [0.57; 0.71] \\
-Adequately powered studies & 24 of 34 & 24 of 33 \\
+Fixed effect (FE) & 0.63 [0.61; 0.65] & 0.62 [0.59; 0.64] & 0.74 [0.72; 0.76] \\
+UWLS & 0.63 [0.56; 0.71] & 0.62 [0.56; 0.68] & 0.74 [0.67; 0.81] \\
+Random effects (REML) & 0.60 [0.52; 0.69] & 0.58 [0.52; 0.65] & 0.61 [0.54; 0.69] \\
+WAAP & 0.64 [0.55; 0.73] & 0.62 [0.55; 0.70] & 0.76 [0.67; 0.85] \\
+PET & 0.69 [0.53; 0.91] & 0.72 [0.57; 0.90] & 0.87 [0.77; 0.99] \\
+PEESE & 0.65 [0.57; 0.74] & 0.64 [0.57; 0.71] & 0.77 [0.70; 0.84] \\
+Adequately powered studies & 24 of 34 & 24 of 33 & 19 of 38 \\
 \bottomrule
 \end{tabular}
 \par\smallskip\parbox{0.95\linewidth}{\footnotesize OR [95\% CI]. WAAP: UWLS over the studies with power $\geq 80\%$ at the UWLS estimate ($SE_i \leq |\hat\mu_{UWLS}|/2.8$). PET: intercept of the WLS regression $y_i = \beta_0 + \beta_1 SE_i + \varepsilon_i$ (weights $1/SE_i^2$), i.e.\ the effect of a study with $SE \to 0$. PEESE: the same with $SE_i^2$.}
