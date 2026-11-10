@@ -435,8 +435,27 @@ particular for \citet{kline2022}.
 
 % =====================================================================
 \section{Publication bias}
-% both -- task 5: funnel plot, FAT-PET, WAAP, ESS
+% task 5: funnel plot, WAAP, ESS, meta-regression of the effect on SE
+% The UWLS odds ratio of the combined sample (0.74) is typed in by hand,
+% see Table~\ref{tab:pubbias-estimates}.
 % =====================================================================
+
+Publication bias arises when the probability that a result is published
+depends on its size or statistical significance. In this literature the
+concern is that studies which find clear discrimination are more likely to
+be written up and published than studies which find little or none. We
+assess this with four methods, using the combined sample of \maKcomb{}
+studies and reporting the original sample for comparison.
+
+\paragraph{Funnel plot.}
+Without selective publication, the estimates should scatter symmetrically
+around the pooled effect, with more dispersion among imprecise studies.
+Figure~\ref{fig:funnel} is not symmetric. The imprecise studies lie almost
+exclusively to the left of the pooled estimate, that is, they report
+stronger discrimination, while there are hardly any imprecise studies with
+odds ratios close to or above one. In addition, many precise studies fall
+outside the pseudo 95\,\% region, which again reflects the large
+heterogeneity.
 
 \begin{figure}[htbp]
   \centering
@@ -445,7 +464,60 @@ particular for \citet{kline2022}.
   \label{fig:funnel}
 \end{figure}
 
+\paragraph{Meta-regression of the effect on its standard error (FAT-PET).}
+We regress the log odds ratio on its standard error by WLS with weights
+$1/SE_i^2$:
+\begin{equation}
+  y_i = \beta_0 + \beta_1\, SE_i + \varepsilon_i .
+\end{equation}
+The slope $\beta_1$ measures the association between effect size and
+precision, and the intercept $\beta_0$ estimates the effect of a
+hypothetical study with a standard error of zero. In the combined sample the
+slope is $\maFATComb$ (SE \maFATseComb): less precise studies report
+systematically stronger discrimination. The intercept corresponds to an odds
+ratio of \maORpetComb{} \maCIpetComb. In the original sample the slope is
+much smaller and imprecisely estimated ($\maFAT$, SE \maFATse), with a
+corrected odds ratio of \maORpet{} \maCIpet{}
+(Tables~\ref{tab:power-bias} and~\ref{tab:pubbias-estimates}).
+
 \input{tables/pubbias_estimates.tex}
+
+\paragraph{WAAP.}
+Restricting UWLS to the adequately powered studies gives \maORwaapComb{}
+\maCIwaapComb{} in the combined sample (\maNadequateComb{} studies), very
+close to the UWLS estimate for all studies (0.74). In the original sample
+the two are also almost identical (\maORwaap{} and \maORuwls). Dropping the
+underpowered studies therefore changes little, because UWLS already gives
+them very small weights.
+
+\paragraph{Excess statistical significance (ESS).}
+In the combined sample, \maNsigComb{} of \maKcomb{} estimates are
+statistically significant, a share of \maShareSigComb, whereas the average
+power implies an expected share of \maExpSigComb. The difference
+(ESS~$= \maESSComb$) suggests that significant results are over-represented.
+In the original sample there is no excess: the observed share is
+\maShareSig{} and the expected share \maExpSig.
+
+\paragraph{Interpretation.}
+At first sight, the combined sample shows clear signs of small-study
+effects, and the corrected estimates imply less discrimination than the
+original meta-analysis: odds ratios between \maORwaapComb{} and
+\maORpetComb{} instead of \maORre. This conclusion needs to be qualified.
+The evidence only becomes strong once the new studies are included, and it
+is driven largely by \citet{kline2022}, a very precise study with an odds
+ratio close to one. It pulls the precision-weighted mean towards one, so
+that the smaller studies with larger effects appear excessive. An
+association between effect size and precision can also reflect genuine
+heterogeneity rather than selective publication: large experiments at major
+US employers may simply measure a different level of discrimination than
+small experiments in European labour markets. Moreover, the standard error
+of a log odds ratio depends mechanically on the callback rates, which can
+produce some funnel asymmetry even without any selection.
+\citet{zschirnt2016} report a similar pattern: their trim-and-fill analysis
+suggests several missing studies on the side of less discrimination
+(supplementary material, S12). We conclude that the size of the effect is
+less certain than the narrow confidence interval of the original estimate
+suggests, but that all corrected estimates remain below one.
 
 % =====================================================================
 \section{Heterogeneity: meta-regression}
