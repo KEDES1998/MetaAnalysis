@@ -51,49 +51,54 @@
 
 % =====================================================================
 \section{Introduction}
-% Vanessa
 % =====================================================================
 
-Access to employment is a central dimension of the integration of immigrants
-and their descendants. A job provides income, but it also shapes social
-networks, language acquisition and later career opportunities. Whether
-members of ethnic minorities are treated unequally when they apply for jobs
-is therefore a question of considerable economic and political relevance.
-It is, however, difficult to answer with observational data. Differences in
-employment outcomes between groups may reflect discrimination, but they may
-equally reflect differences in education, work experience or language
-proficiency that the researcher cannot fully observe. Employers, moreover,
-have little reason to report discriminatory practices in surveys.
+Ethnic minorities continue to face considerable disadvantages in the labour
+market, even when their education and qualifications are similar to those
+of the majority \citep{heath2006}. This suggests that unequal treatment by
+employers may play a role. However, establishing whether employers actually
+discriminate is difficult \citep{pager2007}. Observational data show
+differences in employment between groups, but these differences may also
+reflect characteristics that researchers cannot fully observe
+\citep{zschirnt2016}. In addition, contemporary discrimination tends to be
+subtle and difficult to detect \citep{pager2008}. Moreover, in hiring
+decisions it can rarely be observed directly \citep{zschirnt2016}.
+Assessing the role of discrimination in current labour markets therefore
+requires rigorous empirical research \citep{pager2007}.
 
-Correspondence tests address this identification problem experimentally.
-Researchers send fictitious written applications to real job vacancies. The
-applications are comparable in all productivity-relevant respects and differ
-only in a signal of ethnic origin, most often the applicant's name. Because
-the ethnic signal is assigned by the researcher, a lower rate of positive
-responses (\emph{callbacks}) for minority applicants can be interpreted as
-evidence of discrimination at the first stage of the hiring process.
+Correspondence tests are designed to provide such evidence
+\citep{riach2002}. In these experiments, researchers send fictitious
+written applications to real job vacancies. The applications are equivalent
+in all characteristics relevant to productivity and differ only in a signal
+of ethnic origin, usually the name of the applicant. Because the
+researchers assign this signal themselves, any difference in employer
+responses can be attributed to it. A lower rate of positive responses
+(\emph{callbacks}) for minority applicants can therefore be interpreted as
+discrimination at the first stage of the hiring process.
 
-Over the past three decades, a large number of such experiments have been
-conducted in Europe, North America and other OECD countries.
-\citet{zschirnt2016} synthesise this evidence for the period 1990--2015 and
-conclude that ethnic discrimination in hiring remains widespread. Based on
-their replication data, the odds of a callback are about
-\maPctLowerOdds{}\,\% lower for minority applicants than for comparable
-majority applicants (odds ratio \maORre{} \maCIre).
+Over the past three decades, numerous experiments of this kind have been
+conducted \citep[e.g.][]{bertrand2004,riach2002}. Each of them documents
+discrimination in a particular setting, but a single experiment provides
+little insight into the reasons behind it. \citet{zschirnt2016} synthesise
+this evidence for the period 1990--2015 and conclude that ethnic
+discrimination in hiring remains widespread. Based on their replication
+data, the odds of a callback are about \maPctLowerOdds{}\,\% lower for
+minority applicants than for comparable majority applicants (odds ratio
+\maORre{} \maCIre).
 
-This report replicates and extends their analysis. We first reproduce the
-pooled estimate with fixed-effect (FE), random-effects (RE) and unrestricted
-weighted least squares (UWLS) estimators (Section~4). We then add
-\IfFileExists{tables/macros_update.tex}{\maKnew}{four} correspondence tests
-that were carried out after the original sample period and ask whether they
-are consistent with the earlier evidence (Section~5). Sections~6 and~7
-assess the statistical power of the literature and the extent of publication
-bias, using a funnel plot, a meta-regression of the effect size on its
-standard error (FAT-PET), the weighted average of adequately powered
-estimates (WAAP) and a test for excess statistical significance (ESS).
-Section~8 explores sources of heterogeneity between studies, and Section~9
-discusses whether the literature allows reliable conclusions about the true
-size of ethnic discrimination in hiring.
+This report replicates and extends this meta-analysis. We begin by
+reproducing the pooled estimate with the fixed-effect (FE), random-effects
+(RE) and unrestricted weighted least squares (UWLS) estimators (Section~4).
+We then add \maKnew{} correspondence tests conducted after the original
+sample period and examine whether they are consistent with the earlier
+evidence (Section~5). The following sections turn to the reliability of
+this evidence. Section~6 assesses the statistical power of the studies.
+Section~7 examines publication bias using a funnel plot, a meta-regression
+of the effect size on its standard error (FAT-PET), the weighted average of
+the adequately powered estimates (WAAP) and a test for excess statistical
+significance (ESS). Section~8 explores the sources of heterogeneity between
+studies. Finally, Section~9 discusses whether the literature provides
+reliable evidence on the true size of ethnic discrimination in hiring.
 
 % =====================================================================
 \section{Research question and literature}
@@ -418,20 +423,63 @@ particular for \citet{kline2022}.
 
 % =====================================================================
 \section{Statistical power}
-% both -- task 4
+% task 4. The UWLS odds ratio of the combined sample (0.74) is typed in by
+% hand, see Table~\ref{tab:pubbias-estimates}.
 % =====================================================================
 
+Statistical power is the probability that a study rejects the null
+hypothesis of no effect when a true effect exists. Following
+\citet{askarov2024}, we compute the ex-post power of each study by treating
+the UWLS estimate $\hat\mu$ as the true effect.
+\begin{equation}
+  q_i = \Phi\left(\frac{|\hat\mu|}{SE_i} - 1.96\right)
+\end{equation}
+A study is called adequately powered if $q_i \geq 0.8$, which requires
+$SE_i \leq |\hat\mu| / 2.8$.
+
 \input{tables/power_bias_stats.tex}
+
+For the \maK{} original studies, median power is \maMedPower{} and mean
+power \maMeanPower, and \maNadequate{} studies are adequately powered
+(Table~\ref{tab:power-bias}). This is very high by the standards of
+empirical economics, where \citet{askarov2024} report a median power of only
+7\,\% in leading journals. It is in line with the mean power of 0.91 that
+they report for this literature.
+% CHECK the 7 % (lecture notes) and the 0.91 (Askarov et al., Table S2).
+The explanation lies in the design. Correspondence tests often send several
+thousand applications, and the average effect is large. In the combined
+sample of \maKcomb{} studies the picture is less favourable. Because the
+UWLS estimate moves closer to one (0.74 instead of \maORuwls), median power
+falls to \maMedPowerComb{} and mean power to \maMeanPowerComb, and only
+\maNadequateComb{} studies remain adequately powered
+(Figure~\ref{fig:power}). The assessment of power thus depends strongly on
+the assumed true effect.
 
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=0.75\linewidth]{figures/power_combined.pdf}
-  \caption{Ex-post power, original and new studies}
+  \caption{Ex-post power at the UWLS estimate, original and new studies}
   \label{fig:power}
 \end{figure}
 
-% TODO: median power \maMedPower; compare with \citet{askarov2024};
-%       why is low power a problem, why is our value an upper bound?
+Low power is a problem for two reasons. First, an underpowered study will
+often fail to detect an effect that exists. Second, when such a study does
+find a significant effect, the estimate must be large relative to its
+standard error and therefore tends to overstate the true effect. Low power
+also makes insignificant results more likely, which increases the temptation
+to search for specifications that produce significance, or not to publish
+the study at all. Underpowered studies are therefore more exposed to
+publication bias. Their results reach publication mainly when chance or
+specification search has produced a large estimate.
+
+Our power estimates are likely to be an upper bound for the power of all
+studies that were conducted. We only observe published studies that report
+callback counts, and unpublished studies are probably smaller on average. In
+addition, if publication selection favours estimates that show strong
+discrimination, the pooled estimate overstates the true effect, and the
+power computed from it is too high. The fall in median power from
+\maMedPower{} to \maMedPowerComb{} after adding only \maKnew{} studies
+illustrates how sensitive this calculation is.
 
 % =====================================================================
 \section{Publication bias}
