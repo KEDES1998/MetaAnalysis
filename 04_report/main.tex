@@ -594,42 +594,46 @@ the heterogeneity remains unexplained.
 % both -- task 6: is there reliable evidence on the true effect size?
 % =====================================================================
 
-This report replicated and updated the meta-analysis of correspondence tests
-on ethnic discrimination in hiring \citep{zschirnt2016}. The replication is
-exact. With the RE model, the pooled odds ratio is \maORre{} \maCIre.
-Minority applicants therefore have clearly lower chances of being invited to
-an interview than equally qualified majority applicants. FE and UWLS lead to
-the same point estimate. The UWLS interval is wider, since the studies differ
-much more than sampling error alone can explain.
+This report replicates and updates the meta-analysis of correspondence tests
+on ethnic discrimination in hiring \citep{zschirnt2016}. The replication of
+the pooled estimate is exact. The RE model yields an odds ratio of \maORre{}
+\maCIre, which indicates that minority applicants are considerably less
+likely to be invited to an interview than equally qualified majority
+applicants. FE and UWLS produce the same point estimate, but the UWLS
+confidence interval is substantially wider. This reflects the large
+heterogeneity between studies, which exceeds what sampling error alone would
+imply.
 
-Adding \maKnew{} newer correspondence tests hardly changes the RE estimate
-(\maORcomb{} \maCIcomb). None of the new studies lies inside the original
-confidence interval, but all of them lie inside the prediction interval.
-Statistical power is high in the original sample, with a median of
-\maMedPower. With the new studies, however, the median falls to
-\maMedPowerComb. The tests for publication bias also give a mixed picture.
-In the original sample there are hardly any signs of bias. In the combined
-sample, smaller studies report stronger discrimination, and the corrected
-estimates are closer to one. This result depends to a large extent on one
-very large study from the United States \citep{kline2022}.
+The inclusion of \maKnew{} more recent correspondence tests leaves the RE
+estimate largely unchanged (\maORcomb{} \maCIcomb). Although none of the new
+estimates falls within the original confidence interval, all of them lie
+within the prediction interval. The median power of the original studies is
+high (\maMedPower) but declines to \maMedPowerComb{} in the combined sample.
+The evidence on publication bias is mixed. While the original sample shows
+little indication of selective reporting, the combined sample exhibits a
+clear association between effect size and standard error, and the corrected
+estimates move towards one. This pattern, however, is driven to a large
+extent by a single, highly precise study from the United States
+\citep{kline2022}.
 
-Is there reliable evidence on the true effect size? For the existence of
-discrimination, the answer is yes. All pooled and corrected estimates remain
-below one, in the original as well as in the combined sample. The size of
-the effect is much less certain. Depending on the method and the sample, the
-odds ratio lies between \maORre{} and \maORpetComb. Moreover, heterogeneity
-is very large ($I^2 = \maIsqRe\,\%$), and the prediction interval is wide.
-Part of the differences can be explained by region, since European studies
-find more discrimination (Section~8). For this reason, it is difficult to
-speak of one true effect. The level of discrimination seems to depend on the
-country, the minority group and the labour market in question.
+Overall, the evidence that ethnic discrimination in hiring exists can be
+regarded as reliable. All pooled and bias-corrected estimates remain below
+one, regardless of the estimator and the sample. The magnitude of the
+effect, in contrast, is considerably less certain. Depending on the method,
+the estimated odds ratio ranges from \maORre{} to \maORpetComb. In addition,
+heterogeneity is very high ($I^2 = \maIsqRe\,\%$) and the prediction
+interval is wide. The meta-regression suggests that part of this variation
+is related to region, with European studies reporting stronger
+discrimination (Section~8). A single true effect size is therefore difficult
+to justify. Rather, the extent of discrimination appears to vary across
+countries, minority groups and labour markets.
 
-Our analysis also has some limitations. For three of the new studies, the
-callback counts had to be reconstructed from reported rates. The standard
-errors ignore that several applications were sent to the same employer and
-are therefore somewhat too small. Finally, the number of studies is small,
-which limits the meta-regression. A larger number of studies would make it
-possible to examine these differences in more detail.
+Several limitations should be noted. For three of the new studies, callback
+counts were reconstructed from reported rates and sample sizes. The standard
+errors do not account for the clustering of applications within employers
+and are therefore likely to be understated. Finally, the small number of
+studies restricts the scope of the meta-regression. A larger body of studies
+would allow a more detailed analysis of the sources of heterogeneity.
 
 % =====================================================================
 \newpage
