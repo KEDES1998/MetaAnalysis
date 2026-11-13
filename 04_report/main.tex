@@ -30,6 +30,11 @@
 \input{tables/macros_power_bias.tex}
 % exists only after the update has been run with new studies:
 \IfFileExists{tables/macros_update.tex}{\input{tables/macros_update.tex}}{}
+\def\CIrangeAux[#1; #2]{from #1 to #2}
+\newcommand{\CIrange}[1]{\expandafter\CIrangeAux#1}
+% interval in words: \CIinwords{\maCIre} -> with a 95 % confidence interval from 0.52 to 0.69
+\def\CIinwordsAux[#1; #2]{with a 95\,\% confidence interval from #1 to #2}
+\newcommand{\CIinwords}[1]{\expandafter\CIinwordsAux#1}
 
 % ---------- title page ----------
 \title{Ethnic Discrimination in Hiring:\\
@@ -92,11 +97,11 @@ significance (ESS). Section~8 explores the sources of heterogeneity between
 studies and Section~9 concludes.
 
 % =====================================================================
-\section{Research question and literature}
+\section{Research Question and Literature}
 % Vanessa (task 1)
 % =====================================================================
 
-\subsection{Why employers might discriminate}
+\subsection{Why Employers Might Discriminate}
 
 The literature distinguishes between two types of discrimination.
 Taste-based discrimination describes employers who hire according to ethnic
@@ -115,7 +120,7 @@ about the group and decides according to these stereotypes. For this type
 of discrimination, more information about the applicant should reduce the
 gap.
 
-\subsection{Treatment, outcome and design}
+\subsection{Treatment, Outcome and Design}
 
 Correspondence tests are field experiments in which researchers respond to
 advertised job openings with written applications \citep{riach2002}. Two or
@@ -133,7 +138,7 @@ hiring decisions, which a laboratory experiment cannot offer
 stage of hiring. This stage, however, accounts for nearly 90\,\% of the net
 discrimination measured in the experiments reviewed by
 \citet{riach2002}.
-\subsection{Typical estimating equation}
+\subsection{Typical Estimating Equation}
 
 Individual studies typically regress an indicator for a callback on the
 ethnic signal \citep[e.g.][]{bertrand2004}. A common specification is the linear probability model \citep[e.g.][]{kline2022}
@@ -149,56 +154,51 @@ difference in callback probabilities between minority and majority applicants \c
 also report the raw callback rates for each group \citep{zschirnt2016},
 which is the information we use to construct comparable effect sizes.
 
-\subsection{A typical dataset}
+\subsection{A Typical Dataset}
 
-A typical example is the study by \citet{bertrand2004}, which is one of the studies included in the original meta-analysis. They responded to
-more than 1{,}300 job advertisements in Boston and Chicago with about
-5{,}000 fictitious CVs. Each CV was randomly assigned either a
-distinctively white name (e.g.\ Emily or Greg) or a distinctively
-African-American name (e.g.\ Lakisha or Jamal). Applications with white
-names received callbacks in 9.7\,\% of cases, compared with 6.5\,\% for
-applications with African-American names, a relative difference of about
-50\,\%. An improvement in CV quality raised the callback rate considerably
-for white names but much less for African-American names. The data have the
-structure that is common to correspondence tests. They contain one
-observation per application, a binary callback outcome, the randomised
-ethnic signal and a set of CV characteristics.
+The experiment by \citet{bertrand2004}, which is part of the original
+meta-analysis, is regarded as a model example of this method
+\citep{pager2007}. The researchers responded to more than 1{,}300 job
+advertisements in Boston and Chicago with nearly 5{,}000 fictitious CVs.
+Half of the CVs were randomly given a distinctively white name, such as
+Emily or Greg, and the other half a distinctively African-American name,
+such as Lakisha or Jamal. Applicants with white names received about
+50\,\% more callbacks. On average, they needed around ten applications for
+one callback, whereas applicants with African-American names needed around
+fifteen. A higher quality CV raised the callback rate for white names by
+about 30\,\%, but had a much smaller and insignificant effect for
+African-American names. The data have the structure that is common to
+correspondence tests. They contain one observation per application, a
+binary callback outcome, the randomised ethnic signal and a set of CV
+characteristics.
+\subsection{Effect Size Used in the Meta-Analysis}
 
-\subsection{Effect size used in the meta-analysis}
-
-Since studies differ in their baseline callback rates and in the way they
-report results, a common effect size is required. Following
-\citet{zschirnt2016}, we use the odds ratio of a callback. Let $a$ and $b$
-denote the numbers of minority applications with and without a callback, and
-$c$ and $d$ the corresponding numbers for majority applicants. Then
-\begin{equation}
-  OR_i = \frac{a_i / b_i}{c_i / d_i}, \qquad
-  y_i = \ln OR_i, \qquad
-  SE_i = \sqrt{\frac{1}{a_i} + \frac{1}{b_i} + \frac{1}{c_i} + \frac{1}{d_i}}.
-\end{equation}
-Here $y_i$ is the log odds ratio of study $i$ and $SE_i$ is its standard error. An odds ratio of one indicates equal treatment, while values below one
-indicate that minority applicants are less likely to receive a callback. All
-estimations are carried out on the log scale, where the sampling
-distribution is approximately normal, and the results are transformed back
-into odds ratios for presentation.
-
-\subsection{Related meta-analyses}
+The original meta-analysis expresses discrimination with two measures
+\citep{zschirnt2016}. The relative callback ratio divides the callback rate
+of majority applicants by that of minority applicants. The odds ratio
+instead sets the odds of an interview invitation for minority applicants
+against those for majority applicants. Following the original study, we use
+the odds ratio. A value of one indicates equal treatment, and values below
+one indicate that minority applicants have lower odds of an invitation. As
+in the forest plot of the original article, odds ratios are shown on a
+logarithmic scale \citep{zschirnt2016}. In the following, $y_i$ denotes the
+log odds ratio of study $i$ and $SE_i$ its standard error.
+\subsection{Related Meta-Analyses}
 
 Several other meta-analyses examine hiring discrimination. For the United
 States, field experiments since 1989 show that white applicants receive on
 average 36\,\% more callbacks than African Americans and 24\,\% more than
-Latinos, with no change in discrimination against African Americans over 25
-years \citep{quillian2017}. For Great Britain, there is likewise no
-significant decline in discrimination against the main non-white groups
-since the late 1960s \citep{heath2019}. A comparison of 97 field
-experiments from nine countries in Europe and North America finds the
-highest levels of discrimination in France, followed by Sweden
-\citep{quillian2019}. A synthesis of correspondence experiments published
-between 2005 and 2020 concludes that discrimination on the grounds of
-disability, age and physical appearance is at least as severe as ethnic
-discrimination, and that ethnic discrimination has decreased in Europe
-\citep{lippens2023}.
-
+Latinos, while the level of discrimination against African Americans has
+remained stable over 25 years \citep{quillian2017}. For Great Britain, the
+risk of discrimination for applicants of Caribbean and South Asian origin
+has not declined significantly since 1969 \citep{heath2019}. A comparison of
+97 field experiments from nine countries in Europe and North America finds
+discrimination in all of them, with France and then Sweden showing the
+highest levels \citep{quillian2019}. A synthesis of correspondence
+experiments published between 2005 and 2020 concludes that discrimination
+on the grounds of disability, age and physical appearance is at least as
+severe as ethnic discrimination, and that ethnic discrimination has
+decreased in Europe \citep{lippens2023}.
 These studies support the main finding of \citet{zschirnt2016} for other
 samples and periods. They also show that the level of discrimination
 differs considerably between countries and groups. For this reason we pay
@@ -206,166 +206,189 @@ particular attention to prediction intervals, moderators and publication
 bias in the following sections.
 
 % =====================================================================
-\section{The original meta-analysis and data}
+\section{The Original Meta-Analysis and Data}
 % Vanessa
 % =====================================================================
 
-\subsection{Scope and inclusion criteria}
+\subsection{Study Selection}
 
-\citet{zschirnt2016} include correspondence tests of ethnic and racial
-discrimination in hiring that were conducted in OECD countries between 1990
-and 2015. Only studies based on written applications are considered. Audit
-studies, in which trained actors attend interviews in person, are excluded,
-as are unsolicited applications. The search is restricted to publications in
-English, French, German and Dutch. Studies were identified through Web of
-Knowledge and Google Scholar, using search terms such as ``correspondence
-test'' and ``discrimination AND field experiment'', and by screening the
-reference lists of earlier reviews \citep{riach2002} and of the retrieved
-studies.
-
+The original meta-analysis covers correspondence tests on discrimination
+against ethnic and racial minorities at the hiring stage
+\citep{zschirnt2016}. To keep the studies comparable, the authors limit the
+sample to OECD member states and to tests carried out from 1990 to 2015.
+Only written applications are considered. Audit studies with personal
+visits are left out, since written tests now dominate the field, and
+studies with unsolicited applications are excluded as well. The literature
+was searched systematically in Web of Knowledge and Google Scholar with
+keywords such as ``correspondence test'' and ``discrimination AND field
+experiment''. In addition, the authors screened the bibliographies of the
+retrieved studies and of earlier systematic reviews \citep{riach2002}.
+Studies in English, French, German and Dutch could be included.
 \subsection{Data}
 
-The resulting dataset comprises 43 studies from 18 countries, covering more
-than 20 minority groups. Most studies were conducted in member states of the
-European Union (26), followed by North America (12). As many studies test
-several minority groups, occupations or regions, the data contain 738
-subgroup comparisons in total. An odds ratio can only be computed if the
-numbers of applications and callbacks are reported for both groups. This
-information is available for \maK{} studies, comprising \maKsub{} subgroups,
-which form the basis of the original pooled estimate and of our replication.
-The remaining nine studies report only relative callback rates and are listed
-separately in the appendix.
+The final sample contains 43 studies \citep{zschirnt2016}. Together they
+cover 18 countries and more than 20 minority groups. Around 60\,\% of the
+studies, 26 in total, were carried out in member states of the European
+Union, and another 12 in North America. Since
+most studies report results separately for several minority groups, and
+sometimes also by gender or occupation, the data can be split into 738
+subgroups. Odds ratios require the absolute numbers of applications and
+callbacks for both groups, which the authors recalculated wherever the original studies allowed it. This was possible for \maK{} studies. In the authors' replication file, these correspond to \maKsub{} subgroups, and
+they form the basis of the original pooled estimate and of our replication.
+The other nine studies report only relative callback rates and therefore cannot be included in the pooled odds ratio.
+\subsection{Main Results}
 
-\subsection{Main results}
+The original article pools the studies with a random-effects model
+\citep{zschirnt2016}. It reports an odds ratio of 0.51 at the study level
+and 0.60 at the subgroup level, and interprets the first value as 49\,\%
+lower odds of an interview invitation for minority applicants. In the
+output of the authors' replication script, however, these two numbers
+appear to correspond to the absolute values of the pooled log odds ratios
+($0.509$ and $0.604$), not to the odds ratios themselves. Converted into
+odds ratios, the pooled estimate at the study level is \maORre{},
+\CIinwords{\maCIre}. At the subgroup level it is \maORsub. Minority
+applicants therefore have about \maPctLowerOdds\,\% lower odds of a
+callback than equally qualified majority applicants. We use these values
+throughout and reproduce them exactly in Section~4. The second measure in
+the article points in the same direction. Across studies, the relative
+callback rate has a mean of 1.55 and a median of 1.44. Minority applicants
+thus need about one and a half times as many applications to be invited.
+Heterogeneity in the random-effects model is very large
+($I^2 = \maIsqRe\,\%$). The pooled estimate is therefore an average over
+very different labour markets and minority groups rather than one common
+effect.
 
-Using a random-effects model on the study-level log odds ratios, the
-authors' replication script yields a pooled odds ratio of \maORre{} \maCIre.
-Minority applicants thus have about \maPctLowerOdds{}\,\% lower odds of
-receiving a callback than comparable majority applicants. Expressed as a
-ratio of callback rates, this means that minority applicants have to send
-roughly 50\,\% more applications to obtain the same number of positive
-responses. Heterogeneity between studies is very large
-($I^2 = \maIsqRe\,\%$), so the pooled estimate should be read as an average
-over quite different labour markets and minority groups rather than as a
-single common effect.
-The published article reports odds ratios of 0.51 at the study level and
-0.60 at the subgroup level. These numbers appear to be the absolute values
-of the log odds ratios in the output of the authors' script ($0.509$ and
-$0.604$). Transformed into odds ratios, they are \maORre{} at the study
-level and \maORsub{} at the subgroup level. We use these values, which we
-reproduce exactly in Section~4.
+The authors also compare subsets of studies \citep{zschirnt2016}.
+Discrimination occurs in Europe as well as in North America, although it
+appears to be somewhat higher in Europe. Minority women and men are treated
+similarly, since the small difference between them is not significant.
+Neither unemployment nor GDP growth at the time of testing is clearly
+related to the level of discrimination. Several results speak to the two
+theories from Section~2.1. First- and second-generation applicants receive
+similar callback ratios, even though the second generation holds local
+qualifications. The authors read this as a sign that taste-based
+discrimination is the main driver. Discrimination also varies between
+minority groups. Among the groups tested most often, it is highest for
+applicants of Arab and Middle Eastern origin and lowest for Turkish
+applicants. In German-speaking countries, where applications usually
+contain certificates, school reports and reference letters, discrimination
+is lower than elsewhere. This fits statistical discrimination, since
+employers there know more about each candidate. Yet discrimination remains
+considerable in these countries, so statistical discrimination cannot be
+the only explanation. Public employers also discriminate less than private
+ones, but this result rests on few studies. Within the European Union,
+callback ratios are even higher after the anti-discrimination directives of
+2000 than before. The authors attribute this mainly to the groups that were
+tested, but find no sign that the directives reduced discrimination.
+Overall, they conclude that hiring discrimination against ethnic minorities
+is present in every OECD country in which it has been tested.
+\subsection{Limitations of the Original Meta-Analysis}
 
-The moderator analyses yield several further results. Discrimination is
-lower in German-speaking countries, where applications usually include
-extensive documentation such as certificates and references. The authors
-interpret this as consistent with statistical discrimination, since more
-information about the applicant appears to narrow the gap. Callback ratios
-are higher in studies conducted after 2000, but the authors attribute this to
-changes in the composition of studies rather than to the EU
-anti-discrimination directives. There is no significant difference between
-male and female applicants and no clear difference between first- and
-second-generation migrants. Applicants of Arab and Middle Eastern origin face the largest disadvantages. Finally, the authors find no
-systematic relationship between discrimination and the economic situation
-(unemployment rate or GDP growth) at the time of testing. They conclude that
-ethnic discrimination in hiring remained widespread across OECD countries
-throughout the period 1990--2015.
-
-\subsection{Limitations noted by the authors}
-
-The authors acknowledge several limitations. Names are an imperfect signal of
-ethnicity and may also convey information about religion or social class.
-The method is also restricted to occupations in which written applications are common. Because
-studies report their results in different ways, not all of them can be
-included in the pooled odds ratio. Moreover, the minority groups examined are
-not a random sample of all groups, which may lead to an overestimation of
-average discrimination. Publication bias is addressed only in the supplementary material. We return to this issue in Section~7.
-
+The authors point out several weaknesses of correspondence tests
+\citep{zschirnt2016}. Ethnicity is usually signalled only through the name
+of the applicant. Employers may react differently to well-known and lesser-known names, assign a name to the wrong group or link it to a certain social class. The method is also limited to jobs that are filled through written
+applications, which leaves out many entry-level and low-skilled positions.
+Vacancies that are filled informally or within the firm cannot be tested
+either. Finally, sending fictitious applications involves deception and
+therefore raises ethical questions. A further concern relates to the choice
+of groups. Researchers tend to test minorities for which they already
+expect discrimination, rather than a random set of groups. The average
+level of discrimination may therefore be overestimated. Publication bias,
+in contrast, is considered only in the supplementary material of the
+article. We examine it in more detail in Section~7.
 % =====================================================================
 \section{Replication}
 % task 2: FE, RE, UWLS; which CI is wider and why
 % =====================================================================
 
-We first reproduce the study-level estimate of \citet{zschirnt2016}. From
-the authors' replication file we compute the log odds ratio and its standard
-error for the \maK{} studies that report callback counts. All \maK{} odds
-ratios agree with the published forest plot to two decimals
-(black squares in Figure~\ref{fig:forest-combined}). A random-effects model estimated by
-REML, as in the original analysis, gives a pooled log odds ratio of
-$\maLnORre$ (SE \maSEre), that is, an odds ratio of \maORre{} \maCIre, with
+We first reproduce the study-level estimate of the original meta-analysis
+\citep{zschirnt2016}. All computations are carried out in Python, and the effect sizes, standard errors and moderators of all studies are stored in a CSV file. Using the authors' replication file, we compute the
+log odds ratio and its standard error for the \maK{} studies that report
+callback counts. All \maK{} odds ratios match the published forest plot to
+two decimals (black squares in Figure~\ref{fig:forest-combined}). As in the
+original analysis, we estimate a random-effects model by REML. The pooled
+log odds ratio is $\maLnORre$ (SE \maSEre), which corresponds to an odds
+ratio of \maORre, \CIinwords{\maCIre}. The between-study variance is
 $\hat\tau^2 = \maTauSqRe$ and $I^2 = \maIsqRe\,\%$. These values are
-identical to the output of the authors' script, so the replication is exact.
-Other estimators of $\tau^2$ (DerSimonian--Laird, Paule--Mandel) and the
-Knapp--Hartung adjustment change the result only in the second decimal
+identical to the output of the authors' script, so the replication is
+exact. Other estimators of $\tau^2$ (DerSimonian--Laird, Paule--Mandel) and
+the Knapp--Hartung adjustment change the result only in the second decimal
 (Table~\ref{tab:replication}).
 
 \input{tables/replication.tex}
 
 Table~\ref{tab:replication} also reports the fixed-effect (FE) and UWLS
-estimates. Both give the same point estimate, an odds ratio of \maORfe. This
-is expected: UWLS is a weighted least squares regression of the effect size
-on a constant with weights $1/SE_i^2$, which reproduces the FE average. The
-confidence intervals differ, however. The FE interval is \maCIfe, the UWLS
-interval \maCIuwls, and the UWLS standard error is \maSEratioUWLS{} times
-larger. FE assumes that all studies estimate one common effect, so its
-standard error depends only on the sampling variances. UWLS estimates the
-residual variance from the data, which multiplies the FE standard error by
-$\sqrt{Q/(k-1)}$, with $Q = \maQ$ and $k = \maK$. Because $Q$ is about ten
-times its degrees of freedom, the studies differ far more than sampling
-error alone can explain, and the FE interval is too narrow. The RE estimate
-is slightly lower (\maORre) because it gives relatively more weight to small
-studies, which tend to report stronger discrimination, and it has the widest
-interval.
-
-
+estimates. Both lead to the same point estimate, an odds ratio of \maORfe.
+This is to be expected, since UWLS is a weighted least squares regression
+of the effect size on a constant with weights $1/SE_i^2$ and therefore
+reproduces the FE average. The two confidence intervals differ, however.
+For FE, the 95\,\% confidence interval ranges \CIrange{\maCIfe}, while for
+UWLS it ranges \CIrange{\maCIuwls}. The UWLS standard error is
+\maSEratioUWLS{} times larger than the FE standard error. FE assumes that
+all studies estimate one common effect, so its standard error depends only
+on the sampling variances. UWLS instead estimates the residual variance
+from the data, which multiplies the FE standard error by $\sqrt{Q/(k-1)}$,
+with $Q = \maQ$ and $k = \maK$. Since $Q$ is about ten times its degrees of
+freedom, the studies differ far more than sampling error alone can explain,
+and the FE interval is too narrow. The RE estimate is slightly lower
+(\maORre). It gives relatively more weight to small studies, which tend to
+report stronger discrimination, and it has the widest interval of the
+three.
 
 The large heterogeneity matters for interpretation. The 95\,\% prediction
-interval of the RE model is \maPIre: a new study from the same population
-of studies could plausibly find anything from very strong discrimination to
-none. The pooled estimate is robust to two checks. Excluding Bendick et
-al.\ (1991), the only study with an odds ratio above one (2.45; the Latino
-applicants in that study had better qualifications), gives
-\maORreNoBendick{} \maCIreNoBendick{} and roughly halves $\hat\tau^2$.
-Estimating the model on the \maKsub{} subgroups instead of the \maK{}
-studies gives \maORsub{} \maCIsub.
+interval of the RE model ranges \CIrange{\maPIre}. A new study from the
+same population of studies could therefore find anything from very strong
+discrimination to no discrimination, or even a slight advantage for
+minority applicants. The pooled estimate is robust to two checks. Only one
+study, by Bendick et al.\ (1991), reports an odds ratio above one (2.45).
+In this experiment, the Latino applicants were given better qualifications
+than the Anglo applicants \citep{zschirnt2016}. Excluding it gives an odds
+ratio of \maORreNoBendick, \CIinwords{\maCIreNoBendick}, and roughly halves
+$\hat\tau^2$. Estimating the model on the \maKsub{} subgroups instead of
+the \maK{} studies gives \maORsub, \CIinwords{\maCIsub}.
 
 % =====================================================================
-\section{Update with new studies}
+\section{Update with New Studies}
 % task 3: at least two newer studies; in the CI? does the estimate change?
 % Numbers not coming from macros (0.74, 18 %, weight shares, application
 % counts) are taken from Tables~\ref{tab:update-new} and
 % \ref{tab:update-pooled}; update them by hand if the studies change.
 % =====================================================================
 
-We add \maKnew{} correspondence tests that were published after the original meta-analysis. Each satisfies the inclusion criteria of
-\citet{zschirnt2016}: written applications, an ethnic minority compared with
-the majority population, an OECD country, and sufficient information to
-compute an odds ratio. As in the original, we use one estimate per study and
-pool all minority groups. Together, the new studies comprise about 102{,}900
-applications, more than the \maK{} original studies combined (about
-84{,}000).
+We add \maKnew{} correspondence tests that were published after the original
+meta-analysis. All of them meet its inclusion criteria \citep{zschirnt2016}.
+They are based on written applications, compare an ethnic minority with the
+majority population, take place in an OECD country and report enough
+information to compute an odds ratio. As in the original, we use one
+estimate per study and pool all minority groups. Together, the new studies
+comprise about 102{,}900 applications, which is more than the \maK{}
+original studies combined (about 84{,}000).
 
-\citet{koopmans2019} test applicants from 34 origin groups for vocational
-jobs in Germany. \citet{kline2022} send about 84{,}000 applications with
-distinctively Black or white names to entry-level jobs at large US
-employers. \citet{zschirnt2019} compare Swiss citizens of Kosovar, Turkish
-and German or French origin with applicants of Swiss origin; this study is
-co-authored by one of the authors of the original meta-analysis but is an
-independent experiment conducted after its sample period.
-\citet{adamovic2023} test five minority groups in Australia for leadership
-and non-leadership positions.
+The first study tests applicants from 34 origin groups in Germany
+\citep{koopmans2019}. The second sends about 84{,}000 applications with
+distinctively Black or white names to entry-level jobs at large employers in
+the United States \citep{kline2022}. The third compares Swiss citizens of
+Kosovar, Turkish and German or French origin with applicants of Swiss
+origin, mainly for apprenticeship-level jobs \citep{zschirnt2019}. Although
+one of its authors also co-wrote the original meta-analysis, it is an
+independent experiment carried out in 2017 and 2018. The fourth tests five
+minority groups in Australia for leadership and non-leadership positions
+\citep{adamovic2023}.
 
 \input{tables/update_new_studies.tex}
 
 Table~\ref{tab:update-new} compares the new estimates with the original
-pooled estimate. None of the \maKnew{} odds ratios lies inside its
-confidence interval \maCIre. Two are close: the intervals of
-\citet{koopmans2019} and \citet{zschirnt2019} overlap with it.
-\citet{kline2022} find clearly less discrimination (\maORnewMax) and
-\citet{adamovic2023} clearly more (\maORnewMin). This is not surprising. The
-confidence interval describes the uncertainty about the mean effect, not the
-range in which individual studies fall, and with $I^2$ above 90\,\% single
-studies are expected to lie outside it. The appropriate benchmark is the
-prediction interval \maPIre, and all \maKnew{} estimates lie inside it.
+pooled estimate. None of the \maKnew{} odds ratios lies inside its 95\,\%
+confidence interval, which ranges \CIrange{\maCIre}. Two of them are close,
+as the intervals of the German and the Swiss study overlap with it
+\citep{koopmans2019,zschirnt2019}. The US study finds clearly less
+discrimination (\maORnewMax) \citep{kline2022}, whereas the Australian study
+finds clearly more (\maORnewMin) \citep{adamovic2023}. This is not
+surprising. The confidence interval describes the uncertainty about the mean
+effect, not the range in which single studies fall. With $I^2$ above
+90\,\%, individual studies are expected to lie outside it. The more suitable
+benchmark is the prediction interval, which ranges \CIrange{\maPIre}. All
+\maKnew{} new estimates lie within it.
 
 \input{tables/update_pooled.tex}
 
@@ -378,56 +401,55 @@ prediction interval \maPIre, and all \maKnew{} estimates lie inside it.
 
 Whether the pooled estimate changes depends on the estimator
 (Table~\ref{tab:update-pooled}, Figure~\ref{fig:forest-combined}). The RE
-estimate is almost unchanged: it moves from \maORre{} \maCIre{} to
-\maORcomb{} \maCIcomb. The FE and UWLS estimates, in contrast, rise from
-\maORfe{} to 0.74, an increase of about 18\,\%. The reason is the weighting.
-\citet{kline2022} is by far the most precise study and receives about half
-of the total FE weight in the combined sample, but only about 3\,\% under
-RE, where the between-study variance dominates the weights. After the
-update, the FE and UWLS results are therefore largely driven by a single
-study.
+estimate hardly moves. It changes from \maORre{} to \maORcomb, and its
+95\,\% confidence interval now ranges \CIrange{\maCIcomb}. The FE and UWLS
+estimates, in contrast, rise from \maORfe{} to 0.74, an increase of about
+18\,\%. The reason lies in the weighting. The US study is by far the most
+precise and receives about half of the total FE weight in the combined
+sample \citep{kline2022}. Under RE, its share falls to about 3\,\%, because
+the between-study variance dominates the weights. After the update, the FE
+and UWLS results therefore depend largely on a single study.
 
-Three caveats apply. For \citet{koopmans2019}, \citet{kline2022} and
-\citet{adamovic2023}, the callback counts are reconstructed from reported
-rates and group sizes, which introduces rounding error. In
-\citet{koopmans2019}, the minority group includes applicants of Western
-origin, which moves the odds ratio towards one. Finally, our standard errors
-treat applications as independent and ignore that several applications were
-sent to the same employer. They are therefore somewhat too small, in
-particular for \citet{kline2022}.
+Three caveats apply. For three of the new studies, the callback counts had
+to be reconstructed from reported rates and group sizes, which introduces
+rounding error \citep{koopmans2019,kline2022,adamovic2023}. In the German
+study, the minority group also includes applicants of Western origin, which
+moves the odds ratio towards one. Finally, our standard errors treat
+applications as independent, although several applications were sent to
+the same employer. They are therefore somewhat too small, especially for the
+US study.
 
 % =====================================================================
-\section{Statistical power}
+\section{Statistical Power}
 % task 4.
 % =====================================================================
 
 Statistical power is the probability that a study rejects the null
-hypothesis of no effect when a true effect exists. Following
-\citet{askarov2024}, we compute the ex-post power of each study by treating
-the UWLS estimate $\hat\mu$ as the true effect.
+hypothesis of no effect when a true effect exists. Following the approach
+used in meta-research on economics \citep{ioannidis2017,askarov2024}, we compute the
+ex-post power of each study and treat the UWLS estimate $\hat\mu$ as the
+true effect.
 \begin{equation}
   q_i = \Phi\left(\frac{|\hat\mu|}{SE_i} - 1.96\right)
 \end{equation}
-A study is called adequately powered if $q_i \geq 0.8$, which requires
-$SE_i \leq |\hat\mu| / 2.8$.
+A study counts as adequately powered if $q_i \geq 0.8$. Since $\Phi(0.84) = 0.8$, this requires $SE_i \leq |\hat\mu| / 2.8$, as $1.96 + 0.84 = 2.8$.
 
 \input{tables/power_bias_stats.tex}
 
-For the \maK{} original studies, median power is \maMedPower{} and mean
-power \maMeanPower, and \maNadequate{} studies are adequately powered
-(Table~\ref{tab:power-bias}). This is very high by the standards of
-empirical economics, where \citet{askarov2024} report a median power of only
-7\,\% in leading journals. It is in line with the mean power of 0.91 that
-they report for this literature.
-% Van: double check 7 % (lecture notes) and the 0.91 (Askarov et al., Table S2).??
-The explanation lies in the design. Correspondence tests often send several
-thousand applications, and the average effect is large. In the combined
-sample of \maKcomb{} studies the picture is less favourable. Because the
-UWLS estimate moves closer to one (\maORuwlsComb{} instead of \maORuwls), median power
-falls to \maMedPowerComb{} and mean power to \maMeanPowerComb, and only
-\maNadequateComb{} studies remain adequately powered
-(Figure~\ref{fig:power}). The assessment of power thus depends strongly on
-the assumed true effect.
+For the \maK{} original studies, the median power is \maMedPower{} and the
+mean power \maMeanPower. In total, \maNadequate{} studies are adequately
+powered (Table~\ref{tab:power-bias}). By the standards of economics, this
+is very high. In leading economics journals, the median power is only
+7\,\% \citep{askarov2024}. The same study finds that experimental evidence
+tends to be of notably higher quality than observational evidence, which
+fits the experimental design of correspondence tests. In addition, half of
+the original studies send almost 2{,}000 applications or more, and the
+average effect is large. In the combined sample of \maKcomb{} studies, the
+picture is less favourable. Since the UWLS estimate moves closer to one
+(\maORuwlsComb{} instead of \maORuwls), the median power falls to \maMedPowerComb{}
+and the mean power to \maMeanPowerComb. Only \maNadequateComb{} studies
+remain adequately powered (Figure~\ref{fig:power}). The assessment of power
+thus depends strongly on the assumed true effect.
 
 Table~\ref{tab:power-robust} in Appendix~\ref{app:power} shows that this
 decline is driven by a single study. With \maNkline{} applications,
@@ -449,48 +471,52 @@ benchmark effect, not weaker studies.
   \label{fig:power}
 \end{figure}
 
-Low power is a problem for two reasons. First, an underpowered study will
-often fail to detect an effect that exists. Second, when such a study does
-find a significant effect, the estimate must be large relative to its
-standard error and therefore tends to overstate the true effect. Low power
-also makes insignificant results more likely, which increases the temptation
-to search for specifications that produce significance, or not to publish
-the study at all. Underpowered studies are therefore more exposed to
-publication bias. Their results reach publication mainly when chance or
-specification search has produced a large estimate.
+Low power is problematic for two reasons. First, an underpowered study
+often fails to detect an effect that does exist. Second, if such a study
+does find a significant effect, the estimate has to be large relative to
+its standard error. Significant results from underpowered studies therefore
+tend to overstate the true effect \citep{ioannidis2017}. Low power also
+makes insignificant results more likely. This raises the incentive to
+search for specifications that yield significance, or not to publish the
+study at all. As a consequence, underpowered studies are more exposed to
+publication bias, since their results tend to be published mainly when
+chance or specification search has produced a large estimate.
 
 Our power estimates are likely to be an upper bound for the power of all
-studies that were conducted. We only observe published studies that report
-callback counts, and unpublished studies are probably smaller on average. In
-addition, if publication selection favours estimates that show strong
-discrimination, the pooled estimate overstates the true effect, and the
-power computed from it is too high. The fall in median power from
-\maMedPower{} to \maMedPowerComb{} after adding only \maKnew{} studies
-illustrates how sensitive this calculation is.
+studies that were actually conducted. First, we only observe studies that
+were published and report callback counts. If studies with insignificant
+results are less likely to be published, and such results are more
+frequent in small studies, the observed sample overrepresents well-powered
+studies. Second, if publication selection favours large estimates, the
+UWLS estimate overstates the true effect. Power computed from an inflated
+effect is then too high as well. The drop in median power from
+\maMedPower{} to \maMedPowerComb{} after adding only \maKnew{} studies shows
+how sensitive this calculation is.
 
 % =====================================================================
-\section{Publication bias}
+\section{Publication Bias}
 % task 5: funnel plot, WAAP, ESS, meta-regression of the effect on SE
 % The UWLS odds ratio of the combined sample (0.74) is typed in by hand,
 % see Table~\ref{tab:pubbias-estimates}.
 % =====================================================================
 
 Publication bias arises when the probability that a result is published
-depends on its size or statistical significance. In this literature the
-concern is that studies which find clear discrimination are more likely to
-be written up and published than studies which find little or none. We
-assess this with four methods, using the combined sample of \maKcomb{}
-studies and reporting the original sample for comparison.
+depends on its size or statistical significance \citep{stanley2012}. In
+this literature, the concern is that studies with clear evidence of
+discrimination are more likely to be written up and published than studies
+that find little or none. We assess this with four methods. All of them are
+applied to the combined sample of \maKcomb{} studies, and the original
+sample is reported for comparison.
 
 \paragraph{Funnel plot.}
 Without selective publication, the estimates should scatter symmetrically
 around the pooled effect, with more dispersion among imprecise studies.
-Figure~\ref{fig:funnel} is not symmetric. The imprecise studies lie almost
-exclusively to the left of the pooled estimate, that is, they report
-stronger discrimination, while there are hardly any imprecise studies with
-odds ratios close to or above one. In addition, many precise studies fall
-outside the pseudo 95\,\% region, which again reflects the large
-heterogeneity.
+Figure~\ref{fig:funnel} does not show this pattern. Among the less precise
+half of the studies, 15 of 19 lie to the left of the UWLS estimate and thus
+report stronger discrimination. Only two of them have an odds ratio close
+to or above one. In addition, many precise studies fall outside the pseudo
+95\,\% region, which again reflects the large heterogeneity.
+% 15 of 19 and "only two" counted by hand from the combined data (SE above median).
 
 \begin{figure}[htbp]
   \centering
@@ -500,102 +526,111 @@ heterogeneity.
 \end{figure}
 
 \paragraph{Meta-regression of the effect on its standard error (FAT-PET).}
-We regress the log odds ratio on its standard error by WLS with weights
-$1/SE_i^2$:
+Following the standard approach in the literature \citep{stanley2012}, we
+regress the log odds ratio on its standard error by WLS with weights
+$1/SE_i^2$.
 \begin{equation}
   y_i = \beta_0 + \beta_1\, SE_i + \varepsilon_i .
 \end{equation}
-The slope $\beta_1$ measures the association between effect size and
-precision, and the intercept $\beta_0$ estimates the effect of a
-hypothetical study with a standard error of zero. In the combined sample the
-slope is $\maFATComb$ (SE \maFATseComb): less precise studies report
-systematically stronger discrimination. The intercept corresponds to an odds
-ratio of \maORpetComb{} \maCIpetComb. In the original sample the slope is
-much smaller and imprecisely estimated ($\maFAT$, SE \maFATse), with a
-corrected odds ratio of \maORpet{} \maCIpet{}
-(Tables~\ref{tab:power-bias} and~\ref{tab:pubbias-estimates}).
+The slope $\beta_1$ captures the association between effect size and
+precision. The intercept $\beta_0$ estimates the effect of a hypothetical
+study with a standard error of zero. In the combined sample, the slope is
+$\maFATComb$ (SE \maFATseComb), which means that less precise studies
+report systematically stronger discrimination. The intercept corresponds to
+an odds ratio of \maORpetComb, \CIinwords{\maCIpetComb}. In the original
+sample, the slope is much smaller and imprecisely estimated ($\maFAT$, SE
+\maFATse). The corrected odds ratio there is \maORpet,
+\CIinwords{\maCIpet} (Tables~\ref{tab:power-bias}
+and~\ref{tab:pubbias-estimates}).
 
 \input{tables/pubbias_estimates.tex}
 
 \paragraph{WAAP.}
-Restricting UWLS to the adequately powered studies gives \maORwaapComb{}
-\maCIwaapComb{} in the combined sample (\maNadequateComb{} studies), very
-close to the UWLS estimate for all studies (0.74). In the original sample
-the two are also almost identical (\maORwaap{} and \maORuwls). Dropping the
-underpowered studies therefore changes little, because UWLS already gives
-them very small weights.
+The weighted average of the adequately powered estimates applies UWLS only
+to studies with a power of at least 80\,\% \citep{ioannidis2017}. In the
+combined sample, this gives \maORwaapComb, \CIinwords{\maCIwaapComb}, based
+on \maNadequateComb{} studies. This is very close to the UWLS estimate for
+all studies (0.74). In the original sample, the two estimates are also
+almost identical (\maORwaap{} and \maORuwls). Dropping the underpowered
+studies therefore changes little, because UWLS already gives them very
+small weights.
 
 \paragraph{Excess statistical significance (ESS).}
+The ESS test compares the observed share of significant results with the
+share that the average power would lead us to expect \citep{askarov2024}.
 In the combined sample, \maNsigComb{} of \maKcomb{} estimates are
-statistically significant, a share of \maShareSigComb, whereas the average
-power implies an expected share of \maExpSigComb. The difference
-(ESS~$= \maESSComb$) suggests that significant results are over-represented.
-In the original sample there is no excess: the observed share is
-\maShareSig{} and the expected share \maExpSig.
+statistically significant, a share of \maShareSigComb. The average power,
+however, implies an expected share of only \maExpSigComb. The difference
+(ESS~$= \maESSComb$) suggests that significant results are
+over-represented. In the original sample there is no such excess, as the
+observed share is \maShareSig{} and the expected share \maExpSig.
 
 \paragraph{Interpretation.}
 At first sight, the combined sample shows clear signs of small-study
-effects, and the corrected estimates imply less discrimination than the
-original meta-analysis: odds ratios between \maORwaapComb{} and
+effects. The corrected estimates also imply less discrimination than the
+original meta-analysis, with odds ratios between \maORwaapComb{} and
 \maORpetComb{} instead of \maORre. This conclusion needs to be qualified.
 The evidence only becomes strong once the new studies are included, and it
-is driven largely by \citet{kline2022}, a very precise study with an odds
-ratio close to one. It pulls the precision-weighted mean towards one, so
-that the smaller studies with larger effects appear excessive. An
-association between effect size and precision can also reflect genuine
-heterogeneity rather than selective publication: large experiments at major
+rests largely on the US study, which is very precise and has an odds ratio
+close to one \citep{kline2022}. It pulls the precision-weighted mean
+towards one, so that the smaller studies with larger effects appear
+excessive. When this study is excluded, the slope falls to $-0.40$
+(SE 1.21) and is no longer significant, the corrected odds ratio is 0.64,
+and the share of significant results (0.81) no longer exceeds the expected
+share (0.85).
+% Numbers without Kline et al. computed by hand (same WLS method), not from a macro.
+An association between effect size and precision can also reflect genuine
+heterogeneity rather than selective publication. Large experiments at major
 US employers may simply measure a different level of discrimination than
-small experiments in European labour markets. Moreover, the standard error
-of a log odds ratio depends mechanically on the callback rates, which can
-produce some funnel asymmetry even without any selection.
-\citet{zschirnt2016} report a similar pattern: their trim-and-fill analysis
-suggests several missing studies on the side of less discrimination
-(supplementary material, S12). We conclude that the size of the effect is
-less certain than the narrow confidence interval of the original estimate
-suggests, but that all corrected estimates remain below one.
+small experiments in European labour markets, as Section~8 suggests. We
+conclude that the size of the effect is less certain than the narrow
+confidence interval of the original estimate suggests, but that all
+corrected estimates remain below one.
 \newpage
 % =====================================================================
-\section{Heterogeneity: meta-regression}
+\section{Sources of Heterogeneity}
 % The coefficients quoted in the text are typed in from
 % Table~\ref{tab:metareg-wls}; update them by hand if the studies change.
 % =====================================================================
 
-The pooled estimates hide very large differences between studies. To examine
-whether observable study characteristics account for some of them, we extend
-the meta-regression of Section~7 with moderators $Z_i$:
+The pooled estimates hide very large differences between studies. To
+examine whether observable study characteristics account for some of them,
+we extend the meta-regression of Section~7 with a vector of moderators
+$Z_i$.
 \begin{equation}
   y_i = \beta_0 + \beta_1\, SE_i + \gamma' Z_i + \varepsilon_i .
 \end{equation}
 All models are estimated by WLS with weights $1/SE_i^2$ on the combined
-sample and include the standard error, so that they control for small-study
-effects at the same time. With \maKcomb{} observations, we keep the
+sample. Since they include the standard error, they control for small-study
+effects at the same time. With only \maKcomb{} observations, we keep the
 specifications deliberately small (Table~\ref{tab:metareg-wls}).
 
 \input{tables/metareg_wls.tex}
 
-The most robust result concerns region. Studies conducted in Europe report
-stronger discrimination than studies conducted elsewhere, which are mostly
-from North America. The coefficient in model M2 is $-0.28$ (SE 0.13), which
-corresponds to an odds ratio that is about 25\,\% lower. For German-speaking
-countries the coefficient is positive ($0.20$, SE 0.15). This is in line
-with the finding of \citet{zschirnt2016} that discrimination is lower where
-applications contain more information, but the coefficient is not
+The clearest result concerns region. Studies conducted in Europe report
+stronger discrimination than studies conducted elsewhere, most of which
+come from North America. The coefficient in model M2 is $-0.28$ (SE 0.13),
+which corresponds to an odds ratio about 25\,\% lower. It stays between
+$-0.27$ and $-0.29$ in all models from M2 to M5. For German-speaking
+countries the coefficient is positive ($0.20$, SE 0.15). This matches the
+original finding that discrimination is lower where applications contain
+more information \citep{zschirnt2016}, but the coefficient is not
 statistically significant.
 
 Once region is controlled for, the coefficient on the standard error falls
 from $-3.16$ in M1 to $-1.91$ (SE 1.04) in M2. Part of the funnel asymmetry
-documented in Section~7 therefore reflects the composition of the sample:
-small studies are more often European, and European studies find more
-discrimination. This supports a cautious reading of the publication-bias
+in Section~7 therefore reflects the composition of the sample. European
+studies are on average less precise, and they also find more
+discrimination. This supports a cautious reading of the publication bias
 results.
 
 The remaining moderators add little. The skill level of the advertised jobs
-is not significantly related to the effect size (M3; only 30 studies report
-this information). There is no time trend: the coefficient on the decade of
-testing is $-0.01$ (SE 0.08) in M4. Finally, an indicator for the
-\maKnew{} new studies is small and insignificant ($0.04$, SE 0.13) in M5.
-Conditional on region and precision, the new studies do not differ
-systematically from the original ones.
+is not significantly related to the effect size (M3), although only 30
+studies report this information. There is no time trend, as the
+coefficient on the decade of testing is $-0.01$ (SE 0.08) in M4. Finally,
+an indicator for the \maKnew{} new studies is small and insignificant
+($0.04$, SE 0.13) in M5. Conditional on region and precision, the new
+studies thus do not differ systematically from the original ones.
 
 These results should be interpreted with care. The number of studies is
 small, the moderators are correlated with each other, and a large part of
@@ -608,76 +643,82 @@ the heterogeneity remains unexplained.
 
 This report replicates and updates the meta-analysis of correspondence tests
 on ethnic discrimination in hiring \citep{zschirnt2016}. The replication of
-the pooled estimate is exact. The RE model yields an odds ratio of \maORre{}
-\maCIre, which indicates that minority applicants are considerably less
-likely to be invited to an interview than equally qualified majority
-applicants. FE and UWLS both
-yield \maORfe, but the UWLS standard error is about \maSEratioUWLS{} times
-larger. This reflects the large heterogeneity between studies, which exceeds
-what sampling error alone would imply.
+the pooled estimate is exact. The RE model yields an odds ratio of
+\maORre, \CIinwords{\maCIre}. Minority applicants therefore have
+considerably lower odds of being invited to an interview than equally
+qualified majority applicants. FE and UWLS both yield \maORfe, but the UWLS
+standard error is about \maSEratioUWLS{} times larger. This reflects the
+large heterogeneity between studies, which exceeds what sampling error alone
+would imply.
 
 The inclusion of \maKnew{} more recent correspondence tests leaves the RE
-estimate largely unchanged (\maORcomb{} \maCIcomb). None of the new
-estimates falls within the original confidence interval, but all of them lie
-within the prediction interval. The precision-weighted estimators react much
-more strongly: the UWLS estimate moves from \maORuwls{} to \maORuwlsComb,
-because \citet{kline2022} alone receives \maWshareKline\,\% of the UWLS
-weight but only \maWshareKlineRE\,\% of the RE weight. The stability of the
-RE estimate is therefore only partly reassuring, since RE gives relatively
-more weight to small studies, which are the most exposed to publication bias.
+estimate largely unchanged (\maORcomb, \CIinwords{\maCIcomb}). Although none
+of the new estimates falls within the original confidence interval, all of
+them lie within the prediction interval. The precision-weighted estimators
+react much more strongly. The UWLS estimate moves from \maORuwls{} to
+\maORuwlsComb, because the very precise US study alone receives
+\maWshareKline\,\% of the UWLS weight but only \maWshareKlineRE\,\% of the
+RE weight \citep{kline2022}. The stability of the RE estimate is therefore
+only partly reassuring, since RE gives relatively more weight to small
+studies, which are the most exposed to publication bias.
 
-Statistical power is high by the standards of economics. The median power of
-the original studies is \maMedPower, compared with 7\,\% in leading economics
-journals \citep{askarov2024}. In the combined sample it falls to
+Statistical power is high by the standards of economics. The median power
+of the original studies is \maMedPower, compared with only 7\,\% in leading
+economics journals \citep{askarov2024}. In the combined sample it falls to
 \maMedPowerComb, but this reflects the smaller benchmark effect implied by
-\citet{kline2022}, not weaker studies. High power makes it unlikely that the
+the US study, not weaker studies. High power makes it unlikely that the
 significant results are mainly chance findings or strongly exaggerated
 estimates. These figures are, however, likely to be an upper bound, because
 they rely on published studies and on a pooled estimate that may itself be
 affected by publication bias.
 
-The evidence on publication bias is mixed. The original sample shows no
-clear sign of selective reporting, although the FAT is imprecise and has
-little power to detect it. In the combined sample, effect size and standard
-error are clearly related ($\hat\beta_1 = \maFATComb$), and the corrected
-estimates move towards one. This pattern should not be read as publication
-bias alone. It is driven to a large extent by \citet{kline2022}, it partly
-reflects heterogeneity (once region is controlled for, the slope falls to
-$-1.91$), and the standard error of a log odds ratio is mechanically related
-to the callback rates.
+The evidence on publication bias is mixed. The original sample shows little
+sign of selective reporting, although the FAT is imprecise there and would
+have difficulty detecting it. The combined sample shows a clear association
+between effect size and standard error ($\hat\beta_1 = \maFATComb$), and the
+corrected estimates move towards one. This pattern should not be read as
+publication bias alone. As Section~7 shows, it rests largely on the US
+study, and without it the slope is no longer significant. In addition, part
+of the association reflects heterogeneity, since the slope falls to $-1.91$
+once region is controlled for (Section~8).
 
-Overall, the evidence that ethnic discrimination in hiring exists can be
-regarded as reliable. All pooled and bias-corrected estimates remain below
-one, regardless of the estimator and the sample, although the most
-conservative estimate (PET, \maORpetComb{} \maCIpetComb) is only just
-significant. The magnitude of the
-effect, in contrast, is considerably less certain. Depending on the method,
-the estimated odds ratio ranges from \maORre{} to \maORpetComb. In addition,
-heterogeneity is very high ($I^2 = \maIsqRe\,\%$), and the prediction
-interval (\maPIre) is wide and even includes one, so that some labour
-markets may show little or no discrimination. The meta-regression suggests that part of this variation
-is related to region, with European studies reporting stronger
-discrimination (Section~8). A single true effect size is therefore difficult
-to justify. Rather, the extent of discrimination appears to vary across
-countries, minority groups and labour markets.
+Overall, the evidence that ethnic discrimination in hiring exists is
+reliable. All pooled and bias-corrected estimates remain below one,
+regardless of the estimator and the sample. Even the most conservative
+estimate, the PET in the combined sample, is significantly below one,
+although only just (\maORpetComb, \CIinwords{\maCIpetComb}). The magnitude
+of the effect, in contrast, is considerably less certain. Depending on the
+method and the sample, the estimated odds ratio lies between \maORsub{} and
+\maORpetComb. In addition, heterogeneity is very high
+($I^2 = \maIsqRe\,\%$). The prediction interval ranges \CIrange{\maPIre} and
+thus even includes one, so that some labour markets may show little or no
+discrimination. The meta-regression suggests that part of this variation is
+related to region, with European studies reporting stronger discrimination
+(Section~8). A single true effect size is therefore difficult to justify.
+Rather, the extent of discrimination appears to vary across countries,
+minority groups and labour markets.
 
-Several limitations should be noted. For three of the new studies, callback
-counts were reconstructed from reported rates and sample sizes. The standard
-errors do not account for the clustering of applications within employers
-and are therefore likely to be understated, which also means that power is
-overstated. Moreover, the power calculations and the WAAP estimate depend on
-the assumed true effect, which is itself sensitive to a single study. Finally, although the studies comprise a large number of applications, the meta-regression is based on only \maKcomb{} study-level estimates. This limits the number of moderators that can be examined at the same time.
-
+Our analysis has some limitations. For three of the new studies, callback
+counts were reconstructed from reported rates and sample sizes. The
+standard errors do not account for the clustering of applications within
+employers and are therefore likely to be understated, which also means that
+power is overstated. Moreover, the power calculations and the WAAP estimate
+depend on the assumed true effect, which is itself sensitive to a single
+study. Since researchers tend to test groups for which they expect
+discrimination, the average effect may also be overestimated (Section~3.4).
+Finally, although the studies comprise a large number of applications, the
+meta-regression is based on only \maKcomb{} study-level estimates. This
+limits the number of moderators that can be examined at the same time.
 % =====================================================================
 \newpage
 \bibliographystyle{apalike}
 \bibliography{references}
 
 \appendix
-\section{Table of evidence}\label{app:evidence}
+\section{Table of Evidence}\label{app:evidence}
 \input{tables/evidence_table.tex}
 
-\section{Robustness of statistical power}\label{app:power}
+\section{Robustness of Statistical Power}\label{app:power}
 \input{tables/power_robustness.tex}
 
 \end{document}
