@@ -92,11 +92,11 @@ significance (ESS). Section~8 explores the sources of heterogeneity between
 studies and Section~9 concludes.
 
 % =====================================================================
-\section{Research question and literature}
+\section{Research Question and Literature}
 % Vanessa (task 1)
 % =====================================================================
 
-\subsection{Why employers might discriminate}
+\subsection{Why Employers Might Discriminate}
 
 The literature distinguishes between two types of discrimination.
 Taste-based discrimination describes employers who hire according to ethnic
@@ -115,7 +115,7 @@ about the group and decides according to these stereotypes. For this type
 of discrimination, more information about the applicant should reduce the
 gap.
 
-\subsection{Treatment, outcome and design}
+\subsection{Treatment, Outcome and Design}
 
 Correspondence tests are field experiments in which researchers respond to
 advertised job openings with written applications \citep{riach2002}. Two or
@@ -133,7 +133,7 @@ hiring decisions, which a laboratory experiment cannot offer
 stage of hiring. This stage, however, accounts for nearly 90\,\% of the net
 discrimination measured in the experiments reviewed by
 \citet{riach2002}.
-\subsection{Typical estimating equation}
+\subsection{Typical Estimating Equation}
 
 Individual studies typically regress an indicator for a callback on the
 ethnic signal \citep[e.g.][]{bertrand2004}. A common specification is the linear probability model \citep[e.g.][]{kline2022}
@@ -149,7 +149,7 @@ difference in callback probabilities between minority and majority applicants \c
 also report the raw callback rates for each group \citep{zschirnt2016},
 which is the information we use to construct comparable effect sizes.
 
-\subsection{A typical dataset}
+\subsection{A Typical Dataset}
 
 The experiment by \citet{bertrand2004}, which is part of the original
 meta-analysis, is regarded as a model example of this method
@@ -166,7 +166,7 @@ African-American names. The data have the structure that is common to
 correspondence tests. They contain one observation per application, a
 binary callback outcome, the randomised ethnic signal and a set of CV
 characteristics.
-\subsection{Effect size used in the meta-analysis}
+\subsection{Effect Size Used in the Meta-Analysis}
 
 The original meta-analysis expresses discrimination with two measures
 \citep{zschirnt2016}. The relative callback ratio divides the callback rate
@@ -178,7 +178,7 @@ one indicate that minority applicants have lower odds of an invitation. As
 in the forest plot of the original article, odds ratios are shown on a
 logarithmic scale \citep{zschirnt2016}. In the following, $y_i$ denotes the
 log odds ratio of study $i$ and $SE_i$ its standard error.
-\subsection{Related meta-analyses}
+\subsection{Related Meta-analyses}
 
 Several other meta-analyses examine hiring discrimination. For the United
 States, field experiments since 1989 show that white applicants receive on
@@ -201,11 +201,11 @@ particular attention to prediction intervals, moderators and publication
 bias in the following sections.
 
 % =====================================================================
-\section{The original meta-analysis and data}
+\section{The Original Meta-analysis and Data}
 % Vanessa
 % =====================================================================
 
-\subsection{Search strategy and eligibility criteria}
+\subsection{Study Selection}
 
 The original meta-analysis covers correspondence tests on discrimination
 against ethnic and racial minorities at the hiring stage
@@ -221,17 +221,19 @@ retrieved studies and of earlier systematic reviews \citep{riach2002}.
 Studies in English, French, German and Dutch could be included.
 \subsection{Data}
 
-The resulting dataset comprises 43 studies from 18 countries, covering more
-than 20 minority groups. Most studies were conducted in member states of the
-European Union (26), followed by North America (12). As many studies test
-several minority groups, occupations or regions, the data contain 738
-subgroup comparisons in total. An odds ratio can only be computed if the
-numbers of applications and callbacks are reported for both groups. This
-information is available for \maK{} studies, comprising \maKsub{} subgroups,
-which form the basis of the original pooled estimate and of our replication.
-The remaining nine studies report only relative callback rates and are listed
-separately in the appendix.
-
+The final sample contains 43 studies \citep{zschirnt2016}. Together they
+cover 18 countries and more than 20 minority groups. Around 60\,\% of the
+studies, 26 in total, were carried out in member states of the European
+Union, and another 12 in North America \citep[Table~1]{zschirnt2016}. Since
+most studies report results separately for several minority groups, and
+sometimes also by gender or occupation, the data can be split into 738
+subgroups. Odds ratios require the absolute numbers of applications and
+callbacks for both groups, which the authors recalculated wherever the
+original studies allowed it. This was possible for \maK{} studies. In the
+authors' replication file, these correspond to \maKsub{} subgroups, and
+they form the basis of the original pooled estimate and of our replication.
+The other nine studies report only relative callback rates and are
+therefore listed separately in the appendix.
 \subsection{Main results}
 
 Using a random-effects model on the study-level log odds ratios, the
@@ -266,7 +268,7 @@ systematic relationship between discrimination and the economic situation
 ethnic discrimination in hiring remained widespread across OECD countries
 throughout the period 1990--2015.
 
-\subsection{Limitations noted by the authors}
+\subsection{Limitations Noted by the Authors}
 
 The authors acknowledge several limitations. Names are an imperfect signal of
 ethnicity and may also convey information about religion or social class.
@@ -325,7 +327,7 @@ Estimating the model on the \maKsub{} subgroups instead of the \maK{}
 studies gives \maORsub{} \maCIsub.
 
 % =====================================================================
-\section{Update with new studies}
+\section{Update with New Studies}
 % task 3: at least two newer studies; in the CI? does the estimate change?
 % Numbers not coming from macros (0.74, 18 %, weight shares, application
 % counts) are taken from Tables~\ref{tab:update-new} and
@@ -393,7 +395,7 @@ sent to the same employer. They are therefore somewhat too small, in
 particular for \citet{kline2022}.
 
 % =====================================================================
-\section{Statistical power}
+\section{Statistical Power}
 % task 4. The UWLS odds ratio of the combined sample (0.74) is typed in by
 % hand, see Table~\ref{tab:pubbias-estimates}.
 % =====================================================================
@@ -509,7 +511,7 @@ the two are also almost identical (\maORwaap{} and \maORuwls). Dropping the
 underpowered studies therefore changes little, because UWLS already gives
 them very small weights.
 
-\paragraph{Excess statistical significance (ESS).}
+\paragraph{Excess Statistical Significance (ESS).}
 In the combined sample, \maNsigComb{} of \maKcomb{} estimates are
 statistically significant, a share of \maShareSigComb, whereas the average
 power implies an expected share of \maExpSigComb. The difference
@@ -539,7 +541,7 @@ less certain than the narrow confidence interval of the original estimate
 suggests, but that all corrected estimates remain below one.
 
 % =====================================================================
-\section{Heterogeneity: meta-regression}
+\section{Heterogeneity: Meta-regression}
 % The coefficients quoted in the text are typed in from
 % Table~\ref{tab:metareg-wls}; update them by hand if the studies change.
 % =====================================================================
