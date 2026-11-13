@@ -427,14 +427,13 @@ US study.
 
 Statistical power is the probability that a study rejects the null
 hypothesis of no effect when a true effect exists. Following the approach
-used in meta-research on economics \citep{askarov2024}, we compute the
+used in meta-research on economics \citep{ioannidis2017,askarov2024}, we compute the
 ex-post power of each study and treat the UWLS estimate $\hat\mu$ as the
 true effect.
 \begin{equation}
   q_i = \Phi\left(\frac{|\hat\mu|}{SE_i} - 1.96\right)
 \end{equation}
-A study counts as adequately powered if $q_i \geq 0.8$, which requires
-$SE_i \leq |\hat\mu| / 2.8$.
+A study counts as adequately powered if $q_i \geq 0.8$. Since $\Phi(0.84) = 0.8$, this requires $SE_i \leq |\hat\mu| / 2.8$, as $1.96 + 0.84 = 2.8$.
 
 \input{tables/power_bias_stats.tex}
 
@@ -490,21 +489,22 @@ how sensitive this calculation is.
 % =====================================================================
 
 Publication bias arises when the probability that a result is published
-depends on its size or statistical significance. In this literature the
-concern is that studies which find clear discrimination are more likely to
-be written up and published than studies which find little or none. We
-assess this with four methods, using the combined sample of \maKcomb{}
-studies and reporting the original sample for comparison.
+depends on its size or statistical significance \citep{stanley2012}. In
+this literature, the concern is that studies with clear evidence of
+discrimination are more likely to be written up and published than studies
+that find little or none. We assess this with four methods. All of them are
+applied to the combined sample of \maKcomb{} studies, and the original
+sample is reported for comparison.
 
 \paragraph{Funnel plot.}
 Without selective publication, the estimates should scatter symmetrically
 around the pooled effect, with more dispersion among imprecise studies.
-Figure~\ref{fig:funnel} is not symmetric. The imprecise studies lie almost
-exclusively to the left of the pooled estimate, that is, they report
-stronger discrimination, while there are hardly any imprecise studies with
-odds ratios close to or above one. In addition, many precise studies fall
-outside the pseudo 95\,\% region, which again reflects the large
-heterogeneity.
+Figure~\ref{fig:funnel} does not show this pattern. Among the less precise
+half of the studies, 15 of 19 lie to the left of the UWLS estimate and thus
+report stronger discrimination. Only two of them have an odds ratio close
+to or above one. In addition, many precise studies fall outside the pseudo
+95\,\% region, which again reflects the large heterogeneity.
+% 15 of 19 and "only two" counted by hand from the combined data (SE above median).
 
 \begin{figure}[htbp]
   \centering
@@ -514,58 +514,66 @@ heterogeneity.
 \end{figure}
 
 \paragraph{Meta-regression of the effect on its standard error (FAT-PET).}
-We regress the log odds ratio on its standard error by WLS with weights $1/SE_i^2$.
+Following the standard approach in the literature \citep{stanley2012}, we
+regress the log odds ratio on its standard error by WLS with weights
+$1/SE_i^2$.
 \begin{equation}
   y_i = \beta_0 + \beta_1\, SE_i + \varepsilon_i .
 \end{equation}
-The slope $\beta_1$ measures the association between effect size and
-precision, and the intercept $\beta_0$ estimates the effect of a
-hypothetical study with a standard error of zero. In the combined sample the
-slope is $\maFATComb$ (SE \maFATseComb), which means that less precise studies report
-systematically stronger discrimination. The intercept corresponds to an odds
-ratio of \maORpetComb{} \maCIpetComb. In the original sample the slope is
-much smaller and imprecisely estimated ($\maFAT$, SE \maFATse), with a
-corrected odds ratio of \maORpet{} \maCIpet{}
-(Tables~\ref{tab:power-bias} and~\ref{tab:pubbias-estimates}).
+The slope $\beta_1$ captures the association between effect size and
+precision. The intercept $\beta_0$ estimates the effect of a hypothetical
+study with a standard error of zero. In the combined sample, the slope is
+$\maFATComb$ (SE \maFATseComb), which means that less precise studies
+report systematically stronger discrimination. The intercept corresponds to
+an odds ratio of \maORpetComb, \CIinwords{\maCIpetComb}. In the original
+sample, the slope is much smaller and imprecisely estimated ($\maFAT$, SE
+\maFATse). The corrected odds ratio there is \maORpet,
+\CIinwords{\maCIpet} (Tables~\ref{tab:power-bias}
+and~\ref{tab:pubbias-estimates}).
 
 \input{tables/pubbias_estimates.tex}
 
 \paragraph{WAAP.}
-Restricting UWLS to the adequately powered studies gives \maORwaapComb{}
-\maCIwaapComb{} in the combined sample (\maNadequateComb{} studies), very
-close to the UWLS estimate for all studies (0.74). In the original sample
-the two are also almost identical (\maORwaap{} and \maORuwls). Dropping the
-underpowered studies therefore changes little, because UWLS already gives
-them very small weights.
+The weighted average of the adequately powered estimates applies UWLS only
+to studies with a power of at least 80\,\% \citep{ioannidis2017}. In the
+combined sample, this gives \maORwaapComb, \CIinwords{\maCIwaapComb}, based
+on \maNadequateComb{} studies. This is very close to the UWLS estimate for
+all studies (0.74). In the original sample, the two estimates are also
+almost identical (\maORwaap{} and \maORuwls). Dropping the underpowered
+studies therefore changes little, because UWLS already gives them very
+small weights.
 
-\paragraph{Excess Statistical Significance (ESS).}
+\paragraph{Excess statistical significance (ESS).}
+The ESS test compares the observed share of significant results with the
+share that the average power would lead us to expect \citep{askarov2024}.
 In the combined sample, \maNsigComb{} of \maKcomb{} estimates are
-statistically significant, a share of \maShareSigComb, whereas the average
-power implies an expected share of \maExpSigComb. The difference
-(ESS~$= \maESSComb$) suggests that significant results are over-represented.
-In the original sample there is no excess, as the observed share is
-\maShareSig{} and the expected share \maExpSig.
+statistically significant, a share of \maShareSigComb. The average power,
+however, implies an expected share of only \maExpSigComb. The difference
+(ESS~$= \maESSComb$) suggests that significant results are
+over-represented. In the original sample there is no such excess, as the
+observed share is \maShareSig{} and the expected share \maExpSig.
 
 \paragraph{Interpretation.}
 At first sight, the combined sample shows clear signs of small-study
-effects, and the corrected estimates imply less discrimination than the
+effects. The corrected estimates also imply less discrimination than the
 original meta-analysis, with odds ratios between \maORwaapComb{} and
 \maORpetComb{} instead of \maORre. This conclusion needs to be qualified.
 The evidence only becomes strong once the new studies are included, and it
-is driven largely by \citet{kline2022}, a very precise study with an odds
-ratio close to one. It pulls the precision-weighted mean towards one, so
-that the smaller studies with larger effects appear excessive. An
-association between effect size and precision can also reflect genuine
-heterogeneity rather than selective publication: large experiments at major
+rests largely on the US study, which is very precise and has an odds ratio
+close to one \citep{kline2022}. It pulls the precision-weighted mean
+towards one, so that the smaller studies with larger effects appear
+excessive. When this study is excluded, the slope falls to $-0.40$
+(SE 1.21) and is no longer significant, the corrected odds ratio is 0.64,
+and the share of significant results (0.81) no longer exceeds the expected
+share (0.85).
+% Numbers without Kline et al. computed by hand (same WLS method), not from a macro.
+An association between effect size and precision can also reflect genuine
+heterogeneity rather than selective publication. Large experiments at major
 US employers may simply measure a different level of discrimination than
-small experiments in European labour markets. Moreover, the standard error
-of a log odds ratio depends mechanically on the callback rates, which can
-produce some funnel asymmetry even without any selection.
-\citet{zschirnt2016} report a similar pattern: their trim-and-fill analysis
-suggests several missing studies on the side of less discrimination
-(supplementary material, S12). We conclude that the size of the effect is
-less certain than the narrow confidence interval of the original estimate
-suggests, but that all corrected estimates remain below one.
+small experiments in European labour markets, as Section~8 suggests. We
+conclude that the size of the effect is less certain than the narrow
+confidence interval of the original estimate suggests, but that all
+corrected estimates remain below one.
 
 % =====================================================================
 \section{Heterogeneity: Meta-regression}
@@ -573,42 +581,44 @@ suggests, but that all corrected estimates remain below one.
 % Table~\ref{tab:metareg-wls}; update them by hand if the studies change.
 % =====================================================================
 
-The pooled estimates hide very large differences between studies. To examine
-whether observable study characteristics account for some of them, we extend
-the meta-regression of Section~7 with moderators $Z_i$.
+The pooled estimates hide very large differences between studies. To
+examine whether observable study characteristics account for some of them,
+we extend the meta-regression of Section~7 with a vector of moderators
+$Z_i$.
 \begin{equation}
   y_i = \beta_0 + \beta_1\, SE_i + \gamma' Z_i + \varepsilon_i .
 \end{equation}
 All models are estimated by WLS with weights $1/SE_i^2$ on the combined
-sample and include the standard error, so that they control for small-study
-effects at the same time. With \maKcomb{} observations, we keep the
+sample. Since they include the standard error, they control for small-study
+effects at the same time. With only \maKcomb{} observations, we keep the
 specifications deliberately small (Table~\ref{tab:metareg-wls}).
 
 \input{tables/metareg_wls.tex}
 
-The most robust result concerns region. Studies conducted in Europe report
-stronger discrimination than studies conducted elsewhere, which are mostly
-from North America. The coefficient in model M2 is $-0.28$ (SE 0.13), which
-corresponds to an odds ratio that is about 25\,\% lower. For German-speaking
-countries the coefficient is positive ($0.20$, SE 0.15). This is in line
-with the finding of \citet{zschirnt2016} that discrimination is lower where
-applications contain more information, but the coefficient is not
+The clearest result concerns region. Studies conducted in Europe report
+stronger discrimination than studies conducted elsewhere, most of which
+come from North America. The coefficient in model M2 is $-0.28$ (SE 0.13),
+which corresponds to an odds ratio about 25\,\% lower. It stays between
+$-0.27$ and $-0.29$ in all models from M2 to M5. For German-speaking
+countries the coefficient is positive ($0.20$, SE 0.15). This matches the
+original finding that discrimination is lower where applications contain
+more information \citep{zschirnt2016}, but the coefficient is not
 statistically significant.
 
 Once region is controlled for, the coefficient on the standard error falls
 from $-3.16$ in M1 to $-1.91$ (SE 1.04) in M2. Part of the funnel asymmetry
-documented in Section~7 therefore reflects the composition of the sample:
-small studies are more often European, and European studies find more
-discrimination. This supports a cautious reading of the publication-bias
+in Section~7 therefore reflects the composition of the sample. European
+studies are on average less precise, and they also find more
+discrimination. This supports a cautious reading of the publication bias
 results.
 
 The remaining moderators add little. The skill level of the advertised jobs
-is not significantly related to the effect size (M3, where only 30 studies report
-this information). There is no time trend, as the coefficient on the decade of
-testing is $-0.01$ (SE 0.08) in M4. Finally, an indicator for the
-\maKnew{} new studies is small and insignificant ($0.04$, SE 0.13) in M5.
-Conditional on region and precision, the new studies do not differ
-systematically from the original ones.
+is not significantly related to the effect size (M3), although only 30
+studies report this information. There is no time trend, as the
+coefficient on the decade of testing is $-0.01$ (SE 0.08) in M4. Finally,
+an indicator for the \maKnew{} new studies is small and insignificant
+($0.04$, SE 0.13) in M5. Conditional on region and precision, the new
+studies thus do not differ systematically from the original ones.
 
 These results should be interpreted with care. The number of studies is
 small, the moderators are correlated with each other, and a large part of
@@ -621,8 +631,7 @@ the heterogeneity remains unexplained.
 
 This report replicates and updates the meta-analysis of correspondence tests
 on ethnic discrimination in hiring \citep{zschirnt2016}. The replication of
-the pooled estimate is exact. The RE model yields an odds ratio of \maORre{}
-\maCIre, which indicates that minority applicants are considerably less
+the pooled estimate is exact. The RE model yields an odds ratio of \maORre, \CIinwords{\maCIre}, which indicates that minority applicants are considerably less
 likely to be invited to an interview than equally qualified majority
 applicants. FE and UWLS produce the same point estimate, but the UWLS
 confidence interval is substantially wider. This reflects the large
@@ -630,7 +639,7 @@ heterogeneity between studies, which exceeds what sampling error alone would
 imply.
 
 The inclusion of \maKnew{} more recent correspondence tests leaves the RE
-estimate largely unchanged (\maORcomb{} \maCIcomb). Although none of the new
+estimate largely unchanged (\maORcomb, \CIinwords{\maCIcomb}). Although none of the new
 estimates falls within the original confidence interval, all of them lie
 within the prediction interval. The median power of the original studies is
 high (\maMedPower) but declines to \maMedPowerComb{} in the combined sample.
