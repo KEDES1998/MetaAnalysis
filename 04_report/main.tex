@@ -355,33 +355,40 @@ the \maK{} studies gives \maORsub, \CIinwords{\maCIsub}.
 % \ref{tab:update-pooled}; update them by hand if the studies change.
 % =====================================================================
 
-We add \maKnew{} correspondence tests that were published after the original meta-analysis. Each satisfies the inclusion criteria of the original meta-analysis \citep{zschirnt2016}. All of them use written applications, compare an ethnic minority with the majority population, take place in an OECD country and report enough information to compute an odds ratio. As in the original, we use one estimate per study and
-pool all minority groups. Together, the new studies comprise about 102{,}900
-applications, more than the \maK{} original studies combined (about
-84{,}000).
+We add \maKnew{} correspondence tests that were published after the original
+meta-analysis. All of them meet its inclusion criteria \citep{zschirnt2016}.
+They are based on written applications, compare an ethnic minority with the
+majority population, take place in an OECD country and report enough
+information to compute an odds ratio. As in the original, we use one
+estimate per study and pool all minority groups. Together, the new studies
+comprise about 102{,}900 applications, which is more than the \maK{}
+original studies combined (about 84{,}000).
 
-\citet{koopmans2019} test applicants from 34 origin groups for vocational
-jobs in Germany. \citet{kline2022} send about 84{,}000 applications with
-distinctively Black or white names to entry-level jobs at large US
-employers. \citet{zschirnt2019} compare Swiss citizens of Kosovar, Turkish
-and German or French origin with applicants of Swiss origin. This study is
-co-authored by one of the authors of the original meta-analysis but is an
-independent experiment conducted after its sample period.
-\citet{adamovic2023} test five minority groups in Australia for leadership
-and non-leadership positions.
+The first study tests applicants from 34 origin groups in Germany
+\citep{koopmans2019}. The second sends about 84{,}000 applications with
+distinctively Black or white names to entry-level jobs at large employers in
+the United States \citep{kline2022}. The third compares Swiss citizens of
+Kosovar, Turkish and German or French origin with applicants of Swiss
+origin, mainly for apprenticeship-level jobs \citep{zschirnt2019}. Although
+one of its authors also co-wrote the original meta-analysis, it is an
+independent experiment carried out in 2017 and 2018. The fourth tests five
+minority groups in Australia for leadership and non-leadership positions
+\citep{adamovic2023}.
 
 \input{tables/update_new_studies.tex}
 
 Table~\ref{tab:update-new} compares the new estimates with the original
-pooled estimate. None of the \maKnew{} odds ratios lies inside its
-confidence interval \maCIre. Two are close, since the intervals of
-\citet{koopmans2019} and \citet{zschirnt2019} overlap with it.
-\citet{kline2022} find clearly less discrimination (\maORnewMax) and
-\citet{adamovic2023} clearly more (\maORnewMin). This is not surprising. The
-confidence interval describes the uncertainty about the mean effect, not the
-range in which individual studies fall, and with $I^2$ above 90\,\% single
-studies are expected to lie outside it. The appropriate benchmark is the
-prediction interval \maPIre, and all \maKnew{} estimates lie inside it.
+pooled estimate. None of the \maKnew{} odds ratios lies inside its 95\,\%
+confidence interval, which ranges \CIrange{\maCIre}. Two of them are close,
+as the intervals of the German and the Swiss study overlap with it
+\citep{koopmans2019,zschirnt2019}. The US study finds clearly less
+discrimination (\maORnewMax) \citep{kline2022}, whereas the Australian study
+finds clearly more (\maORnewMin) \citep{adamovic2023}. This is not
+surprising. The confidence interval describes the uncertainty about the mean
+effect, not the range in which single studies fall. With $I^2$ above
+90\,\%, individual studies are expected to lie outside it. The more suitable
+benchmark is the prediction interval, which ranges \CIrange{\maPIre}. All
+\maKnew{} new estimates lie within it.
 
 \input{tables/update_pooled.tex}
 
@@ -394,23 +401,23 @@ prediction interval \maPIre, and all \maKnew{} estimates lie inside it.
 
 Whether the pooled estimate changes depends on the estimator
 (Table~\ref{tab:update-pooled}, Figure~\ref{fig:forest-combined}). The RE
-estimate is almost unchanged and moves from \maORre{} \maCIre{} to
-\maORcomb{} \maCIcomb. The FE and UWLS estimates, in contrast, rise from
-\maORfe{} to 0.74, an increase of about 18\,\%. The reason is the weighting.
-\citet{kline2022} is by far the most precise study and receives about half
-of the total FE weight in the combined sample, but only about 3\,\% under
-RE, where the between-study variance dominates the weights. After the
-update, the FE and UWLS results are therefore largely driven by a single
-study.
+estimate hardly moves. It changes from \maORre{} to \maORcomb, and its
+95\,\% confidence interval now ranges \CIrange{\maCIcomb}. The FE and UWLS
+estimates, in contrast, rise from \maORfe{} to 0.74, an increase of about
+18\,\%. The reason lies in the weighting. The US study is by far the most
+precise and receives about half of the total FE weight in the combined
+sample \citep{kline2022}. Under RE, its share falls to about 3\,\%, because
+the between-study variance dominates the weights. After the update, the FE
+and UWLS results therefore depend largely on a single study.
 
-Three caveats apply. For \citet{koopmans2019}, \citet{kline2022} and
-\citet{adamovic2023}, the callback counts are reconstructed from reported
-rates and group sizes, which introduces rounding error. In
-\citet{koopmans2019}, the minority group includes applicants of Western
-origin, which moves the odds ratio towards one. Finally, our standard errors
-treat applications as independent and ignore that several applications were
-sent to the same employer. They are therefore somewhat too small, in
-particular for \citet{kline2022}.
+Three caveats apply. For three of the new studies, the callback counts had
+to be reconstructed from reported rates and group sizes, which introduces
+rounding error \citep{koopmans2019,kline2022,adamovic2023}. In the German
+study, the minority group also includes applicants of Western origin, which
+moves the odds ratio towards one. Finally, our standard errors treat
+applications as independent, although several applications were sent to
+the same employer. They are therefore somewhat too small, especially for the
+US study.
 
 % =====================================================================
 \section{Statistical Power}
@@ -419,32 +426,32 @@ particular for \citet{kline2022}.
 % =====================================================================
 
 Statistical power is the probability that a study rejects the null
-hypothesis of no effect when a true effect exists. Following
-\citet{askarov2024}, we compute the ex-post power of each study by treating
-the UWLS estimate $\hat\mu$ as the true effect.
+hypothesis of no effect when a true effect exists. Following the approach
+used in meta-research on economics \citep{askarov2024}, we compute the
+ex-post power of each study and treat the UWLS estimate $\hat\mu$ as the
+true effect.
 \begin{equation}
   q_i = \Phi\left(\frac{|\hat\mu|}{SE_i} - 1.96\right)
 \end{equation}
-A study is called adequately powered if $q_i \geq 0.8$, which requires
+A study counts as adequately powered if $q_i \geq 0.8$, which requires
 $SE_i \leq |\hat\mu| / 2.8$.
 
 \input{tables/power_bias_stats.tex}
 
-For the \maK{} original studies, median power is \maMedPower{} and mean
-power \maMeanPower, and \maNadequate{} studies are adequately powered
-(Table~\ref{tab:power-bias}). This is very high by the standards of
-empirical economics, where \citet{askarov2024} report a median power of only
-7\,\% in leading journals. It is in line with the mean power of 0.91 that
-they report for this literature.
-% Van: double check 7 % (lecture notes) and the 0.91 (Askarov et al., Table S2).??
-The explanation lies in the design. Correspondence tests often send several
-thousand applications, and the average effect is large. In the combined
-sample of \maKcomb{} studies the picture is less favourable. Because the
-UWLS estimate moves closer to one (0.74 instead of \maORuwls), median power
-falls to \maMedPowerComb{} and mean power to \maMeanPowerComb, and only
-\maNadequateComb{} studies remain adequately powered
-(Figure~\ref{fig:power}). The assessment of power thus depends strongly on
-the assumed true effect.
+For the \maK{} original studies, the median power is \maMedPower{} and the
+mean power \maMeanPower. In total, \maNadequate{} studies are adequately
+powered (Table~\ref{tab:power-bias}). By the standards of economics, this
+is very high. In leading economics journals, the median power is only
+7\,\% \citep{askarov2024}. The same study finds that experimental evidence
+tends to be of notably higher quality than observational evidence, which
+fits the experimental design of correspondence tests. In addition, half of
+the original studies send almost 2{,}000 applications or more, and the
+average effect is large. In the combined sample of \maKcomb{} studies, the
+picture is less favourable. Since the UWLS estimate moves closer to one
+(0.74 instead of \maORuwls), the median power falls to \maMedPowerComb{}
+and the mean power to \maMeanPowerComb. Only \maNadequateComb{} studies
+remain adequately powered (Figure~\ref{fig:power}). The assessment of power
+thus depends strongly on the assumed true effect.
 
 \begin{figure}[htbp]
   \centering
@@ -453,24 +460,27 @@ the assumed true effect.
   \label{fig:power}
 \end{figure}
 
-Low power is a problem for two reasons. First, an underpowered study will
-often fail to detect an effect that exists. Second, when such a study does
-find a significant effect, the estimate must be large relative to its
-standard error and therefore tends to overstate the true effect. Low power
-also makes insignificant results more likely, which increases the temptation
-to search for specifications that produce significance, or not to publish
-the study at all. Underpowered studies are therefore more exposed to
-publication bias. Their results reach publication mainly when chance or
-specification search has produced a large estimate.
+Low power is problematic for two reasons. First, an underpowered study
+often fails to detect an effect that does exist. Second, if such a study
+does find a significant effect, the estimate has to be large relative to
+its standard error. Significant results from underpowered studies therefore
+tend to overstate the true effect \citep{ioannidis2017}. Low power also
+makes insignificant results more likely. This raises the incentive to
+search for specifications that yield significance, or not to publish the
+study at all. As a consequence, underpowered studies are more exposed to
+publication bias, since their results tend to be published mainly when
+chance or specification search has produced a large estimate.
 
 Our power estimates are likely to be an upper bound for the power of all
-studies that were conducted. We only observe published studies that report
-callback counts, and unpublished studies are probably smaller on average. In
-addition, if publication selection favours estimates that show strong
-discrimination, the pooled estimate overstates the true effect, and the
-power computed from it is too high. The fall in median power from
-\maMedPower{} to \maMedPowerComb{} after adding only \maKnew{} studies
-illustrates how sensitive this calculation is.
+studies that were actually conducted. First, we only observe studies that
+were published and report callback counts. If studies with insignificant
+results are less likely to be published, and such results are more
+frequent in small studies, the observed sample overrepresents well-powered
+studies. Second, if publication selection favours large estimates, the
+UWLS estimate overstates the true effect. Power computed from an inflated
+effect is then too high as well. The drop in median power from
+\maMedPower{} to \maMedPowerComb{} after adding only \maKnew{} studies shows
+how sensitive this calculation is.
 
 % =====================================================================
 \section{Publication bias}
