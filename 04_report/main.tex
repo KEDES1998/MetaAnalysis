@@ -315,8 +315,7 @@ Knapp--Hartung adjustment change the result only in the second decimal
 \input{tables/replication.tex}
 
 Table~\ref{tab:replication} also reports the fixed-effect (FE) and UWLS
-estimates. Both give the same point estimate, an odds ratio of \maORfe. This
-is expected: UWLS is a weighted least squares regression of the effect size
+estimates. Both give the same point estimate, an odds ratio of \maORfe. This is to be expected, since UWLS is a weighted least squares regression of the effect size
 on a constant with weights $1/SE_i^2$, which reproduces the FE average. The
 confidence intervals differ, however. The FE interval is \maCIfe, the UWLS
 interval \maCIuwls, and the UWLS standard error is \maSEratioUWLS{} times
@@ -333,11 +332,8 @@ interval.
 
 
 The large heterogeneity matters for interpretation. The 95\,\% prediction
-interval of the RE model is \maPIre: a new study from the same population
-of studies could plausibly find anything from very strong discrimination to
-none. The pooled estimate is robust to two checks. Excluding Bendick et
-al.\ (1991), the only study with an odds ratio above one (2.45; the Latino
-applicants in that study had better qualifications), gives
+interval of the RE model is \maPIre. A new study from the same population of studies could therefore find anything from very strong discrimination to no discrimination, or even a slight advantage for minority applicants. The pooled estimate is robust to two checks. Excluding Bendick et
+al.\ (1991), the only study with an odds ratio above one (2.45, because the Latino applicants in that study had better qualifications), gives
 \maORreNoBendick{} \maCIreNoBendick{} and roughly halves $\hat\tau^2$.
 Estimating the model on the \maKsub{} subgroups instead of the \maK{}
 studies gives \maORsub{} \maCIsub.
@@ -350,10 +346,7 @@ studies gives \maORsub{} \maCIsub.
 % \ref{tab:update-pooled}; update them by hand if the studies change.
 % =====================================================================
 
-We add \maKnew{} correspondence tests that were published after the original meta-analysis. Each satisfies the inclusion criteria of
-\citet{zschirnt2016}: written applications, an ethnic minority compared with
-the majority population, an OECD country, and sufficient information to
-compute an odds ratio. As in the original, we use one estimate per study and
+We add \maKnew{} correspondence tests that were published after the original meta-analysis. Each satisfies the inclusion criteria of the original meta-analysis \citep{zschirnt2016}. All of them use written applications, compare an ethnic minority with the majority population, take place in an OECD country and report enough information to compute an odds ratio. As in the original, we use one estimate per study and
 pool all minority groups. Together, the new studies comprise about 102{,}900
 applications, more than the \maK{} original studies combined (about
 84{,}000).
@@ -362,7 +355,7 @@ applications, more than the \maK{} original studies combined (about
 jobs in Germany. \citet{kline2022} send about 84{,}000 applications with
 distinctively Black or white names to entry-level jobs at large US
 employers. \citet{zschirnt2019} compare Swiss citizens of Kosovar, Turkish
-and German or French origin with applicants of Swiss origin; this study is
+and German or French origin with applicants of Swiss origin. This study is
 co-authored by one of the authors of the original meta-analysis but is an
 independent experiment conducted after its sample period.
 \citet{adamovic2023} test five minority groups in Australia for leadership
@@ -372,7 +365,7 @@ and non-leadership positions.
 
 Table~\ref{tab:update-new} compares the new estimates with the original
 pooled estimate. None of the \maKnew{} odds ratios lies inside its
-confidence interval \maCIre. Two are close: the intervals of
+confidence interval \maCIre. Two are close, since the intervals of
 \citet{koopmans2019} and \citet{zschirnt2019} overlap with it.
 \citet{kline2022} find clearly less discrimination (\maORnewMax) and
 \citet{adamovic2023} clearly more (\maORnewMin). This is not surprising. The
@@ -392,7 +385,7 @@ prediction interval \maPIre, and all \maKnew{} estimates lie inside it.
 
 Whether the pooled estimate changes depends on the estimator
 (Table~\ref{tab:update-pooled}, Figure~\ref{fig:forest-combined}). The RE
-estimate is almost unchanged: it moves from \maORre{} \maCIre{} to
+estimate is almost unchanged and moves from \maORre{} \maCIre{} to
 \maORcomb{} \maCIcomb. The FE and UWLS estimates, in contrast, rise from
 \maORfe{} to 0.74, an increase of about 18\,\%. The reason is the weighting.
 \citet{kline2022} is by far the most precise study and receives about half
@@ -502,15 +495,14 @@ heterogeneity.
 \end{figure}
 
 \paragraph{Meta-regression of the effect on its standard error (FAT-PET).}
-We regress the log odds ratio on its standard error by WLS with weights
-$1/SE_i^2$:
+We regress the log odds ratio on its standard error by WLS with weights $1/SE_i^2$.
 \begin{equation}
   y_i = \beta_0 + \beta_1\, SE_i + \varepsilon_i .
 \end{equation}
 The slope $\beta_1$ measures the association between effect size and
 precision, and the intercept $\beta_0$ estimates the effect of a
 hypothetical study with a standard error of zero. In the combined sample the
-slope is $\maFATComb$ (SE \maFATseComb): less precise studies report
+slope is $\maFATComb$ (SE \maFATseComb), which means that less precise studies report
 systematically stronger discrimination. The intercept corresponds to an odds
 ratio of \maORpetComb{} \maCIpetComb. In the original sample the slope is
 much smaller and imprecisely estimated ($\maFAT$, SE \maFATse), with a
@@ -532,13 +524,13 @@ In the combined sample, \maNsigComb{} of \maKcomb{} estimates are
 statistically significant, a share of \maShareSigComb, whereas the average
 power implies an expected share of \maExpSigComb. The difference
 (ESS~$= \maESSComb$) suggests that significant results are over-represented.
-In the original sample there is no excess: the observed share is
+In the original sample there is no excess, as the observed share is
 \maShareSig{} and the expected share \maExpSig.
 
 \paragraph{Interpretation.}
 At first sight, the combined sample shows clear signs of small-study
 effects, and the corrected estimates imply less discrimination than the
-original meta-analysis: odds ratios between \maORwaapComb{} and
+original meta-analysis, with odds ratios between \maORwaapComb{} and
 \maORpetComb{} instead of \maORre. This conclusion needs to be qualified.
 The evidence only becomes strong once the new studies are included, and it
 is driven largely by \citet{kline2022}, a very precise study with an odds
@@ -564,7 +556,7 @@ suggests, but that all corrected estimates remain below one.
 
 The pooled estimates hide very large differences between studies. To examine
 whether observable study characteristics account for some of them, we extend
-the meta-regression of Section~7 with moderators $Z_i$:
+the meta-regression of Section~7 with moderators $Z_i$.
 \begin{equation}
   y_i = \beta_0 + \beta_1\, SE_i + \gamma' Z_i + \varepsilon_i .
 \end{equation}
@@ -592,8 +584,8 @@ discrimination. This supports a cautious reading of the publication-bias
 results.
 
 The remaining moderators add little. The skill level of the advertised jobs
-is not significantly related to the effect size (M3; only 30 studies report
-this information). There is no time trend: the coefficient on the decade of
+is not significantly related to the effect size (M3, where only 30 studies report
+this information). There is no time trend, as the coefficient on the decade of
 testing is $-0.01$ (SE 0.08) in M4. Finally, an indicator for the
 \maKnew{} new studies is small and insignificant ($0.04$, SE 0.13) in M5.
 Conditional on region and precision, the new studies do not differ
