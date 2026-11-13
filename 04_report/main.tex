@@ -236,38 +236,50 @@ they form the basis of the original pooled estimate and of our replication.
 The other nine studies report only relative callback rates and are therefore listed separately in the appendix.
 \subsection{Main results}
 
-Using a random-effects model on the study-level log odds ratios, the
-authors' replication script yields a pooled odds ratio of \maORre{} \maCIre.
-Minority applicants thus have about \maPctLowerOdds{}\,\% lower odds of
-receiving a callback than comparable majority applicants. Expressed as a
-ratio of callback rates, this means that minority applicants have to send
-roughly 50\,\% more applications to obtain the same number of positive
-responses. Heterogeneity between studies is very large
-($I^2 = \maIsqRe\,\%$), so the pooled estimate should be read as an average
-over quite different labour markets and minority groups rather than as a
-single common effect.
-The published article reports odds ratios of 0.51 at the study level and
-0.60 at the subgroup level. These numbers appear to be the absolute values
-of the log odds ratios in the output of the authors' script ($0.509$ and
-$0.604$). Transformed into odds ratios, they are \maORre{} at the study
-level and \maORsub{} at the subgroup level. We use these values, which we
-reproduce exactly in Section~4.
+The original article pools the studies with a random-effects model
+\citep{zschirnt2016}. It reports an odds ratio of 0.51 at the study level
+and 0.60 at the subgroup level, and interprets the first value as 49\,\%
+lower odds of an interview invitation for minority applicants. In the
+output of the authors' replication script, however, these two numbers
+appear to correspond to the absolute values of the pooled log odds ratios
+($0.509$ and $0.604$), not to the odds ratios themselves. Converted into
+odds ratios, the pooled estimate at the study level is \maORre{},
+\CIinwords{\maCIre}. At the subgroup level it is \maORsub. Minority
+applicants therefore have about \maPctLowerOdds\,\% lower odds of a
+callback than equally qualified majority applicants. We use these values
+throughout and reproduce them exactly in Section~4. The second measure in
+the article points in the same direction. Across studies, the relative
+callback rate has a mean of 1.55 and a median of 1.44. Minority applicants
+thus need about one and a half times as many applications to be invited.
+Heterogeneity in the random-effects model is very large
+($I^2 = \maIsqRe\,\%$). The pooled estimate is therefore an average over
+very different labour markets and minority groups rather than one common
+effect.
 
-The moderator analyses yield several further results. Discrimination is
-lower in German-speaking countries, where applications usually include
-extensive documentation such as certificates and references. The authors
-interpret this as consistent with statistical discrimination, since more
-information about the applicant appears to narrow the gap. Callback ratios
-are higher in studies conducted after 2000, but the authors attribute this to
-changes in the composition of studies rather than to the EU
-anti-discrimination directives. There is no significant difference between
-male and female applicants and no clear difference between first- and
-second-generation migrants. Applicants of Arab and Middle Eastern origin face the largest disadvantages. Finally, the authors find no
-systematic relationship between discrimination and the economic situation
-(unemployment rate or GDP growth) at the time of testing. They conclude that
-ethnic discrimination in hiring remained widespread across OECD countries
-throughout the period 1990--2015.
-
+The authors also compare subsets of studies \citep{zschirnt2016}.
+Discrimination occurs in Europe as well as in North America, although it
+appears to be somewhat higher in Europe. Minority women and men are treated
+similarly, since the small difference between them is not significant.
+Neither unemployment nor GDP growth at the time of testing is clearly
+related to the level of discrimination. Several results speak to the two
+theories from Section~2.1. First- and second-generation applicants receive
+similar callback ratios, even though the second generation holds local
+qualifications. The authors read this as a sign that taste-based
+discrimination is the main driver. Discrimination also varies between
+minority groups. Among the groups tested most often, it is highest for
+applicants of Arab and Middle Eastern origin and lowest for Turkish
+applicants. In German-speaking countries, where applications usually
+contain certificates, school reports and reference letters, discrimination
+is lower than elsewhere. This fits statistical discrimination, since
+employers there know more about each candidate. Yet discrimination remains
+considerable in these countries, so statistical discrimination cannot be
+the only explanation. Public employers also discriminate less than private
+ones, but this result rests on few studies. Within the European Union,
+callback ratios are even higher after the anti-discrimination directives of
+2000 than before. The authors attribute this mainly to the groups that were
+tested, but find no sign that the directives reduced discrimination.
+Overall, they conclude that hiring discrimination against ethnic minorities
+is present in every OECD country in which it has been tested.
 \subsection{Limitations Noted by the Authors}
 
 The authors acknowledge several limitations. Names are an imperfect signal of
