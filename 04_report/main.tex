@@ -30,6 +30,8 @@
 \input{tables/macros_power_bias.tex}
 % exists only after the update has been run with new studies:
 \IfFileExists{tables/macros_update.tex}{\input{tables/macros_update.tex}}{}
+\def\CIrangeAux[#1; #2]{from #1 to #2}
+\newcommand{\CIrange}[1]{\expandafter\CIrangeAux#1}
 % interval in words: \CIinwords{\maCIre} -> with a 95 % confidence interval from 0.52 to 0.69
 \def\CIinwordsAux[#1; #2]{with a 95\,\% confidence interval from #1 to #2}
 \newcommand{\CIinwords}[1]{\expandafter\CIinwordsAux#1}
