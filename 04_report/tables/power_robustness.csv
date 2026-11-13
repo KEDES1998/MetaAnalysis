@@ -1,0 +1,5 @@
+Sample,k,Assumed effect (OR),Mean power,Median power,adequately_powered
+Original,34,0.63 (UWLS),0.83,0.97,24 of 34
+Original + new,38,0.74 (UWLS),0.68,0.82,19 of 38
+"Original + new, without Kline et al. (2022)",37,0.62 (UWLS),0.85,0.99,28 of 37
+Original + new,38,0.61 (RE),0.86,1.00,30 of 38

@@ -15,6 +15,7 @@ Outputs
     04_report/tables/pubbias_estimates.tex/.csv   pooled ORs: FE, UWLS, RE, WAAP, PET, PEESE
     04_report/tables/power_bias_stats.tex/.csv    power, FAT, ESS
     04_report/tables/power_by_study.csv           power of every study
+    04_report/tables/power_robustness.tex/.csv    why power falls in the combined sample (appendix)
     04_report/tables/macros_power_bias.tex
     04_report/figures/funnel_<sample>.pdf/.png, funnel_precision_<sample>, power_<sample>
 
@@ -28,6 +29,7 @@ import utils_meta as um
 
 FIGURE_SAMPLES = ("original", "combined")   # no extra plots for the robustness sample
 MACRO_SUFFIX = {"original": "", "original_no_bendick": "NoBendick", "combined": "Comb"}
+DOMINANT_STUDY = "Kline"   # new study with by far the largest weight, see power_robustness()
 
 
 def analyse(df: pd.DataFrame) -> dict:
@@ -55,6 +57,82 @@ def or_ci(r: um.MetaResult | None) -> str:
     if r is None:
         return "n.a."
     return f"{np.exp(r.est):.2f} {um.fmt_ci(np.exp(r.ci_low), np.exp(r.ci_upp))}"
+
+
+def power_robustness(samples: dict, res: dict) -> dict:
+    """Why power falls in the combined sample -- robustness table for the appendix.
+
+    Power depends on the assumed true effect (the UWLS estimate). In the combined sample one
+    very large study (DOMINANT_STUDY) gets a large share of the UWLS weight 1/SE^2 and pulls
+    the UWLS estimate towards one, which lowers the power of every study. The table compares
+    (a) original, (b) original + new, (c) original + new without that study and
+    (d) original + new with power evaluated at the RE estimate (weights 1/(SE^2 + tau^2),
+    much more equal across studies). Returns macros for the text ({} if no combined sample).
+    """
+    if "combined" not in samples:
+        return {}
+    comb = samples["combined"]
+    is_dom = comb["authors"].str.startswith(DOMINANT_STUDY).to_numpy()
+    if is_dom.sum() != 1:
+        print(f"note: '{DOMINANT_STUDY}' not found exactly once in the combined sample -- "
+              "no power robustness table")
+        return {}
+    se = comb["se"].to_numpy()
+    r_o, r_c = res["original"], res["combined"]
+    w_fe = 1 / se**2
+    w_re = 1 / (se**2 + r_c["re"].tau2)
+    if w_fe.argmax() != is_dom.argmax():
+        print(f"note: {DOMINANT_STUDY} no longer has the largest weight -- check DOMINANT_STUDY")
+    dom = comb[is_dom].iloc[0]
+    dom_label = f"{dom['authors']} ({int(dom['year'])})"
+    no_dom = comb[~is_dom].reset_index(drop=True)
+    r_n = analyse(no_dom)
+    q_re = um.power(se, r_c["re"].est)
+
+    def row(sample, k, est, method, q):
+        return [sample, str(k), f"{np.exp(est):.2f} ({method})", f"{np.mean(q):.2f}",
+                f"{np.median(q):.2f}", f"{int((q >= 0.8).sum())} of {k}"]
+
+    rows = [row("Original", r_o["k"], r_o["uwls"].est, "UWLS", r_o["power"]),
+            row("Original + new", r_c["k"], r_c["uwls"].est, "UWLS", r_c["power"]),
+            row(f"Original + new, without {dom_label}", r_n["k"], r_n["uwls"].est, "UWLS", r_n["power"]),
+            row("Original + new", r_c["k"], r_c["re"].est, "RE", q_re)]
+    tab = pd.DataFrame(rows, columns=["Sample", "$k$", "Assumed effect (OR)", "Mean power",
+                                      "Median power", "$q_i \\geq 0.8$"])
+    share = lambda w, m: 100 * w[m].sum() / w.sum()
+    orig_mask = (comb["in_original"] == 1).to_numpy()
+    um.to_latex_table(
+        tab, um.TAB / "power_robustness.tex",
+        caption="Robustness of statistical power in the combined sample", label="tab:power-robust",
+        col_format=r">{\raggedright\arraybackslash}p{4.2cm}rrrrr",
+        notes=(f"Power of each study at the assumed true effect: "
+               f"$q_i = \\Phi(|\\hat\\mu|/SE_i - 1.96)$; last column: number of adequately powered studies ($q_i \\geq 0.8$). "
+               f"In the combined sample, {um.latex_escape(dom_label)} receives "
+               f"{share(w_fe, is_dom):.0f}\\% of the UWLS weight $1/SE_i^2$ (all {r_o['k']} original "
+               f"studies together: {share(w_fe, orig_mask):.0f}\\%) but only {share(w_re, is_dom):.0f}\\% "
+               f"of the RE weight $1/(SE_i^2+\\hat\\tau^2)$."))
+    tab.rename(columns={"$k$": "k", "$q_i \\geq 0.8$": "adequately_powered"}).to_csv(
+        um.TAB / "power_robustness.csv", index=False)
+    print(f"\n=== Power robustness (dominant study: {dom_label}) ===\n{tab.to_string(index=False)}")
+    print("saved 04_report/tables/power_robustness.tex/.csv")
+
+    n_dom = int(dom["n_minority"] + dom["n_majority"])
+    return {
+        "maORuwlsComb": um.fmt(np.exp(r_c["uwls"].est), 2),
+        "maORkline": um.fmt(np.exp(dom["log_or"]), 2),
+        "maNkline": f"{n_dom:,}".replace(",", "'"),
+        "maWshareKline": f"{share(w_fe, is_dom):.0f}",
+        "maWshareKlineRE": f"{share(w_re, is_dom):.0f}",
+        "maWshareOrig": f"{share(w_fe, orig_mask):.0f}",
+        "maKnoKline": str(r_n["k"]),
+        "maORuwlsNoKline": um.fmt(np.exp(r_n["uwls"].est), 2),
+        "maMeanPowerNoKline": f"{r_n['mean_power']:.2f}",
+        "maMedPowerNoKline": f"{r_n['median_power']:.2f}",
+        "maNadequateNoKline": str(r_n["n_adequate"]),
+        "maMeanPowerCombRE": f"{np.mean(q_re):.2f}",
+        "maMedPowerCombRE": f"{np.median(q_re):.2f}",
+        "maNadequateCombRE": str(int((q_re >= 0.8).sum())),
+    }
 
 
 def main() -> None:
@@ -155,6 +233,7 @@ def main() -> None:
             f"maExpSigTau{s}": f"{r['ess_tau']['expected_share']:.2f}",
             f"maESSTau{s}": f"{r['ess_tau']['ESS']:+.2f}",
         })
+    macros.update(power_robustness(samples, res))
     um.write_macros(macros, um.TAB / "macros_power_bias.tex", comment="02_code/04_power_bias.py")
 
     # ---- figures -------------------------------------------------------------

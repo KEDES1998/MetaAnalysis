@@ -35,8 +35,8 @@
 \title{Ethnic Discrimination in Hiring:\\
   A Replication and Update of Zschirnt and Ruedin (2016)}
 \author{Kevin de Silva \and Vanessa Allenspach\\[1em]
-  \small Group 4 -- MA Seminar ``Meta-Analysis'', Prof.\ Rainer Winkelmann\\
-  \small University of Zurich, Fall 2026}
+  \subitem Group 4 -- MA Seminar ``Meta-Analysis'', Prof.\ Rainer Winkelmann\\
+  \subitem University of Zurich, Fall 2026}
 \date{13 November 2026}
 
 \begin{document}
@@ -398,8 +398,7 @@ particular for \citet{kline2022}.
 
 % =====================================================================
 \section{Statistical power}
-% task 4. The UWLS odds ratio of the combined sample (0.74) is typed in by
-% hand, see Table~\ref{tab:pubbias-estimates}.
+% task 4.
 % =====================================================================
 
 Statistical power is the probability that a study rejects the null
@@ -424,11 +423,24 @@ they report for this literature.
 The explanation lies in the design. Correspondence tests often send several
 thousand applications, and the average effect is large. In the combined
 sample of \maKcomb{} studies the picture is less favourable. Because the
-UWLS estimate moves closer to one (0.74 instead of \maORuwls), median power
+UWLS estimate moves closer to one (\maORuwlsComb{} instead of \maORuwls), median power
 falls to \maMedPowerComb{} and mean power to \maMeanPowerComb, and only
 \maNadequateComb{} studies remain adequately powered
 (Figure~\ref{fig:power}). The assessment of power thus depends strongly on
 the assumed true effect.
+
+Table~\ref{tab:power-robust} in Appendix~\ref{app:power} shows that this
+decline is driven by a single study. With \maNkline{} applications,
+\citet{kline2022} has a very small standard error and receives
+\maWshareKline\,\% of the total UWLS weight, more than all \maK{} original
+studies together (\maWshareOrig\,\%). Because it finds a much weaker effect
+(OR $=$ \maORkline), it pulls the UWLS estimate towards one. A smaller
+assumed true effect lowers the power of every study, including the original
+studies, whose standard errors are unchanged. Without \citet{kline2022},
+mean power is \maMeanPowerNoKline{} and median power \maMedPowerNoKline.
+Evaluated at the RE estimate, which weights the studies much more equally,
+mean power is \maMeanPowerCombRE. The decline therefore reflects a smaller
+benchmark effect, not weaker studies.
 
 \begin{figure}[htbp]
   \centering
@@ -541,7 +553,7 @@ suggests several missing studies on the side of less discrimination
 (supplementary material, S12). We conclude that the size of the effect is
 less certain than the narrow confidence interval of the original estimate
 suggests, but that all corrected estimates remain below one.
-
+\newpage
 % =====================================================================
 \section{Heterogeneity: meta-regression}
 % The coefficients quoted in the text are typed in from
@@ -599,28 +611,51 @@ on ethnic discrimination in hiring \citep{zschirnt2016}. The replication of
 the pooled estimate is exact. The RE model yields an odds ratio of \maORre{}
 \maCIre, which indicates that minority applicants are considerably less
 likely to be invited to an interview than equally qualified majority
-applicants. FE and UWLS produce the same point estimate, but the UWLS
-confidence interval is substantially wider. This reflects the large
-heterogeneity between studies, which exceeds what sampling error alone would
-imply.
+applicants. FE and UWLS both
+yield \maORfe, but the UWLS standard error is about \maSEratioUWLS{} times
+larger. This reflects the large heterogeneity between studies, which exceeds
+what sampling error alone would imply.
 
 The inclusion of \maKnew{} more recent correspondence tests leaves the RE
-estimate largely unchanged (\maORcomb{} \maCIcomb). Although none of the new
-estimates falls within the original confidence interval, all of them lie
-within the prediction interval. The median power of the original studies is
-high (\maMedPower) but declines to \maMedPowerComb{} in the combined sample.
-The evidence on publication bias is mixed. While the original sample shows
-little indication of selective reporting, the combined sample exhibits a
-clear association between effect size and standard error, and the corrected
-estimates move towards one.
+estimate largely unchanged (\maORcomb{} \maCIcomb). None of the new
+estimates falls within the original confidence interval, but all of them lie
+within the prediction interval. The precision-weighted estimators react much
+more strongly: the UWLS estimate moves from \maORuwls{} to \maORuwlsComb,
+because \citet{kline2022} alone receives \maWshareKline\,\% of the UWLS
+weight but only \maWshareKlineRE\,\% of the RE weight. The stability of the
+RE estimate is therefore only partly reassuring, since RE gives relatively
+more weight to small studies, which are the most exposed to publication bias.
+
+Statistical power is high by the standards of economics. The median power of
+the original studies is \maMedPower, compared with 7\,\% in leading economics
+journals \citep{askarov2024}. In the combined sample it falls to
+\maMedPowerComb, but this reflects the smaller benchmark effect implied by
+\citet{kline2022}, not weaker studies. High power makes it unlikely that the
+significant results are mainly chance findings or strongly exaggerated
+estimates. These figures are, however, likely to be an upper bound, because
+they rely on published studies and on a pooled estimate that may itself be
+affected by publication bias.
+
+The evidence on publication bias is mixed. The original sample shows no
+clear sign of selective reporting, although the FAT is imprecise and has
+little power to detect it. In the combined sample, effect size and standard
+error are clearly related ($\hat\beta_1 = \maFATComb$), and the corrected
+estimates move towards one. This pattern should not be read as publication
+bias alone. It is driven to a large extent by \citet{kline2022}, it partly
+reflects heterogeneity (once region is controlled for, the slope falls to
+$-1.91$), and the standard error of a log odds ratio is mechanically related
+to the callback rates.
 
 Overall, the evidence that ethnic discrimination in hiring exists can be
 regarded as reliable. All pooled and bias-corrected estimates remain below
-one, regardless of the estimator and the sample. The magnitude of the
+one, regardless of the estimator and the sample, although the most
+conservative estimate (PET, \maORpetComb{} \maCIpetComb) is only just
+significant. The magnitude of the
 effect, in contrast, is considerably less certain. Depending on the method,
 the estimated odds ratio ranges from \maORre{} to \maORpetComb. In addition,
-heterogeneity is very high ($I^2 = \maIsqRe\,\%$) and the prediction
-interval is wide. The meta-regression suggests that part of this variation
+heterogeneity is very high ($I^2 = \maIsqRe\,\%$), and the prediction
+interval (\maPIre) is wide and even includes one, so that some labour
+markets may show little or no discrimination. The meta-regression suggests that part of this variation
 is related to region, with European studies reporting stronger
 discrimination (Section~8). A single true effect size is therefore difficult
 to justify. Rather, the extent of discrimination appears to vary across
@@ -629,7 +664,9 @@ countries, minority groups and labour markets.
 Several limitations should be noted. For three of the new studies, callback
 counts were reconstructed from reported rates and sample sizes. The standard
 errors do not account for the clustering of applications within employers
-and are therefore likely to be understated. Finally, although the studies comprise a large number of applications, the meta-regression is based on only \maKcomb{} study-level estimates. This limits the number of moderators that can be examined at the same time.
+and are therefore likely to be understated, which also means that power is
+overstated. Moreover, the power calculations and the WAAP estimate depend on
+the assumed true effect, which is itself sensitive to a single study. Finally, although the studies comprise a large number of applications, the meta-regression is based on only \maKcomb{} study-level estimates. This limits the number of moderators that can be examined at the same time.
 
 % =====================================================================
 \newpage
@@ -639,5 +676,8 @@ and are therefore likely to be understated. Finally, although the studies compri
 \appendix
 \section{Table of evidence}\label{app:evidence}
 \input{tables/evidence_table.tex}
+
+\section{Robustness of statistical power}\label{app:power}
+\input{tables/power_robustness.tex}
 
 \end{document}

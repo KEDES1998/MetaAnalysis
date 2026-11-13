@@ -1,0 +1,17 @@
+\begin{table}[htbp]
+\centering
+\small
+\caption{Robustness of statistical power in the combined sample}
+\label{tab:power-robust}
+\begin{tabular}{>{\raggedright\arraybackslash}p{4.2cm}rrrrr}
+\toprule
+Sample & $k$ & Assumed effect (OR) & Mean power & Median power & $q_i \geq 0.8$ \\
+\midrule
+Original & 34 & 0.63 (UWLS) & 0.83 & 0.97 & 24 of 34 \\
+Original + new & 38 & 0.74 (UWLS) & 0.68 & 0.82 & 19 of 38 \\
+Original + new, without Kline et al. (2022) & 37 & 0.62 (UWLS) & 0.85 & 0.99 & 28 of 37 \\
+Original + new & 38 & 0.61 (RE) & 0.86 & 1.00 & 30 of 38 \\
+\bottomrule
+\end{tabular}
+\par\smallskip\parbox{0.95\linewidth}{\footnotesize Power of each study at the assumed true effect: $q_i = \Phi(|\hat\mu|/SE_i - 1.96)$; last column: number of adequately powered studies ($q_i \geq 0.8$). In the combined sample, Kline et al. (2022) receives 50\% of the UWLS weight $1/SE_i^2$ (all 34 original studies together: 41\%) but only 3\% of the RE weight $1/(SE_i^2+\hat\tau^2)$.}
+\end{table}
