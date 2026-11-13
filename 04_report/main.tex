@@ -301,44 +301,51 @@ article. We examine it in more detail in Section~7.
 % task 2: FE, RE, UWLS; which CI is wider and why
 % =====================================================================
 
-We first reproduce the study-level estimate of \citet{zschirnt2016}. From
-the authors' replication file we compute the log odds ratio and its standard
-error for the \maK{} studies that report callback counts. All \maK{} odds
-ratios agree with the published forest plot to two decimals
-(black squares in Figure~\ref{fig:forest-combined}). A random-effects model estimated by
-REML, as in the original analysis, gives a pooled log odds ratio of
-$\maLnORre$ (SE \maSEre), that is, an odds ratio of \maORre{} \maCIre, with
+We first reproduce the study-level estimate of the original meta-analysis
+\citep{zschirnt2016}. Using the authors' replication file, we compute the
+log odds ratio and its standard error for the \maK{} studies that report
+callback counts. All \maK{} odds ratios match the published forest plot to
+two decimals (black squares in Figure~\ref{fig:forest-combined}). As in the
+original analysis, we estimate a random-effects model by REML. The pooled
+log odds ratio is $\maLnORre$ (SE \maSEre), which corresponds to an odds
+ratio of \maORre, \CIinwords{\maCIre}. The between-study variance is
 $\hat\tau^2 = \maTauSqRe$ and $I^2 = \maIsqRe\,\%$. These values are
-identical to the output of the authors' script, so the replication is exact.
-Other estimators of $\tau^2$ (DerSimonian--Laird, Paule--Mandel) and the
-Knapp--Hartung adjustment change the result only in the second decimal
+identical to the output of the authors' script, so the replication is
+exact. Other estimators of $\tau^2$ (DerSimonian--Laird, Paule--Mandel) and
+the Knapp--Hartung adjustment change the result only in the second decimal
 (Table~\ref{tab:replication}).
 
 \input{tables/replication.tex}
 
 Table~\ref{tab:replication} also reports the fixed-effect (FE) and UWLS
-estimates. Both give the same point estimate, an odds ratio of \maORfe. This is to be expected, since UWLS is a weighted least squares regression of the effect size
-on a constant with weights $1/SE_i^2$, which reproduces the FE average. The
-confidence intervals differ, however. The FE interval is \maCIfe, the UWLS
-interval \maCIuwls, and the UWLS standard error is \maSEratioUWLS{} times
-larger. FE assumes that all studies estimate one common effect, so its
-standard error depends only on the sampling variances. UWLS estimates the
-residual variance from the data, which multiplies the FE standard error by
-$\sqrt{Q/(k-1)}$, with $Q = \maQ$ and $k = \maK$. Because $Q$ is about ten
-times its degrees of freedom, the studies differ far more than sampling
-error alone can explain, and the FE interval is too narrow. The RE estimate
-is slightly lower (\maORre) because it gives relatively more weight to small
-studies, which tend to report stronger discrimination, and it has the widest
-interval.
-
-
+estimates. Both lead to the same point estimate, an odds ratio of \maORfe.
+This is to be expected, since UWLS is a weighted least squares regression
+of the effect size on a constant with weights $1/SE_i^2$ and therefore
+reproduces the FE average. The two confidence intervals differ, however.
+For FE, the 95\,\% confidence interval ranges \CIrange{\maCIfe}, while for
+UWLS it ranges \CIrange{\maCIuwls}. The UWLS standard error is
+\maSEratioUWLS{} times larger than the FE standard error. FE assumes that
+all studies estimate one common effect, so its standard error depends only
+on the sampling variances. UWLS instead estimates the residual variance
+from the data, which multiplies the FE standard error by $\sqrt{Q/(k-1)}$,
+with $Q = \maQ$ and $k = \maK$. Since $Q$ is about ten times its degrees of
+freedom, the studies differ far more than sampling error alone can explain,
+and the FE interval is too narrow. The RE estimate is slightly lower
+(\maORre). It gives relatively more weight to small studies, which tend to
+report stronger discrimination, and it has the widest interval of the
+three.
 
 The large heterogeneity matters for interpretation. The 95\,\% prediction
-interval of the RE model is \maPIre. A new study from the same population of studies could therefore find anything from very strong discrimination to no discrimination, or even a slight advantage for minority applicants. The pooled estimate is robust to two checks. Excluding Bendick et
-al.\ (1991), the only study with an odds ratio above one (2.45, because the Latino applicants in that study had better qualifications), gives
-\maORreNoBendick{} \maCIreNoBendick{} and roughly halves $\hat\tau^2$.
-Estimating the model on the \maKsub{} subgroups instead of the \maK{}
-studies gives \maORsub{} \maCIsub.
+interval of the RE model ranges \CIrange{\maPIre}. A new study from the
+same population of studies could therefore find anything from very strong
+discrimination to no discrimination, or even a slight advantage for
+minority applicants. The pooled estimate is robust to two checks. Only one
+study, by Bendick et al.\ (1991), reports an odds ratio above one (2.45).
+In this experiment, the Latino applicants were given better qualifications
+than the Anglo applicants \citep{zschirnt2016}. Excluding it gives an odds
+ratio of \maORreNoBendick, \CIinwords{\maCIreNoBendick}, and roughly halves
+$\hat\tau^2$. Estimating the model on the \maKsub{} subgroups instead of
+the \maK{} studies gives \maORsub, \CIinwords{\maCIsub}.
 
 % =====================================================================
 \section{Update with New Studies}
