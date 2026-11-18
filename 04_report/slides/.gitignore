@@ -1,0 +1,13 @@
+# LaTeX-Hilfsdateien der Folien (PDFs ignoriert schon das Root-.gitignore)
+*.aux
+*.log
+*.nav
+*.out
+*.snm
+*.toc
+*.vrb
+*.bbl
+*.blg
+*.fls
+*.fdb_latexmk
+*.synctex.gz

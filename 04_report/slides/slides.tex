@@ -1,0 +1,158 @@
+% =====================================================================
+%  Praesentation Group 4 -- MA-Seminar "Meta-Analysis", UZH, HS 2026
+%  Termin: Di 24.11.2026 | 20 Min. Vortrag + 10 Min. Diskussion
+%
+%  SKELETT: Struktur, Zeitbudget, Grafiken und Tabellen sind drin.
+%  Alles in Orange ("TODO") muss noch ausformuliert werden.
+%
+%  Kompilieren (lokal, im Ordner 04_report/slides/):
+%      latexmk -pdf slides.tex
+%  Overleaf: slides.tex und Ordner sections/ hochladen; figures/, tables/
+%  und references.bib entweder ins Root oder eine Ebene hoeher legen
+%  (beide Varianten werden unten automatisch erkannt).
+%
+%  Zahlen NIE von Hand tippen: die Makros \ma... kommen aus
+%  tables/macros_*.tex (erzeugt von 02_code/run_all.py).
+%
+%  Zeitplan (Soll; "bis" = Stand am Ende der Folie)
+%  --------------------------------------------------------------------
+%   #  Folie                                    Dauer    bis
+%   1  Title                                     0:15    0:15
+%   2  Roadmap                                   0:15    0:30
+%      -- 1  Research question ------------------------------------
+%   3  Motivation and research question         1:15    1:45
+%   4  Correspondence tests: design and data    1:30    3:15
+%   5  Estimating equation and effect size      1:30    4:45
+%      -- 2  Original meta-analysis and replication -----------------
+%   6  Zschirnt & Ruedin (2016)                 1:15    6:00
+%   7  Replication                              1:30    7:30
+%   8  Forest plot (original studies)           1:15    8:45
+%      -- 3  Update --------------------------------------------------
+%   9  New studies                              1:15   10:00  <- Halbzeit
+%  10  Pooled estimate before / after           1:30   11:30
+%      -- 4  Power and publication bias -----------------------------
+%  11  Statistical power                        1:30   13:00
+%  12  Funnel plot                              1:30   14:30
+%  13  Bias-corrected estimates                 1:45   16:15
+%      -- 5  Heterogeneity ------------------------------------------
+%  14  WLS meta-regression                      1:45   18:00
+%      -- 6  Conclusion ---------------------------------------------
+%  15  Conclusion                               1:30   19:30
+%  16  Thank you / discussion                   0:15   19:45  (+0:15 Puffer)
+%  --------------------------------------------------------------------
+%  Backup (Appendix, nur bei Fragen; Buttons auf den Hauptfolien,
+%  "Back"-Button fuehrt zurueck):
+%   A1  Replication, all estimators            <- Folie 7
+%   A2  Forest plot incl. new studies          <- Folie 10
+%   A3  Power robustness / weight of Kline     <- Folien 10 und 11
+%   A4  Corrected estimates, all samples       <- Folie 13
+% =====================================================================
+
+\documentclass[aspectratio=169,11pt]{beamer}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lmodern}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs,array}
+\usepackage{graphicx}
+\usepackage{adjustbox}
+\usepackage{varwidth}
+\usepackage[authoryear,round]{natbib}
+\usepackage{appendixnumberbeamer}
+
+% ---------- Schalter --------------------------------------------------
+\newif\ifshowtiming
+\showtimingtrue   % Zeitbudget in der Fusszeile (fuer Proben).
+                  % Vor dem Mailen an den Prof: \showtimingfalse
+
+% ---------- Pfade: lokal eine Ebene hoeher, auf Overleaf im Root ------
+\IfFileExists{../tables/macros_replication.tex}{\def\repodir{../}}{\def\repodir{}}
+\graphicspath{{../figures/}{figures/}}
+
+% ---------- Zahlen aus der Analyse (\ma...) ---------------------------
+\input{\repodir tables/macros_replication.tex}
+\input{\repodir tables/macros_power_bias.tex}
+\IfFileExists{\repodir tables/macros_update.tex}{\input{\repodir tables/macros_update.tex}}{}
+
+% ---------- Layout ----------------------------------------------------
+\usetheme{default}
+\definecolor{uzhblue}{RGB}{0,40,165}
+\definecolor{uzhgrey}{RGB}{110,110,110}
+\definecolor{todocolor}{RGB}{214,90,0}
+\setbeamercolor{structure}{fg=uzhblue}
+\setbeamercolor{frametitle}{fg=uzhblue}
+\setbeamercolor{title}{fg=uzhblue}
+\setbeamercolor{footline}{fg=uzhgrey}
+\setbeamercolor{keymsg}{bg=uzhblue!8,fg=black}
+\setbeamerfont{frametitle}{series=\bfseries,size=\large}
+\setbeamerfont{footline}{size=\scriptsize}
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{itemize items}[circle]
+\setbeamertemplate{caption}{\raggedright\small\insertcaption\par}
+\setbeamertemplate{bibliography item}{}
+\setbeamertemplate{frametitle continuation}[from second]
+\setbeamertemplate{footline}{%
+  \leavevmode\hbox to \paperwidth{%
+    \usebeamerfont{footline}\usebeamercolor[fg]{footline}%
+    \hspace*{1.2em}\insertshortauthor\hfill
+    \ifshowtiming\textcolor{todocolor}{\curtiming}\hfill\fi
+    \insertframenumber\,/\,\inserttotalframenumber\hspace*{1.2em}}%
+  \vspace*{1.2ex}}
+
+% ---------- Hilfsbefehle ----------------------------------------------
+% Zeitbudget einer Folie: \timing{Dauer}{Stand am Ende}
+\gdef\curtiming{}
+\newcommand{\timing}[2]{\gdef\curtiming{#1 min \textbar{} bis #2}}
+% Platzhalter, der beim Kompilieren auffaellt
+\newcommand{\todo}[1]{\textcolor{todocolor}{\textbf{TODO:} #1}}
+% Kernaussage einer Folie (ein Satz), unten auf der Folie
+\newcommand{\keymsg}[1]{\par\vfill
+  \begin{beamercolorbox}[sep=0.5em,wd=\linewidth]{keymsg}#1\end{beamercolorbox}}
+% Buttons: Hauptfolie -> Backup und Backup -> Hauptfolie
+\newcommand{\gotobackup}[2]{\hyperlink{#1}{\beamergotobutton{#2}}}
+\newcommand{\backto}[2]{\hyperlink{#1}{\beamerreturnbutton{#2}}}
+\newcommand{\buttons}[1]{\par\vspace{0.3em}\hfill#1}
+% Tabellen aus tables/ auf Folienformat skalieren:
+%   \slidetable{datei}{max. Hoehe}       mit Titel und Anmerkungen
+%   \slidetablebare{datei}{max. Hoehe}   ohne Titel und Anmerkungen
+\newcommand{\slidetableaux}[3]{\begingroup#1%
+  \begin{adjustbox}{max width=\linewidth,max totalheight=#3,center}%
+    \begin{varwidth}{17cm}\input{\repodir tables/#2}\end{varwidth}%
+  \end{adjustbox}\endgroup}
+\newcommand{\slidetable}[2]{\slidetableaux{}{#1}{#2}}
+\newcommand{\slidetablebare}[2]{\slidetableaux{%
+  \renewcommand{\parbox}[2]{}\renewcommand{\caption}[1]{}}{#1}{#2}}
+
+% ---------- Titel -----------------------------------------------------
+\title{Ethnic Discrimination in Hiring}
+\subtitle{A Replication and Update of Zschirnt and Ruedin (2016)}
+\author[de Silva \& Allenspach]{Kevin de Silva \and Vanessa Allenspach}
+\institute{Group 4 -- MA Seminar ``Meta-Analysis'', Prof.\ Rainer Winkelmann\\
+  University of Zurich, Fall 2026}
+\date{24 November 2026}
+
+\begin{document}
+
+\begin{frame}[plain]
+  \titlepage
+\end{frame}
+
+\begin{frame}{Roadmap}
+  \timing{0:15}{0:30}
+  \tableofcontents
+\end{frame}
+
+\input{sections/01_question}
+\input{sections/02_replication}
+\input{sections/03_update}
+\input{sections/04_power_bias}
+\input{sections/05_heterogeneity}
+\input{sections/06_conclusion}
+
+% =====================================================================
+\appendix
+\gdef\curtiming{}   % im Backup keine Zeitangaben
+\input{sections/appendix}
+
+\end{document}

@@ -1,0 +1,77 @@
+% =====================================================================
+% 4  Power and publication bias        Folien 11-13 | 4:45 min | bis 16:15
+% Inhalt: Bericht Kap. 6-7. Pflicht laut instruction.pdf: Funnel Plot und
+% eine Aussage zur visuellen Evidenz fuer Publication bias.
+% Backup A3 (Power-Robustheit) und A4 (alle Stichproben) verlinkt.
+% =====================================================================
+\section{Power and publication bias}
+
+% ---------------------------------------------------------------------
+\begin{frame}[label=power]{Statistical power}
+  \timing{1:30}{13:00}
+  \begin{columns}[T]
+    \begin{column}{0.55\textwidth}
+      \centering
+      \includegraphics[width=\linewidth]{power_combined}
+    \end{column}
+    \begin{column}{0.43\textwidth}
+      \[ q_i = \Phi\!\left( \frac{|\hat\mu_{UWLS}|}{SE_i} - 1.96 \right) \]
+      \begin{itemize}
+        \item \todo{Median power: \maMedPower{} (original),
+          \maMedPowerComb{} (with new studies)}
+        \item \todo{Adequately powered: \maNadequate{} of \maK{} /
+          \maNadequateComb{} of \maKcomb}
+        \item \todo{Comparison with economics in general \citep{askarov2024}}
+      \end{itemize}
+    \end{column}
+  \end{columns}
+  \keymsg{\todo{Key message of this slide in one sentence}}
+  \buttons{\gotobackup{app-power}{Robustness}}
+\end{frame}
+
+% ---------------------------------------------------------------------
+\begin{frame}{Publication bias: visual evidence}
+  \timing{1:30}{14:30}
+  \begin{columns}[T]
+    \begin{column}{0.58\textwidth}
+      \centering
+      \includegraphics[width=\linewidth]{funnel_combined}
+    \end{column}
+    \begin{column}{0.40\textwidth}
+      \begin{itemize}
+        \item \todo{Is the funnel symmetric? Where are the small studies?}
+        \item \todo{Where do the new studies (red) lie?}
+        \item \todo{Caveat: with $\ln OR$, effect and SE are mechanically
+          correlated}
+      \end{itemize}
+    \end{column}
+  \end{columns}
+  \keymsg{\todo{Statement on the visual evidence for publication bias}}
+\end{frame}
+
+% ---------------------------------------------------------------------
+\begin{frame}[label=bias]{Correcting for publication bias}
+  \timing{1:45}{16:15}
+  \[
+    y_i = \beta_0 + \beta_1 SE_i + \varepsilon_i, \quad w_i = 1/SE_i^2
+    \qquad \text{FAT: } H_0\!: \beta_1 = 0, \quad \text{PET: } \hat\beta_0
+  \]
+  \centering
+  \begin{tabular}{lcc}
+    \toprule
+    & Original ($k = \maK$) & Original + new ($k = \maKcomb$) \\
+    \midrule
+    RE (REML), OR      & \maORre{} \maCIre       & \maORcomb{} \maCIcomb \\
+    WAAP, OR           & \maORwaap{} \maCIwaap   & \maORwaapComb{} \maCIwaapComb \\
+    PET, OR            & \maORpet{} \maCIpet     & \maORpetComb{} \maCIpetComb \\
+    FAT: $\hat\beta_1$ (SE) & \maFAT{} (\maFATse) & \maFATComb{} (\maFATseComb) \\
+    ESS (observed $-$ expected) & \maESS        & \maESSComb \\
+    \bottomrule
+  \end{tabular}
+
+  \raggedright
+  \todo{Interpretation: what changes with the new studies, and why
+    (driven by Kline et al.?)}
+  \keymsg{\todo{Key message of this slide in one sentence}}
+  \buttons{\gotobackup{app-bias}{All samples}}
+\end{frame}

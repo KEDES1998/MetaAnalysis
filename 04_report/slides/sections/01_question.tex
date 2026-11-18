@@ -1,0 +1,68 @@
+% =====================================================================
+% 1  Research question                 Folien 3-5 | 4:15 min | bis 4:45
+% Inhalt: Bericht Kap. 1-2 (main.tex); Vorgaben aus instruction.pdf:
+% X und Y klar benennen, typische Methode, Schaetzgleichung, Datensatz.
+% =====================================================================
+\section{Research question}
+
+% ---------------------------------------------------------------------
+\begin{frame}{Motivation and research question}
+  \timing{1:15}{1:45}
+  \begin{itemize}
+    \item \todo{Hook: why ethnic discrimination in hiring matters (one sentence)}
+    \item \textbf{Treatment $X$:} minority signal (e.g.\ the name) on an
+      otherwise equivalent job application
+    \item \textbf{Outcome $Y$:} call-back, i.e.\ an invitation to a job interview
+    \item \textbf{Research question:} \todo{How large is ethnic discrimination
+      at the hiring stage, and how reliable is the evidence?}
+  \end{itemize}
+  \keymsg{\todo{Key message of this slide in one sentence}}
+\end{frame}
+
+% ---------------------------------------------------------------------
+\begin{frame}{Correspondence tests: design and a typical dataset}
+  \timing{1:30}{3:15}
+  \begin{columns}[T]
+    \begin{column}{0.48\textwidth}
+      \textbf{Design}
+      \begin{itemize}
+        \item \todo{Fictitious written applications to real job ads}
+        \item \todo{Matched CVs; minority signal assigned at random
+          $\Rightarrow$ causal effect}
+        \item \todo{Limitation: only the first stage of hiring}
+      \end{itemize}
+    \end{column}
+    \begin{column}{0.48\textwidth}
+      \textbf{Typical dataset: \citet{bertrand2004}}
+      \begin{itemize}
+        \item \todo{Setting and sample size (cities, ads, CVs)}
+        \item \todo{One row per application: call-back (0/1), ethnic
+          signal, CV characteristics}
+        \item \todo{Main result in one line}
+      \end{itemize}
+    \end{column}
+  \end{columns}
+  \keymsg{\todo{Key message of this slide in one sentence}}
+\end{frame}
+
+% ---------------------------------------------------------------------
+\begin{frame}{Typical estimating equation and effect size}
+  \timing{1:30}{4:45}
+  \textbf{Primary studies} (linear probability model)
+  \[
+    \text{Callback}_{ij} = \alpha + \beta\,\text{Minority}_i
+      + \gamma' X_{ij} + \varepsilon_{ij}
+  \]
+  \todo{What $\beta$ identifies and why (random assignment)}
+
+  \medskip
+  \textbf{Meta-analysis} (one estimate per study, from call-back counts)
+  \[
+    y_i = \ln OR_i = \ln \frac{a_i/b_i}{c_i/d_i},
+    \qquad
+    SE_i = \sqrt{\frac{1}{a_i} + \frac{1}{b_i} + \frac{1}{c_i} + \frac{1}{d_i}}
+  \]
+  \todo{Define $a_i, b_i$ (minority: call-back yes / no) and $c_i, d_i$ (majority)}\\
+  \todo{Sign: $OR < 1$, i.e.\ $y_i < 0$, means discrimination}
+  \keymsg{\todo{Key message of this slide in one sentence}}
+\end{frame}
