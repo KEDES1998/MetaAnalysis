@@ -22,12 +22,23 @@
   \timing{1:30}{11:30}
   \slidetablebare{update_pooled}{0.3\textheight}
   \begin{itemize}
-    \item \todo{RE barely moves: \maORre{} $\to$ \maORcomb}
-    \item \todo{FE and UWLS move strongly: \maORuwls{} $\to$ \maORuwlsComb.
-      Why? \citet{kline2022} gets \maWshareKline\,\% of the UWLS weight,
-      but only \maWshareKlineRE\,\% of the RE weight}
+    \item \textbf{RE barely moves:} \maORre{} $\to$ \maORcomb
+    \item \textbf{FE and UWLS rise:} \maORuwls{} $\to$ \maORuwlsComb
+    \item \textbf{Why?} \citet{kline2022} receives \maWshareKline\,\% of the
+      UWLS weight $1/SE_i^2$, but only \maWshareKlineRE\,\% of the RE weight
+      $1/(SE_i^2 + \hat\tau^2)$
   \end{itemize}
-  \keymsg{\todo{Key message of this slide in one sentence}}
+  \keymsg{The RE estimate is robust to the update, but the precision-weighted
+    estimates now depend largely on a single US study.}
   \buttons{\gotobackup{app-forest}{Forest plot incl.\ new studies}\quad
     \gotobackup{app-power}{Weight of Kline et al.}}
 \end{frame}
+% Sprechnotizen (Folie 10):
+% - Uebergang: "Vanessa hat die einzelnen neuen Studien gezeigt -- was
+%   passiert mit dem gepoolten Effekt?"
+% - FE/UWLS gewichten mit 1/SE^2. Kline hat rund 84'000 Bewerbungen,
+%   also einen winzigen SE -> mehr Gewicht als alle 34 Originalstudien
+%   zusammen (41 %).
+% - RE gewichtet mit 1/(SE^2 + tau^2); tau^2 ist gross und dominiert,
+%   darum zaehlen alle Studien ungefaehr gleich -> RE bleibt stabil.
+% - Bei Nachfragen: Backup A2 (Forest Plot) und A3 (Gewichte).
